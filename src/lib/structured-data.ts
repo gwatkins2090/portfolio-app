@@ -90,7 +90,7 @@ export function generateArtistStructuredData(artist: Artist) {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: artist.name,
-    description: artist.biography,
+    description: artist.bio,
     jobTitle: 'Contemporary Artist',
     url: 'https://jenniferwatkins.art',
     sameAs: [
@@ -98,7 +98,6 @@ export function generateArtistStructuredData(artist: Artist) {
       artist.socialMedia?.twitter,
       artist.socialMedia?.facebook
     ].filter(Boolean),
-    birthPlace: artist.birthPlace,
     nationality: artist.nationality,
     alumniOf: artist.education?.map(edu => ({
       '@type': 'EducationalOrganization',

@@ -79,17 +79,17 @@ const ArtisticPhilosophy = () => {
               <div className="relative">
                 <Quote className="h-12 w-12 text-gallery-gold/30 absolute -top-2 -left-2" />
                 <blockquote className="text-2xl font-serif text-foreground leading-relaxed pl-8">
-                  "I create to explore the spaces between what we know and what we feel, 
-                  seeking to make visible the invisible threads that connect us all."
+                  &quot;I create to explore the spaces between what we know and what we feel,
+                  seeking to make visible the invisible threads that connect us all.&quot;
                 </blockquote>
               </div>
               
               <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
                 <p>
                   My artistic practice is rooted in the exploration of liminal spaces—
-                  those threshold moments where transformation occurs. Whether it's the 
-                  shift from day to night, the transition between seasons, or the 
-                  evolution of human emotion, I'm drawn to capturing these fleeting 
+                  those threshold moments where transformation occurs. Whether it&apos;s the
+                  shift from day to night, the transition between seasons, or the
+                  evolution of human emotion, I&apos;m drawn to capturing these fleeting
                   instances of change.
                 </p>
                 
@@ -129,8 +129,8 @@ const ArtisticPhilosophy = () => {
                 className="absolute -bottom-6 -right-6 bg-background border border-border rounded-lg p-4 shadow-lg max-w-xs"
               >
                 <p className="text-sm text-muted-foreground italic">
-                  "The studio is my laboratory for exploring the alchemy of color, 
-                  texture, and emotion."
+                  &quot;The studio is my laboratory for exploring the alchemy of color,
+                  texture, and emotion.&quot;
                 </p>
               </motion.div>
             </div>
@@ -197,7 +197,7 @@ const ArtisticPhilosophy = () => {
                     <CardContent className="p-8">
                       <Quote className="h-8 w-8 text-gallery-gold/50 mb-4" />
                       <blockquote className="text-lg font-serif text-foreground mb-4 leading-relaxed">
-                        "{quote.text}"
+                        &quot;{quote.text}&quot;
                       </blockquote>
                       <cite className="text-sm font-medium text-muted-foreground">
                         — {quote.author}

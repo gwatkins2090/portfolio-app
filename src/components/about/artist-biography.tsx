@@ -158,9 +158,9 @@ const ArtistBiography = () => {
 
                 <p>
                   Her practice encompasses painting, mixed media, and digital art, often
-                  combining traditional techniques with contemporary approaches. Watkins'
-                  work has been described as "emotionally resonant" and "technically
-                  masterful" by critics, earning her recognition in both emerging and
+                  combining traditional techniques with contemporary approaches. Watkins&apos;
+                  work has been described as &quot;emotionally resonant&quot; and &quot;technically
+                  masterful&quot; by critics, earning her recognition in both emerging and
                   established art circles.
                 </p>
                 

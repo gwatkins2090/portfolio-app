@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import GalleryGrid from '@/components/gallery/gallery-grid';
-import MasonryGallery from '@/components/gallery/masonry-gallery';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -142,11 +141,7 @@ const PortfolioPage = () => {
               </p>
             </div>
             
-            <GalleryGrid
-              title=""
-              subtitle=""
-              showTitle={false}
-            />
+            <GalleryGrid />
           </div>
         </section>
 

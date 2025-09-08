@@ -37,7 +37,7 @@ const HomePage = () => {
             title="Enter the Gallery"
             subtitle="Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression."
           >
-            <div></div>
+            <div />
           </GalleryTransition>
         </div>
 
@@ -58,7 +58,7 @@ const HomePage = () => {
           subtitle="Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities."
           backgroundColor="bg-dusty-rose/10 dark:bg-dusty-rose/5"
         >
-          <div></div>
+          <div />
         </GalleryTransition>
       </main>
       <Footer />

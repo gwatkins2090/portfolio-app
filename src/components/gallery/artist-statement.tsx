@@ -39,7 +39,7 @@ const ArtistStatement = () => {
             >
               <Quote className="h-6 w-6 mb-2 opacity-60" />
               <p className="text-sm font-medium italic">
-                "Art is not what you see, but what you make others see."
+                &quot;Art is not what you see, but what you make others see.&quot;
               </p>
             </motion.div>
           </motion.div>

@@ -139,8 +139,8 @@ export interface ModalState {
 }
 
 export interface FilterState {
-  category: ArtworkCategory[];
-  medium: ArtworkMedium[];
+  category: string[];
+  medium: string[];
   priceRange: {
     min: number;
     max: number;
@@ -149,7 +149,7 @@ export interface FilterState {
     min: number;
     max: number;
   };
-  status: ArtworkStatus[];
+  status: string[];
   tags: string[];
 }
 
@@ -172,7 +172,7 @@ export interface ScrollTriggerConfig {
 }
 
 export interface GalleryViewConfig {
-  layout: GalleryLayout;
+  layout: string;
   itemsPerPage: number;
   showFilters: boolean;
   showSort: boolean;
