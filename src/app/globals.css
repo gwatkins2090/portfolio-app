@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Art Gallery Color Palette */
+    /* Primary Colors */
+    --deep-charcoal: 210 11% 17%; /* #2B2D31 */
+    --warm-white: 48 100% 99%; /* #FEFDF8 */
+    --gallery-gold: 35 42% 65%; /* #D4A574 */
+
+    /* Secondary Colors */
+    --sage-green: 85 13% 55%; /* #8B9A7A */
+    --dusty-rose: 0 23% 73%; /* #D4A5A5 */
+    --slate-blue: 220 22% 52%; /* #6B7B9B */
+    --terracotta: 18 37% 55%; /* #C07855 */
+
+    /* Neutral Colors */
+    --light-gray: 0 0% 96%; /* #F5F5F5 */
+    --medium-gray: 0 0% 54%; /* #8A8A8A */
+    --off-black: 0 0% 10%; /* #1A1A1A */
+
+    /* Semantic Color Mapping */
+    --background: var(--warm-white);
+    --foreground: var(--deep-charcoal);
+    --card: var(--warm-white);
+    --card-foreground: var(--deep-charcoal);
+    --popover: var(--warm-white);
+    --popover-foreground: var(--deep-charcoal);
+    --primary: var(--gallery-gold);
+    --primary-foreground: var(--off-black);
+    --secondary: var(--light-gray);
+    --secondary-foreground: var(--deep-charcoal);
+    --muted: var(--light-gray);
+    --muted-foreground: var(--medium-gray);
+    --accent: var(--sage-green);
+    --accent-foreground: var(--warm-white);
+    --destructive: var(--terracotta);
+    --destructive-foreground: var(--warm-white);
+    --border: var(--light-gray);
+    --input: var(--light-gray);
+    --ring: var(--gallery-gold);
+    --radius: 0.5rem;
+
+    /* Gallery-specific variables */
+    --gallery-wall: var(--warm-white);
+    --artwork-shadow: 0 0% 0% / 0.1;
+    --gallery-lighting: var(--gallery-gold) / 0.05;
+  }
+
+  .dark {
+    --background: var(--deep-charcoal);
+    --foreground: var(--warm-white);
+    --card: var(--off-black);
+    --card-foreground: var(--warm-white);
+    --popover: var(--off-black);
+    --popover-foreground: var(--warm-white);
+    --primary: var(--gallery-gold);
+    --primary-foreground: var(--off-black);
+    --secondary: var(--deep-charcoal);
+    --secondary-foreground: var(--warm-white);
+    --muted: var(--deep-charcoal);
+    --muted-foreground: var(--medium-gray);
+    --accent: var(--dusty-rose);
+    --accent-foreground: var(--off-black);
+    --destructive: var(--terracotta);
+    --destructive-foreground: var(--warm-white);
+    --border: var(--deep-charcoal);
+    --input: var(--deep-charcoal);
+    --ring: var(--gallery-gold);
+
+    /* Dark mode gallery adjustments */
+    --gallery-wall: var(--off-black);
+    --artwork-shadow: 0 0% 100% / 0.1;
+    --gallery-lighting: var(--gallery-gold) / 0.1;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  }
+
+  /* Typography System */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-foreground;
+    font-feature-settings: "kern" 1, "liga" 1, "dlig" 1;
+  }
+
+  h1 {
+    @apply text-4xl md:text-6xl font-bold tracking-tight leading-tight;
+  }
+
+  h2 {
+    @apply text-3xl md:text-5xl font-semibold tracking-tight leading-tight;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl font-semibold tracking-tight;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl font-medium;
+  }
+
+  /* Gallery-specific typography */
+  .artwork-title {
+    @apply font-serif text-xl md:text-2xl font-medium text-foreground tracking-wide;
+  }
+
+  .artwork-details {
+    @apply font-sans text-sm text-muted-foreground tracking-wide uppercase;
+  }
+
+  .gallery-label {
+    @apply font-sans text-xs text-muted-foreground tracking-widest uppercase;
+  }
+}
+
+@layer components {
+  /* Gallery Components */
+  .gallery-wall {
+    background: hsl(var(--gallery-wall));
+    background-image:
+      radial-gradient(circle at 25% 25%, hsl(var(--gallery-lighting)) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, hsl(var(--gallery-lighting)) 0%, transparent 50%);
+  }
+
+  .artwork-frame {
+    @apply relative overflow-hidden rounded-sm;
+    box-shadow:
+      0 4px 6px -1px hsl(var(--artwork-shadow)),
+      0 2px 4px -1px hsl(var(--artwork-shadow)),
+      inset 0 0 0 1px hsl(var(--border));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .artwork-frame:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 15px -3px hsl(var(--artwork-shadow)),
+      0 4px 6px -2px hsl(var(--artwork-shadow)),
+      inset 0 0 0 1px hsl(var(--primary));
+  }
+
+  .gallery-transition {
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--background)) 0%,
+      hsl(var(--muted)) 50%,
+      hsl(var(--background)) 100%
+    );
+  }
+
+  /* Scroll animations */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .fade-in-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Gallery lighting effect */
+  .gallery-spotlight {
+    position: relative;
+  }
+
+  .gallery-spotlight::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    right: -20%;
+    bottom: -20%;
+    background: radial-gradient(
+      ellipse at center,
+      hsl(var(--gallery-lighting)) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .gallery-spotlight:hover::before {
+    opacity: 1;
+  }
+
+  /* Mobile-specific optimizations */
+  @media (max-width: 768px) {
+    .artwork-frame {
+      box-shadow:
+        0 2px 4px -1px hsl(var(--artwork-shadow)),
+        0 1px 2px -1px hsl(var(--artwork-shadow)),
+        inset 0 0 0 1px hsl(var(--border));
+    }
+
+    .artwork-frame:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 4px 6px -1px hsl(var(--artwork-shadow)),
+        0 2px 4px -1px hsl(var(--artwork-shadow)),
+        inset 0 0 0 1px hsl(var(--primary));
+    }
+
+    .gallery-grid {
+      gap: 1rem;
+    }
+
+    .mobile-touch-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    .mobile-scroll-snap {
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .mobile-scroll-snap > * {
+      scroll-snap-align: start;
+    }
+
+    /* Reduce motion for mobile */
+    .fade-in-up {
+      transform: translateY(15px);
+    }
+  }
+
+  /* Touch-friendly interactions */
+  @media (hover: none) and (pointer: coarse) {
+    .artwork-frame:hover {
+      transform: none;
+      box-shadow:
+        0 4px 6px -1px hsl(var(--artwork-shadow)),
+        0 2px 4px -1px hsl(var(--artwork-shadow)),
+        inset 0 0 0 1px hsl(var(--border));
+    }
+
+    .gallery-spotlight:hover::before {
+      opacity: 0;
+    }
+
+    /* Disable hover effects on touch devices */
+    .hover\:scale-105:hover {
+      transform: none;
+    }
+
+    .group:hover .group-hover\:scale-110 {
+      transform: none;
+    }
+
+    .group:hover .group-hover\:opacity-100 {
+      opacity: 0;
+    }
+  }
+
+  /* High DPI displays */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .artwork-frame {
+      box-shadow:
+        0 2px 3px -1px hsl(var(--artwork-shadow)),
+        0 1px 2px -1px hsl(var(--artwork-shadow)),
+        inset 0 0 0 0.5px hsl(var(--border));
+    }
+  }
+}
