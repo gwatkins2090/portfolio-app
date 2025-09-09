@@ -60,9 +60,10 @@ import { Palette, Instagram, Twitter, Mail, MapPin, Phone } from 'lucide-react';
             <h3 className="mb-6 font-serif font-semibold text-foreground">Gallery</h3>
             <ul className="space-y-3 text-sm">
               <li><Link href="/portfolio" className="text-muted-foreground hover:text-primary transition-colors">Portfolio</Link></li>
-              <li><Link href="/collections" className="text-muted-foreground hover:text-primary transition-colors">Collections</Link></li>
+              <li><Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">About Artist</Link></li>
               <li><Link href="/exhibitions" className="text-muted-foreground hover:text-primary transition-colors">Exhibitions</Link></li>
               <li><Link href="/shop" className="text-muted-foreground hover:text-primary transition-colors">Shop</Link></li>
+              <li><Link href="/cart" className="text-muted-foreground hover:text-primary transition-colors">Shopping Cart</Link></li>
             </ul>
           </div>
 

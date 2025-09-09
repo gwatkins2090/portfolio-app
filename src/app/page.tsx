@@ -5,6 +5,7 @@ import GalleryGrid from '@/components/gallery/gallery-grid';
 import ArtistStatement from '@/components/gallery/artist-statement';
 import GalleryTransition from '@/components/gallery/gallery-transition';
 import MobileGallery from '@/components/mobile/mobile-gallery';
+import { sampleArtworks } from '@/lib/sample-data';
 
 const HomePage = () => {
   return (
@@ -15,18 +16,19 @@ const HomePage = () => {
         <HeroSection />
 
         {/* Mobile Gallery - Visible on small screens */}
-        <section className="md:hidden py-12 bg-background">
-          <div className="container px-4">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-serif font-bold text-foreground mb-4">
+        <section className="md:hidden py-8 px-4 bg-background">
+          <div className="container max-w-sm mx-auto">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-serif font-bold text-foreground mb-3">
                 Featured Collection
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 Swipe to explore our latest artworks
               </p>
             </div>
             <MobileGallery
-              artworks={[]} // This would be populated with actual artwork data
+              artworks={sampleArtworks.slice(0, 4)}
+              className="mobile-optimized"
             />
           </div>
         </section>

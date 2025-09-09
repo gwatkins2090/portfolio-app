@@ -236,6 +236,33 @@
     .fade-in-up {
       transform: translateY(15px);
     }
+
+    /* Mobile typography improvements */
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Mobile-optimized spacing */
+    .mobile-optimized {
+      padding: 0.5rem;
+    }
+
+    /* Improve text readability on mobile */
+    body {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    /* Better button spacing on mobile */
+    .mobile-button-group {
+      gap: 0.75rem;
+    }
+
+    /* Mobile-friendly card padding */
+    .mobile-card {
+      padding: 1rem;
+    }
   }
 
   /* Touch-friendly interactions */

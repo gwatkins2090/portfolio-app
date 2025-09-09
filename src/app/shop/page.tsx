@@ -1,23 +1,17 @@
-import { Metadata } from 'next';
+'use client';
+
+import { useState } from 'react';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Heart, Eye, Filter } from 'lucide-react';
+import { ShoppingCart, Heart, Eye, Filter, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-export const metadata: Metadata = {
-  title: 'Shop Artworks | Jennifer Watkins - Buy Contemporary Art',
-  description: 'Purchase original contemporary artworks by Jennifer Watkins. Browse paintings, mixed media pieces, and limited edition prints.',
-  keywords: ['buy art', 'contemporary art for sale', 'Jennifer Watkins', 'original paintings', 'art shop'],
-  openGraph: {
-    title: 'Shop Artworks | Jennifer Watkins Contemporary Art',
-    description: 'Purchase original contemporary artworks and limited edition prints by Jennifer Watkins.',
-    type: 'website',
-  },
-};
+import { useCartStore } from '@/lib/cart-store';
+import { availableArtworks } from '@/lib/sample-data';
+import { ArtworkCategory, ArtworkMedium } from '@/types';
 
 // Sample shop data - in a real app, this would come from your data source
 const featuredArtworks = [
@@ -29,7 +23,7 @@ const featuredArtworks = [
     year: 2024,
     price: 2800,
     status: 'available',
-    image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=800&fit=crop',
+    image: '/10.jpg',
     featured: true
   },
   {
@@ -40,7 +34,7 @@ const featuredArtworks = [
     year: 2024,
     price: 1900,
     status: 'available',
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop',
+    image: '/11.jpg',
     featured: true
   },
   {
@@ -51,7 +45,7 @@ const featuredArtworks = [
     year: 2023,
     price: 3200,
     status: 'sold',
-    image: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=600&h=800&fit=crop',
+    image: '/12.jpg',
     featured: false
   },
   {
@@ -62,7 +56,7 @@ const featuredArtworks = [
     year: 2024,
     price: 850,
     status: 'available',
-    image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=600&h=800&fit=crop',
+    image: '/1.jpg',
     featured: false
   },
   {
@@ -73,7 +67,7 @@ const featuredArtworks = [
     year: 2024,
     price: 2200,
     status: 'reserved',
-    image: 'https://images.unsplash.com/photo-1549887534-1541e9326642?w=600&h=800&fit=crop',
+    image: '/2.jpg',
     featured: true
   },
   {
@@ -84,7 +78,7 @@ const featuredArtworks = [
     year: 2024,
     price: 450,
     status: 'available',
-    image: 'https://images.unsplash.com/photo-1551913902-c92207136625?w=600&h=800&fit=crop',
+    image: '/3.jpg',
     featured: false
   }
 ];
@@ -118,63 +112,126 @@ const getStatusBadge = (status: string) => {
   }
 };
 
-const ArtworkCard = ({ artwork }: { artwork: any }) => (
-  <Card className="group hover:shadow-lg transition-all duration-300">
-    <div className="relative aspect-[3/4] overflow-hidden rounded-t-lg">
-      <Image
-        src={artwork.image}
-        alt={artwork.title}
-        fill
-        className="object-cover group-hover:scale-105 transition-transform duration-300"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      />
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-      
-      {/* Overlay Actions */}
-      <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-          <Eye className="h-4 w-4" />
-        </Button>
-        <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-          <Heart className="h-4 w-4" />
-        </Button>
+const ArtworkCard = ({ artwork }: { artwork: any }) => {
+  const [isAdding, setIsAdding] = useState(false);
+  const addItem = useCartStore((state) => state.addItem);
+
+  const handleAddToCart = async () => {
+    setIsAdding(true);
+
+    // Convert the shop artwork format to our Artwork type
+    const artworkData = {
+      id: artwork.id.toString(),
+      title: artwork.title,
+      description: `${artwork.medium} artwork created in ${artwork.year}`,
+      year: artwork.year,
+      medium: artwork.medium.toLowerCase().replace(' ', '-') as ArtworkMedium,
+      category: 'contemporary' as ArtworkCategory,
+      dimensions: {
+        width: parseInt(artwork.dimensions.split('"')[0]),
+        height: parseInt(artwork.dimensions.split('x')[1].trim().split('"')[0]),
+        unit: 'in' as const
+      },
+      images: [{
+        id: `img-${artwork.id}`,
+        url: artwork.image,
+        alt: artwork.title,
+        width: 800,
+        height: 1000,
+        isMain: true
+      }],
+      price: {
+        amount: artwork.price,
+        currency: 'USD' as const
+      },
+      status: artwork.status,
+      metadata: {
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        featured: artwork.featured || false,
+        tags: [artwork.medium.toLowerCase()]
+      },
+      slug: artwork.title.toLowerCase().replace(/\s+/g, '-')
+    };
+
+    addItem(artworkData);
+
+    // Show feedback for a moment
+    setTimeout(() => setIsAdding(false), 1000);
+  };
+
+  return (
+    <Card className="group hover:shadow-lg transition-all duration-300">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-t-lg">
+        <Image
+          src={artwork.image}
+          alt={artwork.title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+
+        {/* Overlay Actions */}
+        <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
+            <Eye className="h-4 w-4" />
+          </Button>
+          <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
+            <Heart className="h-4 w-4" />
+          </Button>
+        </div>
+
+        {/* Status Badge */}
+        <div className="absolute top-4 left-4">
+          {getStatusBadge(artwork.status)}
+        </div>
       </div>
 
-      {/* Status Badge */}
-      <div className="absolute top-4 left-4">
-        {getStatusBadge(artwork.status)}
-      </div>
-    </div>
-    
-    <CardContent className="p-6">
-      <div className="space-y-3">
-        <div>
-          <h3 className="font-serif text-lg font-semibold text-foreground">
-            {artwork.title}
-          </h3>
-          <p className="text-sm text-muted-foreground">
-            {artwork.medium} • {artwork.year}
-          </p>
-          <p className="text-xs text-muted-foreground">
-            {artwork.dimensions}
-          </p>
+      <CardContent className="p-6">
+        <div className="space-y-3">
+          <div>
+            <h3 className="font-serif text-lg font-semibold text-foreground">
+              {artwork.title}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {artwork.medium} • {artwork.year}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              {artwork.dimensions}
+            </p>
+          </div>
+
+          <div className="flex justify-between items-center">
+            <span className="text-xl font-bold text-foreground">
+              {formatPrice(artwork.price)}
+            </span>
+            {artwork.status === 'available' && (
+              <Button
+                size="sm"
+                className="bg-gallery-gold hover:bg-gallery-gold/90 text-off-black"
+                onClick={handleAddToCart}
+                disabled={isAdding}
+              >
+                {isAdding ? (
+                  <>
+                    <Check className="h-4 w-4 mr-1" />
+                    Added!
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="h-4 w-4 mr-1" />
+                    Add to Cart
+                  </>
+                )}
+              </Button>
+            )}
+          </div>
         </div>
-        
-        <div className="flex justify-between items-center">
-          <span className="text-xl font-bold text-foreground">
-            {formatPrice(artwork.price)}
-          </span>
-          {artwork.status === 'available' && (
-            <Button size="sm" className="bg-gallery-gold hover:bg-gallery-gold/90 text-off-black">
-              <ShoppingCart className="h-4 w-4 mr-1" />
-              Add to Cart
-            </Button>
-          )}
-        </div>
-      </div>
-    </CardContent>
-  </Card>
-);
+      </CardContent>
+    </Card>
+  );
+};
 
 const ShopPage = () => {
   return (

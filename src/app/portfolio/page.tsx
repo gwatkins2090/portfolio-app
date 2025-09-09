@@ -63,24 +63,24 @@ const PortfolioPage = () => {
       <Header />
       <main>
         {/* Hero Section */}
-        <section className="py-20 gallery-wall">
+        <section className="py-12 md:py-20 gallery-wall">
           <div className="container px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-5xl md:text-7xl font-serif font-bold text-foreground mb-6 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-foreground mb-4 md:mb-6 tracking-tight">
                 Complete Portfolio
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8">
+              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground leading-relaxed mb-6 md:mb-8 max-w-3xl mx-auto">
                 A comprehensive collection of contemporary artworks spanning multiple mediums and artistic explorations.
               </p>
-              
+
               {/* Portfolio Stats */}
-              <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+              <div className="grid grid-cols-3 gap-3 sm:gap-6 max-w-2xl mx-auto">
                 {portfolioStats.map((stat, index) => (
                   <Card key={index}>
-                    <CardContent className="p-4 text-center">
-                      <stat.icon className="h-6 w-6 mx-auto mb-2 text-primary" />
-                      <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                      <div className="text-sm text-muted-foreground">{stat.label}</div>
+                    <CardContent className="p-3 sm:p-4 text-center">
+                      <stat.icon className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-2 text-primary" />
+                      <div className="text-lg sm:text-2xl font-bold text-foreground">{stat.value}</div>
+                      <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
                     </CardContent>
                   </Card>
                 ))}
@@ -101,24 +101,24 @@ const PortfolioPage = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               {portfolioCategories.map((category) => (
                 <Card key={category.id} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 sm:p-6">
                     <div className="flex justify-between items-start mb-3">
-                      <h3 className="font-semibold text-foreground">{category.title}</h3>
+                      <h3 className="font-semibold text-foreground text-sm sm:text-base">{category.title}</h3>
                       {category.featured && (
                         <Badge variant="outline" className="text-xs">Featured</Badge>
                       )}
                     </div>
-                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-4 leading-relaxed">
                       {category.description}
                     </p>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium text-primary">
+                      <span className="text-xs sm:text-sm font-medium text-primary">
                         {category.count} pieces
                       </span>
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" className="text-xs sm:text-sm">
                         View Collection
                       </Button>
                     </div>

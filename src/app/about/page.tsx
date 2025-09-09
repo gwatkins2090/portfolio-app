@@ -23,14 +23,14 @@ const AboutPage = () => {
       <Header />
       <main>
         {/* Hero Section */}
-        <section className="py-20 gallery-wall">
+        <section className="py-12 md:py-20 gallery-wall">
           <div className="container px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-5xl md:text-7xl font-serif font-bold text-foreground mb-6 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-foreground mb-4 md:mb-6 tracking-tight">
                 About the Artist
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
-                Exploring the boundaries between traditional artistry and contemporary expression, 
+              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                Exploring the boundaries between traditional artistry and contemporary expression,
                 creating works that invite contemplation and emotional connection.
               </p>
             </div>

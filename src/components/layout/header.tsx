@@ -1,12 +1,23 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from '@/components/layout/theme-toggle';
-import { Palette, ShoppingBag, Home, Mail } from 'lucide-react';
+import { Palette, Home, Mail } from 'lucide-react';
 import MobileNavigation from '@/components/mobile/mobile-navigation';
+import CartIcon from '@/components/cart/cart-icon';
+import { useCartStore } from '@/lib/cart-store';
 
  const Header = () => {
+  const [mounted, setMounted] = useState(false);
+  const getTotalItems = useCartStore((state) => state.getTotalItems);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cartItemCount = mounted ? getTotalItems() : 0;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -33,11 +44,14 @@ import MobileNavigation from '@/components/mobile/mobile-navigation';
           <Link href="/portfolio" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
             Portfolio
           </Link>
-          <Link href="/shop" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-            Shop
-          </Link>
           <Link href="/about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
             About
+          </Link>
+          <Link href="/exhibitions" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            Exhibitions
+          </Link>
+          <Link href="/shop" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            Shop
           </Link>
           <Link href="/contact" className="flex items-center space-x-2 text-sm font-medium text-foreground hover:text-primary transition-colors group">
             <Mail className="h-4 w-4 group-hover:scale-110 transition-transform" />
@@ -46,21 +60,13 @@ import MobileNavigation from '@/components/mobile/mobile-navigation';
         </nav>
 
         <div className="flex items-center space-x-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="hidden md:flex items-center space-x-2 text-foreground hover:text-primary"
-            asChild
-          >
-            <Link href="/cart">
-              <ShoppingBag className="h-5 w-5" />
-              <span className="sr-only">Shopping Cart</span>
-            </Link>
-          </Button>
+          <div className="hidden md:block">
+            <CartIcon />
+          </div>
 
           <ThemeToggle />
 
-          <MobileNavigation cartItemCount={0} />
+          <MobileNavigation cartItemCount={cartItemCount} />
         </div>
 
       </div>

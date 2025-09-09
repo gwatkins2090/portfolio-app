@@ -32,7 +32,7 @@ const sampleArtworks: ArtworkItem[] = [
     dimensions: '60 × 80 cm',
     price: 2500,
     currency: 'USD',
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=1000&fit=crop',
+    image: '/1.jpg',
     category: 'Abstract',
     status: 'available',
     description: 'A contemplative piece exploring the transition between night and day.'
@@ -45,7 +45,7 @@ const sampleArtworks: ArtworkItem[] = [
     dimensions: '50 × 70 cm',
     price: 1800,
     currency: 'USD',
-    image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600&fit=crop',
+    image: '/2.jpg',
     category: 'Contemporary',
     status: 'available',
     description: 'The rhythm and energy of city life captured in vibrant colors.'
@@ -56,7 +56,7 @@ const sampleArtworks: ArtworkItem[] = [
     year: 2024,
     medium: 'Acrylic on Canvas',
     dimensions: '40 × 60 cm',
-    image: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=800&h=1200&fit=crop',
+    image: '/3.jpg',
     category: 'Portrait',
     status: 'sold',
     description: 'An introspective study of human emotion and isolation.'
@@ -69,7 +69,7 @@ const sampleArtworks: ArtworkItem[] = [
     dimensions: '35 × 50 cm',
     price: 1200,
     currency: 'USD',
-    image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=800&h=800&fit=crop',
+    image: '/4.jpg',
     category: 'Nature',
     status: 'available',
     description: 'Finding mathematical beauty in organic forms.'
@@ -82,7 +82,7 @@ const sampleArtworks: ArtworkItem[] = [
     dimensions: '70 × 100 cm',
     price: 3200,
     currency: 'USD',
-    image: 'https://images.unsplash.com/photo-1549490349-8643362247b5?w=800&h=1000&fit=crop',
+    image: '/5.jpg',
     category: 'Digital',
     status: 'reserved',
     description: 'Exploring the intersection of technology and artistic expression.'
@@ -95,7 +95,7 @@ const sampleArtworks: ArtworkItem[] = [
     dimensions: '80 × 120 cm',
     price: 4500,
     currency: 'USD',
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+    image: '/6.jpg',
     category: 'Landscape',
     status: 'available',
     description: 'Capturing the eternal dance between sea and shore.'

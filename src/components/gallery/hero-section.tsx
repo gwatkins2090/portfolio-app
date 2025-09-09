@@ -22,7 +22,7 @@ const featuredArtworks: FeaturedArtwork[] = [
     title: 'Ethereal Landscapes',
     year: 2024,
     medium: 'Oil on Canvas',
-    image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1920&h=1080&fit=crop',
+    image: '/7.jpg',
     description: 'A contemplative exploration of light and shadow in natural forms.'
   },
   {
@@ -30,7 +30,7 @@ const featuredArtworks: FeaturedArtwork[] = [
     title: 'Urban Reflections',
     year: 2023,
     medium: 'Mixed Media',
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&h=1080&fit=crop',
+    image: '/8.jpg',
     description: 'The intersection of human experience and architectural beauty.'
   },
   {
@@ -38,7 +38,7 @@ const featuredArtworks: FeaturedArtwork[] = [
     title: 'Abstract Emotions',
     year: 2024,
     medium: 'Acrylic on Canvas',
-    image: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=1920&h=1080&fit=crop',
+    image: '/9.jpg',
     description: 'Color and form expressing the depths of human feeling.'
   }
 ];
@@ -48,7 +48,7 @@ const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying) {return;}
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % featuredArtworks.length);

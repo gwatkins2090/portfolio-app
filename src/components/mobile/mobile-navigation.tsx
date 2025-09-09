@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Image, ShoppingBag, User, Mail, Heart } from 'lucide-react';
+import { Menu, X, Home, Image, ShoppingBag, User, Mail, Heart, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
@@ -32,6 +32,18 @@ const MobileNavigation = ({
       description: 'Browse artworks'
     },
     {
+      href: '/about',
+      label: 'About',
+      icon: User,
+      description: 'Artist information'
+    },
+    {
+      href: '/exhibitions',
+      label: 'Exhibitions',
+      icon: Calendar,
+      description: 'Current & upcoming shows'
+    },
+    {
       href: '/shop',
       label: 'Shop',
       icon: ShoppingBag,
@@ -39,22 +51,10 @@ const MobileNavigation = ({
       badge: cartItemCount > 0 ? cartItemCount : undefined
     },
     {
-      href: '/about',
-      label: 'About',
-      icon: User,
-      description: 'Artist information'
-    },
-    {
       href: '/contact',
       label: 'Contact',
       icon: Mail,
       description: 'Get in touch'
-    },
-    {
-      href: '/wishlist',
-      label: 'Wishlist',
-      icon: Heart,
-      description: 'Saved artworks'
     }
   ];
 
@@ -217,7 +217,7 @@ const MobileNavigation = ({
                     Contemporary Art Portfolio
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    © 2024 Alexandra Chen
+                    © 2024 Jennifer Watkins
                   </p>
                 </div>
               </div>
