@@ -75,7 +75,11 @@ const MobileNavigation = ({
     closed: { opacity: 0, x: 20 },
     open: (i: number) => ({
       opacity: 1,
-      x: 0
+      x: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.3
+      }
     })
   };
 
@@ -138,6 +142,19 @@ const MobileNavigation = ({
         )}
       </AnimatePresence>
 
+      {/* Mobile Menu Backdrop */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-[9998] md:hidden"
+            onClick={toggleMenu}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Mobile Menu Panel */}
       <AnimatePresence>
         {isOpen && (
@@ -146,7 +163,7 @@ const MobileNavigation = ({
             initial="closed"
             animate="open"
             exit="closed"
-            className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-background border-l border-border shadow-2xl z-50 md:hidden"
+            className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-background border-l border-border shadow-2xl z-[9999] md:hidden mobile-nav-panel"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
@@ -170,8 +187,12 @@ const MobileNavigation = ({
               </div>
 
               {/* Navigation Items */}
-              <nav className="flex-1 overflow-y-auto">
-                <div className="p-6 space-y-2">
+              <nav className="flex-1 overflow-y-auto bg-background">
+                <div className="p-6 space-y-3">
+                  {/* Debug: Show item count */}
+                  <div className="text-xs text-muted-foreground mb-4">
+                    {navigationItems.length} navigation items
+                  </div>
                   {navigationItems.map((item, index) => (
                     <motion.div
                       key={item.href}
@@ -179,11 +200,17 @@ const MobileNavigation = ({
                       variants={itemVariants}
                       initial="closed"
                       animate="open"
+                      className="w-full"
                     >
                       <Link
                         href={item.href}
                         onClick={toggleMenu}
-                        className="flex items-center p-4 rounded-lg hover:bg-muted/50 active:bg-muted transition-colors group mobile-touch-target"
+                        className="flex items-center p-4 rounded-lg transition-colors group mobile-touch-target min-h-[60px] w-full mobile-nav-item"
+                        style={{
+                          backgroundColor: 'hsl(var(--background))',
+                          color: 'hsl(var(--foreground))',
+                          border: '1px solid transparent'
+                        }}
                       >
                         {item.icon && (
                           <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors mr-4">
@@ -193,7 +220,7 @@ const MobileNavigation = ({
 
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between">
-                            <h3 className="font-medium text-foreground text-base">
+                            <h3 className="font-medium text-foreground text-base font-semibold">
                               {item.label}
                             </h3>
                             {item.badge && (

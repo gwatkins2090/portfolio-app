@@ -263,6 +263,23 @@
     .mobile-card {
       padding: 1rem;
     }
+
+    /* Mobile navigation specific styles */
+    .mobile-nav-panel {
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+    }
+
+    .mobile-nav-item {
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+      border: 1px solid transparent;
+    }
+
+    .mobile-nav-item:hover {
+      background: hsl(var(--muted) / 0.5);
+      border-color: hsl(var(--border));
+    }
   }
 
   /* Touch-friendly interactions */
