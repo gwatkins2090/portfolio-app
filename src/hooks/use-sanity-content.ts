@@ -26,7 +26,15 @@ export function useSanityContent(query: string, params?: Record<string, any>): U
       try {
         setLoading(true)
         setError(null)
-        
+
+        // Check if Sanity is properly configured
+        if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+          console.warn('Sanity not configured, using fallback data')
+          setContent(null)
+          setLoading(false)
+          return
+        }
+
         const result = await client.fetch(query, params)
         setContent(result)
       } catch (err) {

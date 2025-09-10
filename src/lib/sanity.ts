@@ -1,9 +1,14 @@
 import { createClient } from 'next-sanity'
 import imageUrlBuilder from '@sanity/image-url'
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '5ave8l4g'
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2023-12-01'
+
+// Validate required configuration
+if (!projectId) {
+  console.warn('Missing NEXT_PUBLIC_SANITY_PROJECT_ID environment variable')
+}
 
 export const client = createClient({
   projectId,
@@ -33,11 +38,16 @@ export async function sanityFetch<T = any>({
   params?: any
   tags?: string[]
 }): Promise<T> {
-  return client.fetch<T>(query, params, {
-    next: {
-      tags,
-    },
-  })
+  try {
+    return client.fetch<T>(query, params, {
+      next: {
+        tags,
+      },
+    })
+  } catch (error) {
+    console.warn('Sanity fetch error:', error)
+    return null as T
+  }
 }
 
 // Image URL builder

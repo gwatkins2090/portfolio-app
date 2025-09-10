@@ -14,7 +14,7 @@ import { useArtistProfile } from '@/hooks/use-sanity-content';
 // TODO: Move to layout.tsx or create separate metadata API route
 
 const AboutPage = () => {
-  const { content: artist } = useArtistProfile()
+  const { content: artist, loading, error } = useArtistProfile()
 
   return (
     <div className="min-h-screen bg-background">
