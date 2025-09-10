@@ -122,7 +122,7 @@ export function generateArtistStructuredData(artist: Artist) {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': 'https://alexandrachen.art/about'
+      '@id': 'https://jenniferwatkins.art/about'
     }
   };
 
@@ -167,13 +167,13 @@ export function generateGalleryStructuredData() {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Customer Service',
-      email: 'hello@alexandrachen.art',
+      email: 'hello@jenniferwatkins.art',
       availableLanguage: 'English'
     },
     sameAs: [
-      'https://instagram.com/alexandrachen.art',
-      'https://twitter.com/alexandrachen',
-      'https://facebook.com/alexandrachen.art'
+      'https://instagram.com/jenniferwatkinsart',
+      'https://twitter.com/jwatkins_art',
+      'https://facebook.com/jenniferwatkinsart'
     ]
   };
 

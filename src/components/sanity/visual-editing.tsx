@@ -1,9 +1,34 @@
 'use client'
 
-// Visual editing is temporarily disabled due to package compatibility
-// TODO: Update when @sanity/visual-editing stabilizes
+import { useEffect } from 'react'
+import { client } from '@/lib/sanity'
+
 export function SanityVisualEditing() {
-  // Only enable in development and when visual editing is needed
+  useEffect(() => {
+    // Only enable in development
+    if (process.env.NODE_ENV !== 'development') {
+      return
+    }
+
+    // Import and initialize visual editing dynamically
+    const initVisualEditing = async () => {
+      try {
+        const { enableVisualEditing } = await import('@sanity/visual-editing')
+
+        enableVisualEditing({
+          zIndex: 1000,
+        })
+
+        console.log('✅ Sanity Visual Editing enabled')
+      } catch (error) {
+        console.warn('⚠️ Visual editing not available:', error)
+      }
+    }
+
+    initVisualEditing()
+  }, [])
+
+  // Only show indicator in development
   if (process.env.NODE_ENV !== 'development') {
     return null
   }
@@ -14,14 +39,16 @@ export function SanityVisualEditing() {
         position: 'fixed',
         top: 0,
         right: 0,
-        zIndex: 1000,
-        background: '#f0f0f0',
-        padding: '8px',
-        fontSize: '12px',
-        borderRadius: '0 0 0 4px'
+        zIndex: 1001,
+        background: '#2276fc',
+        color: 'white',
+        padding: '4px 8px',
+        fontSize: '11px',
+        borderRadius: '0 0 0 4px',
+        fontFamily: 'monospace'
       }}
     >
-      Visual Editing Ready
+      🎨 Visual Editing
     </div>
   )
 }

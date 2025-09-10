@@ -87,8 +87,8 @@ const SEOHead = ({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={fullOgImage} />
       <meta name="twitter:image:alt" content={title} />
-      <meta name="twitter:creator" content="@alexandrachen" />
-      <meta name="twitter:site" content="@alexandrachen" />
+      <meta name="twitter:creator" content="@jwatkins_art" />
+      <meta name="twitter:site" content="@jwatkins_art" />
 
       {/* Article specific meta tags */}
       {publishedTime && (

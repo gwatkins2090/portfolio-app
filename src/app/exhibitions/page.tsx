@@ -22,7 +22,7 @@ const upcomingExhibitions = [
   {
     id: 1,
     title: 'Liminal Spaces: New Works',
-    venue: 'Gallery Chen',
+    venue: 'Gallery Modern',
     location: 'New York, NY',
     startDate: '2024-03-15',
     endDate: '2024-04-20',

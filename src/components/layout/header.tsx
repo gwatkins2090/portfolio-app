@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from '@/components/layout/theme-toggle';
-import { Palette, Home, Mail } from 'lucide-react';
+import { Palette } from 'lucide-react';
 import MobileNavigation from '@/components/mobile/mobile-navigation';
 import CartIcon from '@/components/cart/cart-icon';
 import { useCartStore } from '@/lib/cart-store';
@@ -37,15 +37,11 @@ import { useCartStore } from '@/lib/cart-store';
         </Link>
 
         <nav className="hidden md:flex items-center space-x-8">
-          <Link href="/" className="flex items-center space-x-2 text-sm font-medium text-foreground hover:text-primary transition-colors group">
-            <Home className="h-4 w-4 group-hover:scale-110 transition-transform" />
-            <span>Home</span>
+          <Link href="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            Home
           </Link>
           <Link href="/portfolio" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
             Portfolio
-          </Link>
-          <Link href="/about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-            About
           </Link>
           <Link href="/exhibitions" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
             Exhibitions
@@ -53,9 +49,11 @@ import { useCartStore } from '@/lib/cart-store';
           <Link href="/shop" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
             Shop
           </Link>
-          <Link href="/contact" className="flex items-center space-x-2 text-sm font-medium text-foreground hover:text-primary transition-colors group">
-            <Mail className="h-4 w-4 group-hover:scale-110 transition-transform" />
-            <span>Contact</span>
+          <Link href="/about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            About
+          </Link>
+          <Link href="/contact" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            Contact
           </Link>
         </nav>
 

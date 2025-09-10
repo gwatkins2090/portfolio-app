@@ -42,7 +42,7 @@ const ArtistBiography = () => {
     {
       year: '2020',
       title: 'First Solo Exhibition',
-      description: 'Debut solo show "Liminal Spaces" at Gallery Chen, New York.'
+      description: 'Debut solo show "Liminal Spaces" at Gallery Modern, New York.'
     },
     {
       year: '2018',
@@ -165,9 +165,9 @@ const ArtistBiography = () => {
                 </p>
                 
                 <p>
-                  Drawing inspiration from both natural landscapes and urban environments, 
-                  Chen seeks to capture moments of transformation—those fleeting instances 
-                  where light shifts, seasons change, or human experience crystallizes 
+                  Drawing inspiration from both natural landscapes and urban environments,
+                  Jennifer seeks to capture moments of transformation—those fleeting instances
+                  where light shifts, seasons change, or human experience crystallizes
                   into something profound and universal.
                 </p>
               </div>

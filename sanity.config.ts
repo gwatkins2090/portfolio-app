@@ -14,15 +14,37 @@ import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
 
 export default defineConfig({
+  name: 'jennifer-watkins-portfolio',
+  title: 'Jennifer Watkins Art Portfolio',
+
   basePath: '/studio',
   projectId,
   dataset,
+
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
+
   plugins: [
     structureTool({structure}),
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({defaultApiVersion: apiVersion}),
   ],
+
+  document: {
+    // Remove 'Settings' from new document options, since it's a singleton
+    newDocumentOptions: (prev, { creationContext }) => {
+      if (creationContext.type === 'global') {
+        return prev.filter((templateItem) => templateItem.templateId !== 'portfolioSettings')
+      }
+      return prev
+    },
+    // Removes the "duplicate" action on the Settings singleton
+    actions: (prev, { schemaType }) => {
+      if (schemaType === 'portfolioSettings') {
+        return prev.filter(({ action }) => action && action !== 'duplicate')
+      }
+      return prev
+    },
+  },
 })

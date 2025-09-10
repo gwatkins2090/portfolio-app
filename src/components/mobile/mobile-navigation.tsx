@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Image, ShoppingBag, User, Mail, Heart, Calendar } from 'lucide-react';
+import { Menu, X, Image, ShoppingBag, User, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
@@ -22,7 +22,7 @@ const MobileNavigation = ({
     {
       href: '/',
       label: 'Home',
-      icon: Home,
+      icon: null,
       description: 'Gallery homepage'
     },
     {
@@ -30,12 +30,6 @@ const MobileNavigation = ({
       label: 'Portfolio',
       icon: Image,
       description: 'Browse artworks'
-    },
-    {
-      href: '/about',
-      label: 'About',
-      icon: User,
-      description: 'Artist information'
     },
     {
       href: '/exhibitions',
@@ -51,9 +45,15 @@ const MobileNavigation = ({
       badge: cartItemCount > 0 ? cartItemCount : undefined
     },
     {
+      href: '/about',
+      label: 'About',
+      icon: User,
+      description: 'Artist information'
+    },
+    {
       href: '/contact',
       label: 'Contact',
-      icon: Mail,
+      icon: null,
       description: 'Get in touch'
     }
   ];
@@ -146,17 +146,17 @@ const MobileNavigation = ({
             initial="closed"
             animate="open"
             exit="closed"
-            className="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-background border-l border-border shadow-2xl z-50 md:hidden"
+            className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-background border-l border-border shadow-2xl z-50 md:hidden"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-border">
                 <div>
                   <h2 className="text-xl font-serif font-semibold text-foreground">
-                    Navigation
+                    Jennifer Watkins
                   </h2>
                   <p className="text-sm text-muted-foreground">
-                    Explore the gallery
+                    Contemporary Art Portfolio
                   </p>
                 </div>
                 <Button
@@ -183,24 +183,26 @@ const MobileNavigation = ({
                       <Link
                         href={item.href}
                         onClick={toggleMenu}
-                        className="flex items-center space-x-4 p-4 rounded-lg hover:bg-muted/50 transition-colors group mobile-touch-target"
+                        className="flex items-center p-4 rounded-lg hover:bg-muted/50 active:bg-muted transition-colors group mobile-touch-target"
                       >
-                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                          <item.icon className="h-5 w-5" />
-                        </div>
-                        
+                        {item.icon && (
+                          <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors mr-4">
+                            <item.icon className="h-5 w-5" />
+                          </div>
+                        )}
+
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center space-x-2">
-                            <h3 className="font-medium text-foreground">
+                          <div className="flex items-center justify-between">
+                            <h3 className="font-medium text-foreground text-base">
                               {item.label}
                             </h3>
                             {item.badge && (
-                              <Badge variant="secondary" className="text-xs">
+                              <Badge variant="secondary" className="text-xs ml-2">
                                 {item.badge}
                               </Badge>
                             )}
                           </div>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                             {item.description}
                           </p>
                         </div>

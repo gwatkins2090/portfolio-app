@@ -156,7 +156,7 @@ const ArtworkCard = ({ artwork, index }: ArtworkCardProps) => {
       <div className="artwork-frame overflow-hidden bg-white dark:bg-gray-900">
         <div className="relative aspect-[4/5] overflow-hidden">
           <Image
-            src={artwork.image}
+            src={artwork.image || '/placeholder-artwork.svg'}
             alt={artwork.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -261,9 +261,12 @@ const ArtworkCard = ({ artwork, index }: ArtworkCardProps) => {
 interface GalleryGridProps {
   title?: string;
   subtitle?: string;
+  artworks?: ArtworkItem[];
 }
 
-const GalleryGrid = ({ title = "Featured Artworks", subtitle }: GalleryGridProps) => {
+const GalleryGrid = ({ title = "Featured Artworks", subtitle, artworks }: GalleryGridProps) => {
+  // Use provided artworks or fall back to sample data
+  const displayArtworks = artworks || sampleArtworks;
   return (
     <section id="gallery" className="py-20 gallery-wall">
       <div className="container px-4">
@@ -285,7 +288,7 @@ const GalleryGrid = ({ title = "Featured Artworks", subtitle }: GalleryGridProps
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sampleArtworks.map((artwork, index) => (
+          {displayArtworks.map((artwork, index) => (
             <ArtworkCard key={artwork.id} artwork={artwork} index={index} />
           ))}
         </div>

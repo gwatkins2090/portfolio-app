@@ -42,18 +42,18 @@ const portfolioCategories = [
     featured: true
   },
   {
-    id: 'digital-art',
-    title: 'Digital Art',
-    description: 'Digital explorations and contemporary interpretations',
+    id: 'metalwork',
+    title: 'Metalwork',
+    description: 'Sculptural pieces and mixed media incorporating metal elements',
     count: 12,
-    featured: false
+    featured: true
   },
   {
-    id: 'sketches',
-    title: 'Sketches & Studies',
-    description: 'Preparatory works and artistic explorations',
+    id: 'fiberwork',
+    title: 'Fiberwork',
+    description: 'Textile art and fiber-based contemporary works',
     count: 15,
-    featured: false
+    featured: true
   }
 ];
 
@@ -118,8 +118,10 @@ const PortfolioPage = () => {
                       <span className="text-xs sm:text-sm font-medium text-primary">
                         {category.count} pieces
                       </span>
-                      <Button size="sm" variant="outline" className="text-xs sm:text-sm">
-                        View Collection
+                      <Button size="sm" variant="outline" className="text-xs sm:text-sm" asChild>
+                        <Link href={`/portfolio/${category.id}`}>
+                          View Collection
+                        </Link>
                       </Button>
                     </div>
                   </CardContent>

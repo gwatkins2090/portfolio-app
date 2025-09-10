@@ -34,7 +34,7 @@ const ExhibitionHistory = () => {
       id: '1',
       title: 'Liminal Spaces: New Works',
       type: 'solo',
-      venue: 'Gallery Chen',
+      venue: 'Gallery Modern',
       location: 'New York, NY',
       startDate: '2024-03-15',
       endDate: '2024-04-20',
@@ -69,7 +69,7 @@ const ExhibitionHistory = () => {
       startDate: '2023-12-06',
       endDate: '2023-12-10',
       year: 2023,
-      description: 'Represented by Gallery Chen at one of the world\'s premier art fairs.',
+      description: 'Represented by Gallery Modern at one of the world\'s premier art fairs.',
       artworks: ['Convergence', 'Tidal Patterns'],
       press: ['ARTnews Coverage', 'Hyperallergic Review']
     },

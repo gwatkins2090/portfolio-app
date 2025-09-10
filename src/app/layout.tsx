@@ -6,6 +6,7 @@ import './globals.css';
 import ThemeProvider from '@/components/poviders/theme-provider';
 import { Toaster } from 'react-hot-toast';
 import { SanityVisualEditing } from '@/components/sanity/visual-editing';
+import { SanityTest } from '@/components/sanity/sanity-test';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -75,6 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Sanity Visual Editing */}
         {process.env.NODE_ENV === 'development' && <SanityVisualEditing />}
+        {process.env.NODE_ENV === 'development' && <SanityTest />}
 
         {/* Performance Monitoring */}
         <Script
