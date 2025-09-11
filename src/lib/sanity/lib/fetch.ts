@@ -4,7 +4,7 @@ import { client } from './client';
 import { readToken } from './tokens';
 
 const DEFAULT_PARAMS = {};
-const DEFAULT_TAGS = [];
+const DEFAULT_TAGS: string[] = [];
 
 export default async function sanityFetch<QueryResponse>({
   query,
@@ -16,11 +16,9 @@ export default async function sanityFetch<QueryResponse>({
   tags?: string[];
 }): Promise<QueryResponse> {
   const isDraftMode = (await draftMode()).isEnabled;
-  
+
   if (isDraftMode && !readToken) {
-    throw new Error(
-      'The `SANITY_API_READ_TOKEN` environment variable is required.',
-    );
+    throw new Error('The `SANITY_API_READ_TOKEN` environment variable is required.');
   }
 
   const perspective = isDraftMode ? 'previewDrafts' : 'published';

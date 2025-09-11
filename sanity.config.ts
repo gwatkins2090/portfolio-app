@@ -1,23 +1,23 @@
-'use client'
+'use client';
 
 /**
  * This configuration is used to for the Sanity Studio that’s mounted on the `\src\app\studio\[[...tool]]\page.tsx` route
  */
 
-import {visionTool} from '@sanity/vision'
-import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
-import {presentationTool} from 'sanity/presentation'
+import { visionTool } from '@sanity/vision';
+import { defineConfig } from 'sanity';
+import { structureTool } from 'sanity/structure';
+import { presentationTool } from 'sanity/presentation';
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
-import {apiVersion, dataset, projectId} from './src/sanity/env'
-import {schema} from './src/sanity/schemaTypes'
-import {structure} from './src/sanity/structure'
-import {generatePreviewUrl} from './src/components/sanity/PreviewLink'
+import { apiVersion, dataset, projectId, projectTitle } from './src/lib/sanity/env';
+import { schema } from './src/lib/sanity/schemaTypes';
+import { structure } from './src/lib/sanity/structure';
+import { generatePreviewUrl } from './src/components/sanity/PreviewLink';
 
 export default defineConfig({
   name: 'jennifer-watkins-portfolio',
-  title: 'Jennifer Watkins Art Portfolio',
+  title: projectTitle,
 
   basePath: '/studio',
   projectId,
@@ -27,7 +27,7 @@ export default defineConfig({
   schema,
 
   plugins: [
-    structureTool({structure}),
+    structureTool({ structure }),
     presentationTool({
       previewUrl: {
         draftMode: {
@@ -37,23 +37,23 @@ export default defineConfig({
     }),
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
-    visionTool({defaultApiVersion: apiVersion}),
+    visionTool({ defaultApiVersion: apiVersion }),
   ],
 
   document: {
     // Remove 'Settings' from new document options, since it's a singleton
     newDocumentOptions: (prev, { creationContext }) => {
       if (creationContext.type === 'global') {
-        return prev.filter((templateItem) => templateItem.templateId !== 'portfolioSettings')
+        return prev.filter((templateItem) => templateItem.templateId !== 'portfolioSettings');
       }
-      return prev
+      return prev;
     },
     // Removes the "duplicate" action on the Settings singleton
     actions: (prev, { schemaType }) => {
       if (schemaType === 'portfolioSettings') {
-        return prev.filter(({ action }) => action && action !== 'duplicate')
+        return prev.filter(({ action }) => action && action !== 'duplicate');
       }
-      return prev
+      return prev;
     },
   },
-})
+});

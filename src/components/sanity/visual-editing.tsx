@@ -4,6 +4,6 @@ import { VisualEditing } from 'next-sanity';
 import { useLiveMode } from '@sanity/react-loader';
 
 export default function SanityVisualEditing() {
-  useLiveMode({ allowStudioOrigin: true });
+  useLiveMode({ allowStudioOrigin: '/studio' });
   return <VisualEditing />;
 }

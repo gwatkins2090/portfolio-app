@@ -1,13 +1,11 @@
-import { definePreviewUrl } from 'next-sanity/preview-url-secret';
-
-export function generatePreviewUrl(context: any): Promise<string> {
+export function generatePreviewUrl(context: any): string {
   const doc = context.document ?? context;
   const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
     : 'http://localhost:3000';
 
   let url: string;
-  
+
   switch (doc._type) {
     case 'artwork':
       url = `${baseUrl}/portfolio/${doc.slug?.current}`;
@@ -31,9 +29,5 @@ export function generatePreviewUrl(context: any): Promise<string> {
       url = `${baseUrl}/`;
   }
 
-  return definePreviewUrl({
-    baseUrl,
-    urlPath: url,
-    secret: process.env.SANITY_PREVIEW_SECRET!,
-  });
+  return url;
 }

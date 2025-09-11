@@ -26,6 +26,7 @@
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/lib/*": ["./src/lib/*"],
+      "@/sanity/*": ["./src/sanity/*"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/util/*": ["./src/util/*"],
       "@/types/*": ["src/types/*"],

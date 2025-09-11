@@ -1,7 +1,7 @@
 import 'server-only';
 import { groq } from 'next-sanity';
-import { client } from '@/sanity/lib/client';
-import { readToken as token } from '@/sanity/lib/tokens';
+import { client } from '@/lib/sanity/lib/client';
+import { readToken as token } from '@/lib/sanity/lib/tokens';
 
 export async function generateStaticSlugs(type: string) {
   return client
@@ -12,7 +12,7 @@ export async function generateStaticSlugs(type: string) {
     })
     .fetch<Array<{ slug: string }>>(
       groq`*[_type == $type && defined(slug.current)][].slug.current`,
-      { type },
+      { type }
     );
 }
 

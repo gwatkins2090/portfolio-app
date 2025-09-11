@@ -6,7 +6,7 @@ import './globals.css';
 import ThemeProvider from '@/components/poviders/theme-provider';
 import { Toaster } from 'react-hot-toast';
 import { draftMode } from 'next/headers';
-import { SanityLive } from '@/sanity/lib/live';
+import { SanityLive } from '@/lib/sanity/lib/live';
 import DraftModeBanner from '@/components/sanity/DraftModeBanner';
 import SanityVisualEditing from '@/components/sanity/visual-editing';
 import { SanityTest } from '@/components/sanity/sanity-test';
@@ -25,19 +25,29 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: 'Art Portfolio Gallery | Contemporary Art Collection',
-  description: 'Explore a sophisticated collection of contemporary artwork in an immersive gallery experience. Browse, discover, and purchase original pieces from a talented artist.',
-  keywords: ['art portfolio', 'contemporary art', 'gallery', 'original artwork', 'art collection', 'buy art online'],
+  description:
+    'Explore a sophisticated collection of contemporary artwork in an immersive gallery experience. Browse, discover, and purchase original pieces from a talented artist.',
+  keywords: [
+    'art portfolio',
+    'contemporary art',
+    'gallery',
+    'original artwork',
+    'art collection',
+    'buy art online',
+  ],
   authors: [{ name: 'Artist Portfolio' }],
   openGraph: {
     title: 'Art Portfolio Gallery | Contemporary Art Collection',
-    description: 'Explore a sophisticated collection of contemporary artwork in an immersive gallery experience.',
+    description:
+      'Explore a sophisticated collection of contemporary artwork in an immersive gallery experience.',
     type: 'website',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Art Portfolio Gallery | Contemporary Art Collection',
-    description: 'Explore a sophisticated collection of contemporary artwork in an immersive gallery experience.',
+    description:
+      'Explore a sophisticated collection of contemporary artwork in an immersive gallery experience.',
   },
 };
 
@@ -54,9 +64,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           disableTransitionOnChange
         >
           <DraftModeBanner isEnabled={isDraftMode} />
-          <div className={isDraftMode ? 'pt-12' : ''}>
-            {children}
-          </div>
+          <div className={isDraftMode ? 'pt-12' : ''}>{children}</div>
           <Toaster
             position='top-right'
             toastOptions={{
@@ -89,8 +97,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
         {/* Performance Monitoring */}
         <Script
-          id="web-vitals"
-          strategy="afterInteractive"
+          id='web-vitals'
+          strategy='afterInteractive'
           dangerouslySetInnerHTML={{
             __html: `
               if ('PerformanceObserver' in window) {
@@ -145,14 +153,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   });
                 }).observe({ entryTypes: ['layout-shift'] });
               }
-            `
+            `,
           }}
         />
 
         {/* Preload critical resources */}
         <Script
-          id="preload-resources"
-          strategy="beforeInteractive"
+          id='preload-resources'
+          strategy='beforeInteractive'
           dangerouslySetInnerHTML={{
             __html: `
               // Preload critical fonts
@@ -170,7 +178,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 link.href = font;
                 document.head.appendChild(link);
               });
-            `
+            `,
           }}
         />
       </body>

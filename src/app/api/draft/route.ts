@@ -1,24 +1,21 @@
 import { draftMode } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { validatePreviewUrl } from '@sanity/preview-url-secret';
-import { client } from '@/sanity/lib/client';
-
-const previewSecret = process.env.SANITY_PREVIEW_SECRET;
-const token = process.env.SANITY_API_READ_TOKEN;
+import { client } from '@/lib/sanity/lib/client';
+import { readToken, previewSecret } from '@/lib/sanity/lib/tokens';
 
 export async function GET(request: Request) {
   if (!previewSecret) {
     return new Response('Missing SANITY_PREVIEW_SECRET', { status: 500 });
   }
 
-  if (!token) {
+  if (!readToken) {
     return new Response('Missing SANITY_API_READ_TOKEN', { status: 500 });
   }
 
   const { isValid, redirectTo = '/' } = await validatePreviewUrl(
-    client.withConfig({ token }),
-    request.url,
-    previewSecret,
+    client.withConfig({ token: readToken }),
+    request.url
   );
 
   if (!isValid) {

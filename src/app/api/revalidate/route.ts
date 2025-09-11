@@ -1,8 +1,7 @@
 import { revalidateTag } from 'next/cache';
 import { type NextRequest, NextResponse } from 'next/server';
 import { parseBody } from 'next-sanity/webhook';
-
-const revalidateSecret = process.env.SANITY_REVALIDATE_SECRET;
+import { revalidateSecret } from '@/lib/sanity/env';
 
 type WebhookPayload = {
   _type: string;
@@ -11,10 +10,7 @@ type WebhookPayload = {
 
 export async function POST(request: NextRequest) {
   try {
-    const { body, isValidSignature } = await parseBody<WebhookPayload>(
-      request,
-      revalidateSecret,
-    );
+    const { body, isValidSignature } = await parseBody<WebhookPayload>(request, revalidateSecret);
 
     if (!isValidSignature) {
       const message = 'Invalid signature';
@@ -30,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     // Revalidate based on document type
     const tags = [body._type];
-    
+
     // Add specific tags based on document type
     if (body.slug) {
       tags.push(`${body._type}:${body.slug}`);
