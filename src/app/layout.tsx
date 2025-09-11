@@ -5,7 +5,10 @@ import Script from 'next/script';
 import './globals.css';
 import ThemeProvider from '@/components/poviders/theme-provider';
 import { Toaster } from 'react-hot-toast';
-import { SanityVisualEditing } from '@/components/sanity/visual-editing';
+import { draftMode } from 'next/headers';
+import { SanityLive } from '@/sanity/lib/live';
+import DraftModeBanner from '@/components/sanity/DraftModeBanner';
+import SanityVisualEditing from '@/components/sanity/visual-editing';
 import { SanityTest } from '@/components/sanity/sanity-test';
 
 const inter = Inter({
@@ -38,7 +41,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { isEnabled: isDraftMode } = await draftMode();
+
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
@@ -48,7 +53,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <DraftModeBanner isEnabled={isDraftMode} />
+          <div className={isDraftMode ? 'pt-12' : ''}>
+            {children}
+          </div>
           <Toaster
             position='top-right'
             toastOptions={{
@@ -74,8 +82,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </ThemeProvider>
 
-        {/* Sanity Visual Editing */}
-        {process.env.NODE_ENV === 'development' && <SanityVisualEditing />}
+        {/* Sanity Live Content and Visual Editing */}
+        {isDraftMode && <SanityVisualEditing />}
+        <SanityLive />
         {process.env.NODE_ENV === 'development' && <SanityTest />}
 
         {/* Performance Monitoring */}

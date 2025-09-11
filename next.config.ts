@@ -3,6 +3,9 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
+  experimental: {
+    taint: true,
+  },
   images: {
     // unoptimized: process.env.NODE_ENV === 'development',
     remotePatterns: [
@@ -13,6 +16,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'images.pexels.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
       },
     ],
     // Optimize local images

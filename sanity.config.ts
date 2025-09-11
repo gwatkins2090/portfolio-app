@@ -7,11 +7,13 @@
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
+import {presentationTool} from 'sanity/presentation'
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import {apiVersion, dataset, projectId} from './src/sanity/env'
 import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
+import {generatePreviewUrl} from './src/components/sanity/PreviewLink'
 
 export default defineConfig({
   name: 'jennifer-watkins-portfolio',
@@ -26,6 +28,13 @@ export default defineConfig({
 
   plugins: [
     structureTool({structure}),
+    presentationTool({
+      previewUrl: {
+        draftMode: {
+          enable: '/api/draft',
+        },
+      },
+    }),
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({defaultApiVersion: apiVersion}),
