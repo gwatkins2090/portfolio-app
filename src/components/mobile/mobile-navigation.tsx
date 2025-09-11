@@ -163,16 +163,23 @@ const MobileNavigation = ({
             initial="closed"
             animate="open"
             exit="closed"
-            className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-background border-l border-border shadow-2xl z-[9999] md:hidden mobile-nav-panel"
+            className="fixed top-0 right-0 h-full w-80 max-w-[90vw] border-l shadow-2xl z-[9999] md:hidden mobile-nav-panel"
+            style={{
+              backgroundColor: '#ffffff',
+              borderLeft: '3px solid #ff0000',
+              display: 'block',
+              visibility: 'visible',
+              boxShadow: '0 0 20px rgba(0,0,0,0.5)'
+            }}
           >
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-border">
+              <div className="flex items-center justify-between p-6 border-b" style={{ backgroundColor: '#f0f0f0', borderBottomColor: '#ccc' }}>
                 <div>
-                  <h2 className="text-xl font-serif font-semibold text-foreground">
-                    Jennifer Watkins
+                  <h2 className="text-xl font-serif font-semibold" style={{ color: '#000000' }}>
+                    DEBUG: Jennifer Watkins
                   </h2>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm" style={{ color: '#666666' }}>
                     Contemporary Art Portfolio
                   </p>
                 </div>
@@ -187,29 +194,33 @@ const MobileNavigation = ({
               </div>
 
               {/* Navigation Items */}
-              <nav className="flex-1 overflow-y-auto bg-background">
-                <div className="p-6 space-y-3">
+              <nav className="flex-1 overflow-y-auto" style={{ backgroundColor: '#f8f9fa', minHeight: '300px' }}>
+                <div className="p-6 space-y-3" style={{ backgroundColor: '#ffffff' }}>
                   {/* Debug: Show item count */}
-                  <div className="text-xs text-muted-foreground mb-4">
-                    {navigationItems.length} navigation items
+                  <div className="text-xs mb-4" style={{ color: '#000000', backgroundColor: '#ffff00', padding: '8px' }}>
+                    DEBUG: {navigationItems.length} navigation items found
                   </div>
                   {navigationItems.map((item, index) => (
-                    <motion.div
+                    <div
                       key={item.href}
-                      custom={index}
-                      variants={itemVariants}
-                      initial="closed"
-                      animate="open"
                       className="w-full"
+                      style={{
+                        opacity: 1,
+                        transform: 'translateX(0)',
+                        visibility: 'visible'
+                      }}
                     >
                       <Link
                         href={item.href}
                         onClick={toggleMenu}
                         className="flex items-center p-4 rounded-lg transition-colors group mobile-touch-target min-h-[60px] w-full mobile-nav-item"
                         style={{
-                          backgroundColor: 'hsl(var(--background))',
-                          color: 'hsl(var(--foreground))',
-                          border: '1px solid transparent'
+                          backgroundColor: '#ffffff',
+                          color: '#000000',
+                          border: '1px solid #e5e5e5',
+                          display: 'flex',
+                          visibility: 'visible',
+                          opacity: 1
                         }}
                       >
                         {item.icon && (
@@ -220,8 +231,8 @@ const MobileNavigation = ({
 
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between">
-                            <h3 className="font-medium text-foreground text-base font-semibold">
-                              {item.label}
+                            <h3 className="font-medium text-base font-semibold" style={{ color: '#000000', fontSize: '18px' }}>
+                              DEBUG: {item.label} (Item {index + 1})
                             </h3>
                             {item.badge && (
                               <Badge variant="secondary" className="text-xs ml-2">
@@ -234,7 +245,7 @@ const MobileNavigation = ({
                           </p>
                         </div>
                       </Link>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </nav>
