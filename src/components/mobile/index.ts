@@ -1,5 +1,3 @@
 // Mobile components exports
-
-export { default as MobileGallery } from './mobile-gallery';
-export { default as MobileNavigation } from './mobile-navigation';
-export { default as MobileArtworkDetail } from './mobile-artwork-detail';
+// Note: Mobile navigation is now consolidated into the main header component
+// This file is kept for potential future mobile-specific components
