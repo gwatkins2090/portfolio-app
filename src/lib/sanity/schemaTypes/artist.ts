@@ -7,15 +7,17 @@ export default defineType({
   fields: [
     defineField({
       name: 'name',
-      title: 'Name',
+      title: 'Artist Name',
       type: 'string',
+      description: '👤 Full name of the artist as it should appear throughout the website. Example: "Jennifer Watkins"',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'bio',
-      title: 'Biography',
+      title: 'Full Biography',
       type: 'text',
       rows: 6,
+      description: '📚 Complete artist biography that appears on the About page. Include background, education, artistic journey, and achievements.',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -23,6 +25,7 @@ export default defineType({
       title: 'Artist Statement',
       type: 'text',
       rows: 6,
+      description: '🎨 Personal artistic philosophy and approach. This appears in the artist statement section and explains your creative process and inspiration.',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -30,14 +33,14 @@ export default defineType({
       title: 'Short Biography',
       type: 'text',
       rows: 3,
-      description: 'Brief bio for homepage and cards',
+      description: '📝 Brief 2-3 sentence bio for homepage and artwork cards. Should capture the essence of your artistic practice.',
     }),
     defineField({
       name: 'aboutPageIntro',
       title: 'About Page Introduction',
       type: 'text',
       rows: 2,
-      description: 'Subtitle text for the about page hero section',
+      description: '🌟 Subtitle text that appears at the top of the About page, below the main heading. Sets the tone for the page.',
     }),
     defineField({
       name: 'profileImage',

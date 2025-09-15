@@ -33,10 +33,7 @@ async function sanityFetch<T>({
     token: isDraftMode ? readToken : undefined,
     perspective,
     useCdn: !isDraftMode,
-    stega: isDraftMode ? {
-      enabled: true,
-      studioUrl: '/studio',
-    } : false,
+    stega: isDraftMode,
   });
 
   return queryClient.fetch<T>(query, params, {

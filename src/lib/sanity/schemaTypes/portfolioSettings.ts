@@ -24,6 +24,7 @@ export default defineType({
       name: 'logo',
       title: 'Logo',
       type: 'image',
+      description: '🎨 Your website logo that appears in the header navigation. Recommended size: 200x60px or similar aspect ratio.',
       options: {
         hotspot: true,
       },
@@ -32,6 +33,7 @@ export default defineType({
       name: 'favicon',
       title: 'Favicon',
       type: 'image',
+      description: '🔖 Small icon that appears in browser tabs next to your site title. Should be square (32x32px or 64x64px).',
       options: {
         hotspot: true,
       },

@@ -64,18 +64,6 @@ async function populateSampleContent() {
             country: 'United States'
           },
           description: 'Focused on contemporary painting techniques and art theory. Thesis work explored the relationship between color and emotion in abstract expressionism.'
-        },
-        {
-          institution: 'University of California, Berkeley',
-          degree: 'Bachelor of Arts',
-          field: 'Fine Arts',
-          startYear: 2002,
-          endYear: 2006,
-          location: {
-            city: 'Berkeley',
-            country: 'United States'
-          },
-          description: 'Comprehensive study of art history, studio practice, and contemporary art theory. Graduated summa cum laude.'
         }
       ],
       exhibitions: [
@@ -92,21 +80,6 @@ async function populateSampleContent() {
           description: 'A comprehensive survey of recent works exploring the emotional resonance of color in contemporary life.',
           isFeatured: true,
           isUpcoming: false
-        },
-        {
-          title: 'Emerging Voices in Contemporary Art',
-          type: 'group',
-          venue: 'Whitney Museum',
-          location: {
-            city: 'New York',
-            country: 'United States'
-          },
-          startDate: '2023-09-01',
-          endDate: '2024-01-15',
-          description: 'Group exhibition featuring 20 contemporary artists under 40, showcasing the future of American art.',
-          curator: 'Dr. Sarah Mitchell',
-          isFeatured: true,
-          isUpcoming: false
         }
       ],
       awards: [
@@ -116,30 +89,7 @@ async function populateSampleContent() {
           year: 2022,
           description: 'Recognized for outstanding contribution to contemporary painting and innovative use of mixed media.',
           category: 'Visual Arts'
-        },
-        {
-          title: 'Excellence in Contemporary Art',
-          organization: 'New York Art Critics Circle',
-          year: 2021,
-          description: 'Awarded for exceptional artistic vision and technical mastery in the exhibition "Urban Landscapes".',
-          category: 'Painting'
         }
-      ],
-      publications: [
-        {
-          title: 'Contemporary Painters Today',
-          type: 'magazine',
-          publisher: 'Art Monthly',
-          year: 2023,
-          authors: ['Michael Chen', 'Lisa Rodriguez'],
-          description: 'Feature article highlighting innovative techniques in contemporary painting, with Jennifer\'s work prominently featured.',
-          url: 'https://artmonthly.com/contemporary-painters-2023'
-        }
-      ],
-      collections: [
-        'Metropolitan Museum of Art, New York',
-        'Museum of Contemporary Art, Los Angeles',
-        'Private Collection of the Johnson Family Foundation'
       ],
       socialMedia: {
         instagram: 'https://instagram.com/jenniferwatkinsart',
@@ -161,32 +111,32 @@ async function populateSampleContent() {
     const portfolioSettings = await client.create({
       _type: 'portfolioSettings',
       _id: 'portfolioSettings',
-      title: 'Jennifer Watkins Art Portfolio',
-      description: 'Contemporary art portfolio showcasing original paintings and mixed media works that explore the intersection of traditional techniques and modern expression.',
+      title: 'Jennifer Watkins Art Portfolio - This title appears in browser tabs and search results',
+      description: 'Contemporary art portfolio showcasing original paintings and mixed media works that explore the intersection of traditional techniques and modern expression. This description appears in Google search results.',
       primaryArtist: {
         _type: 'reference',
         _ref: artist._id
       },
       heroSection: {
-        title: 'Welcome to Jennifer Watkins Art',
-        subtitle: 'Contemporary Abstract Expressionism',
-        description: 'Explore a curated collection of contemporary artworks that bridge traditional painting techniques with modern digital expression. Each piece tells a story of color, emotion, and the human experience.',
+        title: 'Welcome to Jennifer Watkins Art - This large headline appears at the top of your homepage',
+        subtitle: 'Contemporary Abstract Expressionism - This subtitle appears below the main title',
+        description: 'Explore a curated collection of contemporary artworks that bridge traditional painting techniques with modern digital expression. Each piece tells a story of color, emotion, and the human experience. This paragraph introduces visitors to your work.',
         ctaText: 'Explore Gallery',
         ctaLink: '/portfolio',
         secondaryCtaText: 'About the Artist',
         secondaryCtaLink: '/about'
       },
       galleryTransition: {
-        title: 'Enter the Gallery',
-        subtitle: 'Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression. Each piece invites you to contemplate themes of identity, transformation, and the beauty found in everyday moments.'
+        title: 'Enter the Gallery - This section title appears between homepage sections',
+        subtitle: 'Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression. Each piece invites you to contemplate themes of identity, transformation, and the beauty found in everyday moments. This text helps transition visitors from the hero section to the gallery.'
       },
       artistStatement: {
-        title: 'Artist Statement',
-        quote: 'Art is not what you see, but what you make others see.',
+        title: 'Artist Statement - This section heading appears on the homepage',
+        quote: 'Art is not what you see, but what you make others see. - This featured quote appears prominently in the artist statement section',
         paragraphs: [
-          'My artistic practice is rooted in the belief that art has the power to transform both creator and viewer. Each piece I create is an exploration of color, form, and emotion - a visual conversation about what it means to be human in our rapidly changing world.',
-          'I draw inspiration from both classical masters and contemporary digital artists, seeking to find harmony between traditional techniques and modern sensibilities. Through bold color palettes and dynamic compositions, I aim to create works that are both visually striking and emotionally resonant.',
-          'My goal is to create pieces that invite contemplation and spark meaningful dialogue about our shared human experience.'
+          'My artistic practice is rooted in the belief that art has the power to transform both creator and viewer. Each piece I create is an exploration of color, form, and emotion - a visual conversation about what it means to be human in our rapidly changing world. This paragraph appears in the artist statement section.',
+          'I draw inspiration from both classical masters and contemporary digital artists, seeking to find harmony between traditional techniques and modern sensibilities. Through bold color palettes and dynamic compositions, I aim to create works that are both visually striking and emotionally resonant. This is the second paragraph of the artist statement.',
+          'My goal is to create pieces that invite contemplation and spark meaningful dialogue about our shared human experience. This is the final paragraph that concludes the artist statement section.'
         ],
         achievements: {
           artworksCount: 127,
@@ -195,8 +145,8 @@ async function populateSampleContent() {
         }
       },
       galleryTransition2: {
-        title: 'Continue Exploring',
-        subtitle: 'Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities. Each piece represents a unique moment in the ongoing dialogue between artist and canvas.'
+        title: 'Continue Exploring - This appears as a section title later on the homepage',
+        subtitle: 'Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities. Each piece represents a unique moment in the ongoing dialogue between artist and canvas. This text encourages visitors to explore more of the website.'
       },
       socialMedia: {
         instagram: 'https://instagram.com/jenniferwatkinsart',
@@ -225,8 +175,8 @@ async function populateSampleContent() {
         paymentMethods: ['credit-card', 'paypal', 'bank-transfer']
       },
       seo: {
-        metaTitle: 'Jennifer Watkins Art - Contemporary Paintings & Mixed Media',
-        metaDescription: 'Discover contemporary art by Jennifer Watkins. Original paintings and mixed media works exploring traditional techniques with modern expression.',
+        metaTitle: 'Jennifer Watkins Art - Contemporary Paintings & Mixed Media - This appears in search results',
+        metaDescription: 'Discover contemporary art by Jennifer Watkins. Original paintings and mixed media works exploring traditional techniques with modern expression. This description appears in Google search results and social media previews.',
         keywords: ['contemporary art', 'abstract painting', 'mixed media', 'Jennifer Watkins', 'modern art', 'original paintings']
       }
     });
@@ -236,8 +186,8 @@ async function populateSampleContent() {
     console.log('\n🎉 Sample content created successfully!');
     console.log('📍 Next steps:');
     console.log('1. Visit http://localhost:3000/studio to see your content');
-    console.log('2. Add artwork images and create artwork entries');
-    console.log('3. Customize the content to match your actual portfolio');
+    console.log('2. Notice how each field has explanatory text showing what it controls');
+    console.log('3. Edit the sample content to match your actual portfolio');
     console.log('4. Test the visual editing in presentation mode');
     
   } catch (error) {
