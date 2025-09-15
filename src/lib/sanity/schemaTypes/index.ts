@@ -9,6 +9,13 @@ import blogPost from './blogPost'
 import testimonial from './testimonial'
 import portfolioSettings from './portfolioSettings'
 
+// New page-specific settings
+import homepageSettings from './homepageSettings'
+import aboutPageSettings from './aboutPageSettings'
+import portfolioPageSettings from './portfolioPageSettings'
+import contactPageSettings from './contactPageSettings'
+import globalSettings from './globalSettings'
+
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     // Core content types
@@ -21,7 +28,16 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     blogPost,
     testimonial,
 
-    // Settings
+    // Page-specific settings
+    homepageSettings,
+    aboutPageSettings,
+    portfolioPageSettings,
+    contactPageSettings,
+
+    // Global settings
+    globalSettings,
+
+    // Legacy settings (will be migrated)
     portfolioSettings,
   ],
 }

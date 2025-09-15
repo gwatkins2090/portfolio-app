@@ -9,6 +9,16 @@ import {
   homepageDataQuery,
   aboutPageDataQuery,
   contactPageDataQuery,
+  // New page-specific queries
+  globalSettingsQuery,
+  homepageSettingsQuery,
+  aboutPageSettingsQuery,
+  portfolioPageSettingsQuery,
+  contactPageSettingsQuery,
+  newHomepageDataQuery,
+  newAboutPageDataQuery,
+  newPortfolioPageDataQuery,
+  newContactPageDataQuery,
 } from './queries';
 
 // Generic fetch function with draft mode support
@@ -102,6 +112,98 @@ export async function getContactPageData() {
   }>({
     query: contactPageDataQuery,
     tags: ['contact', 'portfolioSettings', 'artist'],
+  });
+}
+
+// NEW PAGE-SPECIFIC FETCH FUNCTIONS
+
+// Global Settings
+export async function getGlobalSettings() {
+  return sanityFetch<any>({
+    query: globalSettingsQuery,
+    tags: ['globalSettings'],
+  });
+}
+
+// Homepage Settings
+export async function getHomepageSettings() {
+  return sanityFetch<any>({
+    query: homepageSettingsQuery,
+    tags: ['homepageSettings'],
+  });
+}
+
+// About Page Settings
+export async function getAboutPageSettings() {
+  return sanityFetch<any>({
+    query: aboutPageSettingsQuery,
+    tags: ['aboutPageSettings'],
+  });
+}
+
+// Portfolio Page Settings
+export async function getPortfolioPageSettings() {
+  return sanityFetch<any>({
+    query: portfolioPageSettingsQuery,
+    tags: ['portfolioPageSettings'],
+  });
+}
+
+// Contact Page Settings
+export async function getContactPageSettings() {
+  return sanityFetch<any>({
+    query: contactPageSettingsQuery,
+    tags: ['contactPageSettings'],
+  });
+}
+
+// NEW COMBINED PAGE DATA FUNCTIONS
+
+// New Homepage Data (using new schema structure)
+export async function getNewHomepageData() {
+  return sanityFetch<{
+    homepageSettings: any;
+    globalSettings: any;
+    artist: any;
+  }>({
+    query: newHomepageDataQuery,
+    tags: ['homepage', 'homepageSettings', 'globalSettings', 'artist'],
+  });
+}
+
+// New About Page Data (using new schema structure)
+export async function getNewAboutPageData() {
+  return sanityFetch<{
+    aboutPageSettings: any;
+    globalSettings: any;
+    artist: any;
+  }>({
+    query: newAboutPageDataQuery,
+    tags: ['about', 'aboutPageSettings', 'globalSettings', 'artist'],
+  });
+}
+
+// New Portfolio Page Data (using new schema structure)
+export async function getNewPortfolioPageData() {
+  return sanityFetch<{
+    portfolioPageSettings: any;
+    globalSettings: any;
+    artworks: any[];
+  }>({
+    query: newPortfolioPageDataQuery,
+    tags: ['portfolio', 'portfolioPageSettings', 'globalSettings', 'artwork'],
+  });
+}
+
+// New Contact Page Data (using new schema structure)
+export async function getNewContactPageData() {
+  return sanityFetch<{
+    contactPageSettings: any;
+    globalSettings: any;
+    artist: any;
+  }>({
+    query: newContactPageDataQuery,
+    tags: ['contact', 'contactPageSettings', 'globalSettings', 'artist'],
   });
 }
 

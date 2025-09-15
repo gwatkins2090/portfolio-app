@@ -1,0 +1,353 @@
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
+  name: 'portfolioPageSettings',
+  title: 'Portfolio Page Settings',
+  type: 'document',
+  icon: () => '🖼️',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Page Title',
+      type: 'string',
+      description: '🖼️ The main title for the portfolio page. This appears in browser tabs and search results.',
+      validation: (Rule) => Rule.required(),
+      initialValue: 'Portfolio | Jennifer Watkins - Contemporary Art Collection',
+    }),
+    defineField({
+      name: 'description',
+      title: 'Page Description',
+      type: 'text',
+      rows: 3,
+      description: '📝 Brief description for search engines and social media. Keep under 160 characters.',
+      validation: (Rule) => Rule.required().max(160),
+      initialValue: 'Explore the complete portfolio of Jennifer Watkins featuring contemporary paintings, mixed media works, and digital art pieces.',
+    }),
+    defineField({
+      name: 'heroSection',
+      title: '🎨 Hero Section',
+      type: 'object',
+      description: 'The banner section at the top of the portfolio page',
+      fields: [
+        {
+          name: 'title',
+          title: 'Page Heading',
+          type: 'string',
+          description: '✨ Main heading for the portfolio page',
+          validation: (Rule) => Rule.required(),
+          initialValue: 'Complete Portfolio',
+        },
+        {
+          name: 'subtitle',
+          title: 'Page Subtitle',
+          type: 'text',
+          rows: 3,
+          description: '📖 Introductory text that appears below the main heading',
+          initialValue: 'A comprehensive collection of contemporary artworks spanning multiple mediums and artistic explorations.',
+        },
+      ],
+    }),
+    defineField({
+      name: 'portfolioStats',
+      title: '📊 Portfolio Statistics',
+      type: 'object',
+      description: 'Key numbers that showcase the portfolio scope',
+      fields: [
+        {
+          name: 'totalArtworks',
+          title: 'Total Artworks',
+          type: 'string',
+          description: '🎨 Total number of artworks (e.g., "50+" or "127")',
+          initialValue: '50+',
+        },
+        {
+          name: 'yearsActive',
+          title: 'Years Active',
+          type: 'string',
+          description: '📅 Years of artistic practice (e.g., "6+" or "Since 2018")',
+          initialValue: '6+',
+        },
+        {
+          name: 'galleryViews',
+          title: 'Gallery Views',
+          type: 'string',
+          description: '👁️ Portfolio engagement metric (e.g., "10K+" or "25,000+")',
+          initialValue: '10K+',
+        },
+      ],
+    }),
+    defineField({
+      name: 'categoriesSection',
+      title: '📂 Categories Section',
+      type: 'object',
+      description: 'Section showcasing different artwork categories',
+      fields: [
+        {
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          description: '📂 Heading for the categories section',
+          initialValue: 'Explore by Category',
+        },
+        {
+          name: 'subtitle',
+          title: 'Section Description',
+          type: 'text',
+          rows: 2,
+          description: '📝 Text explaining the category organization',
+          initialValue: 'Browse the collection organized by medium and artistic approach',
+        },
+        {
+          name: 'categories',
+          title: 'Portfolio Categories',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {
+                  name: 'id',
+                  title: 'Category ID',
+                  type: 'string',
+                  description: '🔗 URL-friendly identifier (e.g., "paintings", "mixed-media")',
+                  validation: (Rule) => Rule.required(),
+                },
+                {
+                  name: 'title',
+                  title: 'Category Title',
+                  type: 'string',
+                  description: '📝 Display name for the category',
+                  validation: (Rule) => Rule.required(),
+                },
+                {
+                  name: 'description',
+                  title: 'Category Description',
+                  type: 'text',
+                  rows: 2,
+                  description: '📖 Brief description of what\'s in this category',
+                },
+                {
+                  name: 'count',
+                  title: 'Artwork Count',
+                  type: 'number',
+                  description: '🔢 Number of artworks in this category',
+                },
+                {
+                  name: 'featured',
+                  title: 'Featured Category',
+                  type: 'boolean',
+                  description: '⭐ Mark as featured to highlight this category',
+                  initialValue: false,
+                },
+                {
+                  name: 'coverImage',
+                  title: 'Category Cover Image',
+                  type: 'image',
+                  description: '📷 Representative image for this category',
+                  options: {
+                    hotspot: true,
+                  },
+                },
+              ],
+            },
+          ],
+          description: '📂 Define the different categories of artwork in your portfolio',
+        },
+      ],
+    }),
+    defineField({
+      name: 'featuredSection',
+      title: '⭐ Featured Artworks Section',
+      type: 'object',
+      description: 'Section highlighting standout pieces from the portfolio',
+      fields: [
+        {
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          description: '⭐ Heading for the featured artworks section',
+          initialValue: 'Featured Artworks',
+        },
+        {
+          name: 'subtitle',
+          title: 'Section Description',
+          type: 'text',
+          rows: 2,
+          description: '📝 Text explaining the featured selection',
+          initialValue: 'A curated selection of standout pieces from the complete portfolio',
+        },
+        {
+          name: 'featuredArtworks',
+          title: 'Featured Artworks',
+          type: 'array',
+          of: [
+            {
+              type: 'reference',
+              to: [{ type: 'artwork' }],
+            },
+          ],
+          description: '🎨 Select artworks to feature on the portfolio page',
+          validation: (Rule) => Rule.max(12),
+        },
+      ],
+    }),
+    defineField({
+      name: 'callToAction',
+      title: '📞 Call to Action Section',
+      type: 'object',
+      description: 'Section encouraging visitors to take action',
+      fields: [
+        {
+          name: 'title',
+          title: 'CTA Title',
+          type: 'string',
+          description: '📞 Heading for the call-to-action section',
+          initialValue: 'Interested in a Piece?',
+        },
+        {
+          name: 'subtitle',
+          title: 'CTA Description',
+          type: 'text',
+          rows: 3,
+          description: '📝 Text encouraging visitors to take action',
+          initialValue: 'Many artworks are available for purchase or commission. Get in touch to discuss pricing, availability, or to commission a custom piece.',
+        },
+        {
+          name: 'primaryButtonText',
+          title: 'Primary Button Text',
+          type: 'string',
+          description: '🔘 Text for the main action button',
+          initialValue: 'Shop Artworks',
+        },
+        {
+          name: 'primaryButtonLink',
+          title: 'Primary Button Link',
+          type: 'string',
+          description: '🔗 Where the primary button should link to',
+          initialValue: '/shop',
+        },
+        {
+          name: 'secondaryButtonText',
+          title: 'Secondary Button Text',
+          type: 'string',
+          description: '🔘 Text for the secondary action button',
+          initialValue: 'Commission a Piece',
+        },
+        {
+          name: 'secondaryButtonLink',
+          title: 'Secondary Button Link',
+          type: 'string',
+          description: '🔗 Where the secondary button should link to',
+          initialValue: '/contact',
+        },
+      ],
+    }),
+    defineField({
+      name: 'filterSettings',
+      title: '🔍 Filter & Display Settings',
+      type: 'object',
+      description: 'Configure how artworks are filtered and displayed',
+      fields: [
+        {
+          name: 'enableCategoryFilter',
+          title: 'Enable Category Filter',
+          type: 'boolean',
+          description: '🔍 Allow visitors to filter by category',
+          initialValue: true,
+        },
+        {
+          name: 'enableMediumFilter',
+          title: 'Enable Medium Filter',
+          type: 'boolean',
+          description: '🎨 Allow visitors to filter by medium',
+          initialValue: true,
+        },
+        {
+          name: 'enableYearFilter',
+          title: 'Enable Year Filter',
+          type: 'boolean',
+          description: '📅 Allow visitors to filter by year',
+          initialValue: true,
+        },
+        {
+          name: 'defaultSortOrder',
+          title: 'Default Sort Order',
+          type: 'string',
+          description: '📊 How artworks should be sorted by default',
+          options: {
+            list: [
+              { title: 'Newest First', value: 'newest' },
+              { title: 'Oldest First', value: 'oldest' },
+              { title: 'Alphabetical', value: 'alphabetical' },
+              { title: 'Featured First', value: 'featured' },
+            ],
+          },
+          initialValue: 'newest',
+        },
+        {
+          name: 'artworksPerPage',
+          title: 'Artworks Per Page',
+          type: 'number',
+          description: '📄 Number of artworks to show per page',
+          validation: (Rule) => Rule.min(6).max(24),
+          initialValue: 12,
+        },
+      ],
+    }),
+    defineField({
+      name: 'seo',
+      title: '🔍 SEO Settings',
+      type: 'object',
+      description: 'Search engine optimization settings for the portfolio page',
+      fields: [
+        {
+          name: 'metaTitle',
+          title: 'Meta Title',
+          type: 'string',
+          description: '📝 Title that appears in search results (max 60 characters)',
+          validation: (Rule) => Rule.max(60),
+        },
+        {
+          name: 'metaDescription',
+          title: 'Meta Description',
+          type: 'text',
+          rows: 3,
+          description: '📝 Description that appears in search results (max 160 characters)',
+          validation: (Rule) => Rule.max(160),
+        },
+        {
+          name: 'keywords',
+          title: 'Keywords',
+          type: 'array',
+          of: [{ type: 'string' }],
+          description: '🏷️ Keywords for search engine optimization',
+          options: {
+            layout: 'tags',
+          },
+        },
+        {
+          name: 'ogImage',
+          title: 'Social Media Image',
+          type: 'image',
+          description: '📷 Image that appears when the portfolio page is shared on social media',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
+    }),
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'description',
+    },
+    prepare(selection) {
+      const { title, subtitle } = selection
+      return {
+        title: title || 'Portfolio Page Settings',
+        subtitle: subtitle || 'Configure portfolio page content and layout',
+      }
+    },
+  },
+})

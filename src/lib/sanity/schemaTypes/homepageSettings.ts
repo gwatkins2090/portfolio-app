@@ -1,0 +1,282 @@
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
+  name: 'homepageSettings',
+  title: 'Homepage Settings',
+  type: 'document',
+  icon: () => '🏠',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Page Title',
+      type: 'string',
+      description: '🏠 The main title for the homepage. This appears in browser tabs and search results.',
+      validation: (Rule) => Rule.required(),
+      initialValue: 'Jennifer Watkins - Contemporary Artist',
+    }),
+    defineField({
+      name: 'description',
+      title: 'Page Description',
+      type: 'text',
+      rows: 3,
+      description: '📝 Brief description for search engines and social media. Keep under 160 characters.',
+      validation: (Rule) => Rule.required().max(160),
+      initialValue: 'Contemporary art portfolio showcasing original paintings and artwork by Jennifer Watkins.',
+    }),
+    defineField({
+      name: 'heroSection',
+      title: '🎨 Hero Section',
+      type: 'object',
+      description: 'The large banner section at the top of your homepage - the first thing visitors see',
+      fields: [
+        {
+          name: 'title',
+          title: 'Hero Title',
+          type: 'string',
+          description: '✨ Large headline text displayed prominently. Example: "Contemporary Art"',
+          validation: (Rule) => Rule.required(),
+          initialValue: 'Contemporary Art',
+        },
+        {
+          name: 'subtitle',
+          title: 'Hero Subtitle',
+          type: 'string',
+          description: '🎭 Secondary text below the main title. Example: "Portfolio"',
+          initialValue: 'Portfolio',
+        },
+        {
+          name: 'description',
+          title: 'Hero Description',
+          type: 'text',
+          rows: 3,
+          description: '📖 Paragraph text that introduces your work to visitors.',
+          initialValue: 'Discover a curated collection of contemporary artwork that explores the intersection of traditional techniques and modern expression.',
+        },
+        {
+          name: 'ctaText',
+          title: 'Primary Button Text',
+          type: 'string',
+          description: '🔘 Text for the main call-to-action button',
+          initialValue: 'Explore Gallery',
+        },
+        {
+          name: 'ctaLink',
+          title: 'Primary Button Link',
+          type: 'string',
+          description: '🔗 Where the primary button should link to',
+          initialValue: '/portfolio',
+        },
+        {
+          name: 'secondaryCtaText',
+          title: 'Secondary Button Text',
+          type: 'string',
+          description: '🔘 Text for the secondary call-to-action button',
+          initialValue: 'About the Artist',
+        },
+        {
+          name: 'secondaryCtaLink',
+          title: 'Secondary Button Link',
+          type: 'string',
+          description: '🔗 Where the secondary button should link to',
+          initialValue: '/about',
+        },
+      ],
+    }),
+    defineField({
+      name: 'galleryTransition',
+      title: '🖼️ Gallery Transition Section',
+      type: 'object',
+      description: 'The section that introduces visitors to your gallery',
+      fields: [
+        {
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          description: '🎨 Title for the gallery introduction section',
+          initialValue: 'Enter the Gallery',
+        },
+        {
+          name: 'subtitle',
+          title: 'Section Description',
+          type: 'text',
+          rows: 3,
+          description: '📝 Descriptive text that invites visitors to explore your gallery',
+          initialValue: 'Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression.',
+        },
+      ],
+    }),
+    defineField({
+      name: 'featuredCollection',
+      title: '🎭 Featured Collection Section',
+      type: 'object',
+      description: 'The main gallery section showcasing your featured artworks',
+      fields: [
+        {
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          description: '🖼️ Main heading for your featured artworks section',
+          initialValue: 'Featured Collection',
+        },
+        {
+          name: 'subtitle',
+          title: 'Section Description',
+          type: 'text',
+          rows: 3,
+          description: '📝 Text explaining what visitors will see in this section',
+          initialValue: 'A selection of recent works showcasing diverse mediums and artistic approaches.',
+        },
+      ],
+    }),
+    defineField({
+      name: 'artistStatement',
+      title: '💭 Artist Statement Section',
+      type: 'object',
+      description: 'Section featuring your artistic philosophy and achievements',
+      fields: [
+        {
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          description: '📝 Heading for the artist statement section',
+          initialValue: 'Artist Statement',
+        },
+        {
+          name: 'quote',
+          title: 'Featured Quote',
+          type: 'string',
+          description: '💬 Inspirational quote that appears in the floating card',
+          initialValue: 'Art is not what you see, but what you make others see.',
+        },
+        {
+          name: 'paragraphs',
+          title: 'Statement Paragraphs',
+          type: 'array',
+          of: [{ type: 'text' }],
+          description: '📖 Your artistic statement broken into paragraphs',
+          validation: (Rule) => Rule.min(1).max(5),
+        },
+        {
+          name: 'achievements',
+          title: 'Key Achievements',
+          type: 'object',
+          description: '🏆 Numbers that showcase your artistic accomplishments',
+          fields: [
+            {
+              name: 'artworksCount',
+              title: 'Artworks Created',
+              type: 'number',
+              description: '🎨 Total number of artworks you\'ve created',
+              initialValue: 50,
+            },
+            {
+              name: 'exhibitionsCount',
+              title: 'Exhibitions',
+              type: 'number',
+              description: '🏛️ Number of exhibitions you\'ve participated in',
+              initialValue: 12,
+            },
+            {
+              name: 'awardsCount',
+              title: 'Awards',
+              type: 'number',
+              description: '🏆 Number of awards or recognitions received',
+              initialValue: 3,
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'continueExploring',
+      title: '🚀 Continue Exploring Section',
+      type: 'object',
+      description: 'Final section encouraging visitors to explore more',
+      fields: [
+        {
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          description: '🔍 Title encouraging further exploration',
+          initialValue: 'Continue Exploring',
+        },
+        {
+          name: 'subtitle',
+          title: 'Section Description',
+          type: 'text',
+          rows: 3,
+          description: '📝 Text encouraging visitors to explore more of your website',
+          initialValue: 'Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities.',
+        },
+      ],
+    }),
+    defineField({
+      name: 'featuredArtworks',
+      title: '🖼️ Featured Artworks',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'artwork' }],
+        },
+      ],
+      description: '🎨 Select up to 6 artworks to feature on the homepage',
+      validation: (Rule) => Rule.max(6),
+    }),
+    defineField({
+      name: 'seo',
+      title: '🔍 SEO Settings',
+      type: 'object',
+      description: 'Search engine optimization settings for the homepage',
+      fields: [
+        {
+          name: 'metaTitle',
+          title: 'Meta Title',
+          type: 'string',
+          description: '📝 Title that appears in search results (max 60 characters)',
+          validation: (Rule) => Rule.max(60),
+        },
+        {
+          name: 'metaDescription',
+          title: 'Meta Description',
+          type: 'text',
+          rows: 3,
+          description: '📝 Description that appears in search results (max 160 characters)',
+          validation: (Rule) => Rule.max(160),
+        },
+        {
+          name: 'keywords',
+          title: 'Keywords',
+          type: 'array',
+          of: [{ type: 'string' }],
+          description: '🏷️ Keywords for search engine optimization',
+          options: {
+            layout: 'tags',
+          },
+        },
+        {
+          name: 'ogImage',
+          title: 'Social Media Image',
+          type: 'image',
+          description: '📷 Image that appears when the homepage is shared on social media',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
+    }),
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'description',
+    },
+    prepare(selection) {
+      const { title, subtitle } = selection
+      return {
+        title: title || 'Homepage Settings',
+        subtitle: subtitle || 'Configure homepage content and layout',
+      }
+    },
+  },
+})

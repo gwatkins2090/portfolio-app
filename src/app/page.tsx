@@ -5,27 +5,48 @@ import HeroSection from '@/components/gallery/hero-section';
 import GalleryGrid from '@/components/gallery/gallery-grid';
 import ArtistStatement from '@/components/gallery/artist-statement';
 import GalleryTransition from '@/components/gallery/gallery-transition';
-import { getHomepageData } from '@/lib/sanity/fetch';
+import { getHomepageData, getNewHomepageData } from '@/lib/sanity/fetch';
 import { sampleArtworks } from '@/lib/sample-data';
 import { VisualEditingWrapper } from '@/components/sanity/visual-editing-wrapper';
 
 // Generate metadata from Sanity data
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    const data = await getHomepageData();
-    const settings = data.settings;
+    // Try new schema first, fallback to legacy
+    let data;
+    try {
+      data = await getNewHomepageData();
+      const settings = data.homepageSettings;
+      const globalSettings = data.globalSettings;
 
-    return {
-      title: settings?.seo?.metaTitle || settings?.title || 'Jennifer Watkins - Contemporary Artist',
-      description: settings?.seo?.metaDescription || settings?.description || 'Contemporary art portfolio showcasing original paintings and artwork by Jennifer Watkins.',
-      keywords: settings?.seo?.keywords || ['contemporary art', 'paintings', 'Jennifer Watkins', 'artist'],
-      openGraph: {
+      return {
+        title: settings?.seo?.metaTitle || settings?.title || globalSettings?.seo?.defaultMetaTitle || 'Jennifer Watkins - Contemporary Artist',
+        description: settings?.seo?.metaDescription || settings?.description || globalSettings?.seo?.defaultMetaDescription || 'Contemporary art portfolio showcasing original paintings and artwork by Jennifer Watkins.',
+        keywords: settings?.seo?.keywords || globalSettings?.seo?.defaultKeywords || ['contemporary art', 'paintings', 'Jennifer Watkins', 'artist'],
+        openGraph: {
+          title: settings?.seo?.metaTitle || settings?.title || globalSettings?.seo?.defaultMetaTitle || 'Jennifer Watkins - Contemporary Artist',
+          description: settings?.seo?.metaDescription || settings?.description || globalSettings?.seo?.defaultMetaDescription,
+          type: 'website',
+          images: settings?.seo?.ogImage ? [settings.seo.ogImage.asset.url] : globalSettings?.seo?.defaultOgImage ? [globalSettings.seo.defaultOgImage.asset.url] : [],
+        },
+      };
+    } catch (newSchemaError) {
+      // Fallback to legacy schema
+      const legacyData = await getHomepageData();
+      const settings = legacyData.settings;
+
+      return {
         title: settings?.seo?.metaTitle || settings?.title || 'Jennifer Watkins - Contemporary Artist',
-        description: settings?.seo?.metaDescription || settings?.description,
-        type: 'website',
-        images: settings?.seo?.ogImage ? [settings.seo.ogImage.asset.url] : [],
-      },
-    };
+        description: settings?.seo?.metaDescription || settings?.description || 'Contemporary art portfolio showcasing original paintings and artwork by Jennifer Watkins.',
+        keywords: settings?.seo?.keywords || ['contemporary art', 'paintings', 'Jennifer Watkins', 'artist'],
+        openGraph: {
+          title: settings?.seo?.metaTitle || settings?.title || 'Jennifer Watkins - Contemporary Artist',
+          description: settings?.seo?.metaDescription || settings?.description,
+          type: 'website',
+          images: settings?.seo?.ogImage ? [settings.seo.ogImage.asset.url] : [],
+        },
+      };
+    }
   } catch (error) {
     console.error('Error generating metadata:', error);
     return {
@@ -36,21 +57,46 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const HomePage = async () => {
-  // Fetch data from Sanity
+  // Fetch data from Sanity - try new schema first, fallback to legacy
   let data;
+  let isNewSchema = false;
+
   try {
-    data = await getHomepageData();
-  } catch (error) {
-    console.error('Error fetching homepage data:', error);
-    data = { settings: null, artist: null, featuredArtworks: [] };
+    // Try new page-specific schema first
+    data = await getNewHomepageData();
+    isNewSchema = true;
+    console.log('✅ Using new homepage schema');
+  } catch (newSchemaError) {
+    console.log('⚠️ New schema not available, falling back to legacy schema');
+    try {
+      // Fallback to legacy schema
+      const legacyData = await getHomepageData();
+      data = {
+        homepageSettings: legacyData.settings,
+        globalSettings: null,
+        artist: legacyData.artist,
+        featuredArtworks: legacyData.featuredArtworks
+      };
+    } catch (error) {
+      console.error('Error fetching homepage data:', error);
+      data = { homepageSettings: null, globalSettings: null, artist: null, featuredArtworks: [] };
+    }
   }
 
-  const { settings, artist, featuredArtworks } = data;
+  const { homepageSettings, globalSettings, artist } = data;
+
+  // Get featured artworks from homepage settings or fallback
+  const featuredArtworks = isNewSchema
+    ? homepageSettings?.featuredArtworks
+    : data.featuredArtworks;
 
   // Use Sanity content if available, otherwise fall back to static content
   const artworksToShow = featuredArtworks && featuredArtworks.length > 0
     ? featuredArtworks
     : sampleArtworks;
+
+  // For backward compatibility, create a settings object that works with existing components
+  const settings = homepageSettings;
 
   return (
     <div className="min-h-screen bg-background">
@@ -59,7 +105,7 @@ const HomePage = async () => {
         {/* Hero Section with Featured Artwork Slideshow */}
         <VisualEditingWrapper
           documentId={settings?._id}
-          documentType="portfolioSettings"
+          documentType={isNewSchema ? "homepageSettings" : "portfolioSettings"}
           fieldPath="heroSection"
         >
           <HeroSection
@@ -72,7 +118,7 @@ const HomePage = async () => {
         <div className="hidden md:block">
           <VisualEditingWrapper
             documentId={settings?._id}
-            documentType="portfolioSettings"
+            documentType={isNewSchema ? "homepageSettings" : "portfolioSettings"}
             fieldPath="galleryTransition"
           >
             <GalleryTransition
@@ -90,7 +136,7 @@ const HomePage = async () => {
         {/* Featured Artworks Grid - Responsive for all screen sizes */}
         <VisualEditingWrapper
           documentId={settings?._id}
-          documentType="portfolioSettings"
+          documentType={isNewSchema ? "homepageSettings" : "portfolioSettings"}
           fieldPath="featuredCollection"
         >
           <GalleryGrid
@@ -104,7 +150,7 @@ const HomePage = async () => {
         {/* Artist Statement Section */}
         <VisualEditingWrapper
           documentId={settings?._id}
-          documentType="portfolioSettings"
+          documentType={isNewSchema ? "homepageSettings" : "portfolioSettings"}
           fieldPath="artistStatement"
         >
           <ArtistStatement
@@ -116,16 +162,16 @@ const HomePage = async () => {
         {/* Final Gallery Transition */}
         <VisualEditingWrapper
           documentId={settings?._id}
-          documentType="portfolioSettings"
-          fieldPath="galleryTransition2"
+          documentType={isNewSchema ? "homepageSettings" : "portfolioSettings"}
+          fieldPath={isNewSchema ? "continueExploring" : "galleryTransition2"}
         >
           <GalleryTransition
-            title={settings?.galleryTransition2?.title || "Continue Exploring"}
-            subtitle={settings?.galleryTransition2?.subtitle || "Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities."}
+            title={settings?.continueExploring?.title || settings?.galleryTransition2?.title || "Continue Exploring"}
+            subtitle={settings?.continueExploring?.subtitle || settings?.galleryTransition2?.subtitle || "Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities."}
             backgroundColor="bg-dusty-rose/10 dark:bg-dusty-rose/5"
             settings={settings}
-            titleFieldPath="galleryTransition2.title"
-            subtitleFieldPath="galleryTransition2.subtitle"
+            titleFieldPath={isNewSchema ? "continueExploring.title" : "galleryTransition2.title"}
+            subtitleFieldPath={isNewSchema ? "continueExploring.subtitle" : "galleryTransition2.subtitle"}
           >
             <div />
           </GalleryTransition>
