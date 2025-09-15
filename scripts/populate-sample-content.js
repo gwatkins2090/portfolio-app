@@ -1,15 +1,54 @@
+// Load environment variables from .env.local
+const fs = require('fs');
+const path = require('path');
+
+// Manually load .env.local since dotenv might not be available
+function loadEnvLocal() {
+  try {
+    const envPath = path.join(process.cwd(), '.env.local');
+    const envContent = fs.readFileSync(envPath, 'utf8');
+
+    envContent.split('\n').forEach(line => {
+      const [key, ...valueParts] = line.split('=');
+      if (key && valueParts.length > 0) {
+        const value = valueParts.join('=').replace(/^["']|["']$/g, ''); // Remove quotes
+        process.env[key.trim()] = value.trim();
+      }
+    });
+
+    console.log('✅ Successfully loaded .env.local');
+  } catch (error) {
+    console.log('⚠️ Could not load .env.local:', error.message);
+  }
+}
+
+loadEnvLocal();
+
 const { createClient } = require('next-sanity');
 
 // Create comprehensive sample content for the portfolio
 async function populateSampleContent() {
   console.log('🎨 Populating comprehensive sample content...');
-  
+  console.log('Script started successfully!');
+
+  // Debug environment variables
+  console.log('Project ID:', process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'Missing');
+  console.log('Dataset:', process.env.NEXT_PUBLIC_SANITY_DATASET || 'Missing');
+  console.log('Write Token:', process.env.SANITY_API_WRITE_TOKEN ? 'Found ✅' : 'Missing ❌');
+
+  if (!process.env.SANITY_API_WRITE_TOKEN) {
+    console.error('❌ SANITY_API_WRITE_TOKEN is required but not found in .env.local');
+    console.log('💡 Make sure your .env.local file contains:');
+    console.log('SANITY_API_WRITE_TOKEN="your_write_token_here"');
+    process.exit(1);
+  }
+
   const client = createClient({
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '5ave8l4g',
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
     apiVersion: '2025-06-04',
     useCdn: false,
-    token: process.env.SANITY_API_READ_TOKEN,
+    token: process.env.SANITY_API_WRITE_TOKEN,
   });
 
   try {
@@ -192,11 +231,30 @@ async function populateSampleContent() {
     
   } catch (error) {
     console.error('❌ Failed to create content:', error.message);
+    console.error('Full error:', error);
     if (error.message.includes('token')) {
-      console.log('\n💡 Make sure SANITY_API_READ_TOKEN is set in your .env.local file');
+      console.log('\n💡 Make sure SANITY_API_WRITE_TOKEN is set in your .env.local file');
       console.log('Get your token from: https://sanity.io/manage');
     }
+    process.exit(1);
   }
 }
 
-populateSampleContent();
+// Add a timeout to prevent hanging
+const timeout = setTimeout(() => {
+  console.error('⏰ Script timed out after 30 seconds');
+  process.exit(1);
+}, 30000);
+
+// Run the function and handle any unhandled errors
+populateSampleContent()
+  .then(() => {
+    clearTimeout(timeout);
+    console.log('🎉 Script completed successfully!');
+    process.exit(0);
+  })
+  .catch((error) => {
+    clearTimeout(timeout);
+    console.error('💥 Unhandled error:', error);
+    process.exit(1);
+  });
