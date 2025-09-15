@@ -26,6 +26,20 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'shortBio',
+      title: 'Short Biography',
+      type: 'text',
+      rows: 3,
+      description: 'Brief bio for homepage and cards',
+    }),
+    defineField({
+      name: 'aboutPageIntro',
+      title: 'About Page Introduction',
+      type: 'text',
+      rows: 2,
+      description: 'Subtitle text for the about page hero section',
+    }),
+    defineField({
       name: 'profileImage',
       title: 'Profile Image',
       type: 'image',
@@ -66,6 +80,48 @@ export default defineType({
           name: 'country',
           title: 'Country',
           type: 'string',
+        },
+      ],
+    }),
+    defineField({
+      name: 'activeSince',
+      title: 'Active Since (Year)',
+      type: 'number',
+      validation: (Rule) => Rule.min(1900).max(new Date().getFullYear()),
+    }),
+    defineField({
+      name: 'primaryMedium',
+      title: 'Primary Medium',
+      type: 'string',
+      initialValue: 'Mixed Media',
+    }),
+    defineField({
+      name: 'careerTimeline',
+      title: 'Career Timeline',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'year',
+              title: 'Year',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'title',
+              title: 'Milestone Title',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              validation: (Rule) => Rule.required(),
+            },
+          ],
         },
       ],
     }),

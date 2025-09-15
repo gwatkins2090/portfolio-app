@@ -7,28 +7,49 @@ import { MapPin, Calendar, GraduationCap, Palette, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { getSanityImageUrl, getSafeText, getSafeArray, formatYearRange } from '@/lib/sanity/fetch';
 
-const ArtistBiography = () => {
-  const education = [
+interface ArtistBiographyProps {
+  artist?: any;
+  settings?: any;
+}
+
+const ArtistBiography = ({ artist, settings }: ArtistBiographyProps) => {
+  // Get data from Sanity or use fallbacks
+  const artistName = artist?.name || 'Jennifer Watkins';
+  const bio = artist?.bio || 'Jennifer Watkins is a contemporary artist whose work explores the delicate balance between chaos and order, finding beauty in the unexpected intersections of color, form, and emotion.';
+  const profileImageUrl = getSanityImageUrl(artist?.profileImage);
+  const location = artist?.location;
+  const activeSince = artist?.activeSince || 2018;
+  const primaryMedium = artist?.primaryMedium || 'Mixed Media';
+  const nationality = artist?.nationality || 'American';
+
+  // Education data from Sanity or fallback
+  const education = getSafeArray(artist?.education);
+  const fallbackEducation = [
     {
       degree: 'Master of Fine Arts',
       field: 'Contemporary Art Practice',
       institution: 'Yale School of Art',
-      location: 'New Haven, CT',
-      years: '2016-2018',
+      location: { city: 'New Haven', country: 'United States' },
+      startYear: 2016,
+      endYear: 2018,
       description: 'Focused on mixed media and conceptual art practices'
     },
     {
       degree: 'Bachelor of Fine Arts',
       field: 'Painting and Drawing',
       institution: 'Rhode Island School of Design',
-      location: 'Providence, RI',
-      years: '2012-2016',
+      location: { city: 'Providence', country: 'United States' },
+      startYear: 2012,
+      endYear: 2016,
       description: 'Magna Cum Laude, Dean\'s List'
     }
   ];
 
-  const timeline = [
+  // Career timeline from Sanity or fallback
+  const timeline = getSafeArray(artist?.careerTimeline);
+  const fallbackTimeline = [
     {
       year: '2024',
       title: 'Current Studio Practice',
@@ -51,6 +72,9 @@ const ArtistBiography = () => {
     }
   ];
 
+  const displayEducation = education.length > 0 ? education : fallbackEducation;
+  const displayTimeline = timeline.length > 0 ? timeline : fallbackTimeline;
+
   return (
     <section className="py-20 bg-sage-green/5 dark:bg-sage-green/10">
       <div className="container px-4">
@@ -66,8 +90,8 @@ const ArtistBiography = () => {
             {/* Main Portrait */}
             <div className="relative aspect-[3/4] overflow-hidden rounded-lg artwork-frame">
               <Image
-                src="/artistpic.png"
-                alt="Jennifer Watkins - Contemporary Artist"
+                src={profileImageUrl || "/artistpic.png"}
+                alt={`${artistName} - Contemporary Artist`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -81,7 +105,7 @@ const ArtistBiography = () => {
                 <CardContent className="p-4 text-center">
                   <MapPin className="h-6 w-6 mx-auto mb-2 text-primary" />
                   <div className="text-sm font-medium">Based in</div>
-                  <div className="text-xs text-muted-foreground">Brooklyn, NY</div>
+                  <div className="text-xs text-muted-foreground">{location?.city || 'Brooklyn'}, {location?.country || 'NY'}</div>
                 </CardContent>
               </Card>
               
@@ -89,7 +113,7 @@ const ArtistBiography = () => {
                 <CardContent className="p-4 text-center">
                   <Calendar className="h-6 w-6 mx-auto mb-2 text-primary" />
                   <div className="text-sm font-medium">Active Since</div>
-                  <div className="text-xs text-muted-foreground">2018</div>
+                  <div className="text-xs text-muted-foreground">{activeSince}</div>
                 </CardContent>
               </Card>
               
@@ -97,7 +121,7 @@ const ArtistBiography = () => {
                 <CardContent className="p-4 text-center">
                   <Palette className="h-6 w-6 mx-auto mb-2 text-primary" />
                   <div className="text-sm font-medium">Primary Medium</div>
-                  <div className="text-xs text-muted-foreground">Mixed Media</div>
+                  <div className="text-xs text-muted-foreground">{primaryMedium}</div>
                 </CardContent>
               </Card>
               
@@ -105,7 +129,9 @@ const ArtistBiography = () => {
                 <CardContent className="p-4 text-center">
                   <GraduationCap className="h-6 w-6 mx-auto mb-2 text-primary" />
                   <div className="text-sm font-medium">Education</div>
-                  <div className="text-xs text-muted-foreground">MFA, Yale</div>
+                  <div className="text-xs text-muted-foreground">
+                    {displayEducation[0]?.degree ? `${displayEducation[0].degree.split(' ').map(word => word[0]).join('')}, ${displayEducation[0].institution.split(' ').pop()}` : 'MFA, Yale'}
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -139,37 +165,18 @@ const ArtistBiography = () => {
             {/* Introduction */}
             <div>
               <h2 className="text-4xl font-serif font-bold text-foreground mb-6">
-                Jennifer Watkins
+                {artistName}
               </h2>
               <div className="flex flex-wrap gap-2 mb-6">
                 <Badge variant="outline">Contemporary Artist</Badge>
-                <Badge variant="outline">Mixed Media</Badge>
-                <Badge variant="outline">Brooklyn-based</Badge>
+                <Badge variant="outline">{primaryMedium}</Badge>
+                <Badge variant="outline">{location?.city || 'Brooklyn'}-based</Badge>
               </div>
 
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                <p>
-                  Jennifer Watkins is a contemporary artist whose work explores the delicate
-                  balance between chaos and order, finding beauty in the unexpected
-                  intersections of color, form, and emotion. Born in San Francisco and
-                  currently based in Brooklyn, her multicultural background deeply
-                  influences her artistic perspective.
-                </p>
-
-                <p>
-                  Her practice encompasses painting, mixed media, and digital art, often
-                  combining traditional techniques with contemporary approaches. Watkins&apos;
-                  work has been described as &quot;emotionally resonant&quot; and &quot;technically
-                  masterful&quot; by critics, earning her recognition in both emerging and
-                  established art circles.
-                </p>
-                
-                <p>
-                  Drawing inspiration from both natural landscapes and urban environments,
-                  Jennifer seeks to capture moments of transformation—those fleeting instances
-                  where light shifts, seasons change, or human experience crystallizes
-                  into something profound and universal.
-                </p>
+                {bio.split('\n\n').map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
               </div>
             </div>
 
@@ -179,7 +186,7 @@ const ArtistBiography = () => {
                 Education
               </h3>
               <div className="space-y-4">
-                {education.map((edu, index) => (
+                {displayEducation.map((edu, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
@@ -198,13 +205,18 @@ const ArtistBiography = () => {
                               {edu.field}
                             </p>
                           </div>
-                          <Badge variant="outline">{edu.years}</Badge>
+                          <Badge variant="outline">
+                            {edu.startYear && edu.endYear ? `${edu.startYear}-${edu.endYear}` : (edu.years || 'N/A')}
+                          </Badge>
                         </div>
                         <p className="text-sm font-medium text-foreground mb-1">
                           {edu.institution}
                         </p>
                         <p className="text-xs text-muted-foreground mb-2">
-                          {edu.location}
+                          {edu.location?.city && edu.location?.country
+                            ? `${edu.location.city}, ${edu.location.country}`
+                            : (edu.location || 'N/A')
+                          }
                         </p>
                         <p className="text-sm text-muted-foreground">
                           {edu.description}
@@ -222,7 +234,7 @@ const ArtistBiography = () => {
                 Career Highlights
               </h3>
               <div className="space-y-4">
-                {timeline.map((item, index) => (
+                {displayTimeline.map((item, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, x: 20 }}

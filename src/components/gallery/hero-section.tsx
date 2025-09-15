@@ -7,16 +7,30 @@ import { ChevronDown, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface FeaturedArtwork {
-  id: string;
+  _id?: string;
+  id?: string;
   title: string;
   year: number;
   medium: string;
-  image: string;
+  image?: string;
+  images?: Array<{
+    image: {
+      asset: {
+        url: string;
+      };
+    };
+    alt?: string;
+  }>;
   description: string;
 }
 
-// Sample featured artworks - in a real app, this would come from your data source
-const featuredArtworks: FeaturedArtwork[] = [
+interface HeroSectionProps {
+  settings?: any;
+  featuredArtworks?: FeaturedArtwork[];
+}
+
+// Fallback featured artworks
+const fallbackArtworks: FeaturedArtwork[] = [
   {
     id: '1',
     title: 'Ethereal Landscapes',
@@ -43,7 +57,10 @@ const featuredArtworks: FeaturedArtwork[] = [
   }
 ];
 
-const HeroSection = () => {
+const HeroSection = ({ settings, featuredArtworks }: HeroSectionProps) => {
+  // Use provided artworks or fallback
+  const artworks = featuredArtworks && featuredArtworks.length > 0 ? featuredArtworks : fallbackArtworks;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -51,13 +68,30 @@ const HeroSection = () => {
     if (!isPlaying) {return;}
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % featuredArtworks.length);
+      setCurrentIndex((prev) => (prev + 1) % artworks.length);
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [isPlaying]);
+  }, [isPlaying, artworks.length]);
 
-  const currentArtwork = featuredArtworks[currentIndex];
+  const currentArtwork = artworks[currentIndex];
+
+  // Get image URL from Sanity or fallback
+  const getImageUrl = (artwork: FeaturedArtwork) => {
+    if (artwork.images && artwork.images[0]?.image?.asset?.url) {
+      return artwork.images[0].image.asset.url;
+    }
+    return artwork.image || '/placeholder-artwork.svg';
+  };
+
+  // Get hero content from settings or use defaults
+  const heroTitle = settings?.heroSection?.title || 'Contemporary Art';
+  const heroSubtitle = settings?.heroSection?.subtitle || 'Portfolio';
+  const heroDescription = settings?.heroSection?.description || 'Discover a curated collection of contemporary artwork that explores the intersection of traditional techniques and modern expression.';
+  const ctaText = settings?.heroSection?.ctaText || 'Explore Gallery';
+  const ctaLink = settings?.heroSection?.ctaLink || '/portfolio';
+  const secondaryCtaText = settings?.heroSection?.secondaryCtaText || 'About the Artist';
+  const secondaryCtaLink = settings?.heroSection?.secondaryCtaLink || '/about';
 
   const scrollToGallery = () => {
     const gallerySection = document.getElementById('gallery');
@@ -78,7 +112,7 @@ const HeroSection = () => {
           className="absolute inset-0"
         >
           <Image
-            src={currentArtwork.image}
+            src={getImageUrl(currentArtwork)}
             alt={currentArtwork.title}
             fill
             className="object-cover"
@@ -99,13 +133,12 @@ const HeroSection = () => {
             className="max-w-4xl mx-auto"
           >
             <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-tight">
-              Contemporary Art
-              <span className="block text-gallery-gold">Portfolio</span>
+              {heroTitle}
+              <span className="block text-gallery-gold">{heroSubtitle}</span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto leading-relaxed">
-              Discover a curated collection of contemporary artwork that explores 
-              the intersection of traditional techniques and modern expression.
+              {heroDescription}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -114,7 +147,7 @@ const HeroSection = () => {
                 className="bg-gallery-gold hover:bg-gallery-gold/90 text-off-black font-medium px-8 py-3"
                 onClick={scrollToGallery}
               >
-                Explore Gallery
+                {ctaText}
               </Button>
               <Button
                 variant="outline"
@@ -122,7 +155,7 @@ const HeroSection = () => {
                 className="border-white/80 bg-white/10 text-white hover:bg-white hover:text-off-black px-8 py-3 backdrop-blur-sm"
                 asChild
               >
-                <a href="/about">About the Artist</a>
+                <a href={secondaryCtaLink}>{secondaryCtaText}</a>
               </Button>
             </div>
           </motion.div>
@@ -160,15 +193,15 @@ const HeroSection = () => {
         >
           {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
         </Button>
-        
+
         <div className="flex space-x-2">
-          {featuredArtworks.map((_, index) => (
+          {artworks.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex 
-                  ? 'bg-gallery-gold scale-110' 
+                index === currentIndex
+                  ? 'bg-gallery-gold scale-110'
                   : 'bg-white/50 hover:bg-white/70'
               }`}
             />

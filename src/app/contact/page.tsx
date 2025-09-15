@@ -7,50 +7,32 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Mail, Phone, MapPin, Clock, Instagram, Twitter, Facebook } from 'lucide-react';
+import { getContactPageData } from '@/lib/sanity/fetch';
 
-export const metadata: Metadata = {
-  title: 'Contact | Jennifer Watkins - Contemporary Artist',
-  description: 'Get in touch with Jennifer Watkins for commissions, exhibitions, or general inquiries about contemporary art.',
-  keywords: ['contact artist', 'art commissions', 'Jennifer Watkins', 'contemporary art inquiries'],
-  openGraph: {
-    title: 'Contact Jennifer Watkins | Contemporary Artist',
-    description: 'Connect with Jennifer Watkins for art commissions, exhibitions, and inquiries.',
-    type: 'website',
-  },
-};
+// Generate metadata from Sanity data
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const data = await getContactPageData();
+    const artist = data.artist;
 
-const contactInfo = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'hello@jenniferwatkins.art',
-    href: 'mailto:hello@jenniferwatkins.art'
-  },
-  {
-    icon: Phone,
-    label: 'Phone',
-    value: '+1 (555) 123-4567',
-    href: 'tel:+15551234567'
-  },
-  {
-    icon: MapPin,
-    label: 'Studio Location',
-    value: 'Brooklyn, NY',
-    href: null
-  },
-  {
-    icon: Clock,
-    label: 'Response Time',
-    value: 'Within 24-48 hours',
-    href: null
+    return {
+      title: `Contact ${artist?.name || 'Jennifer Watkins'} | Contemporary Artist`,
+      description: `Get in touch with ${artist?.name || 'Jennifer Watkins'} for commissions, exhibitions, or general inquiries about contemporary art.`,
+      keywords: ['contact artist', 'art commissions', artist?.name || 'Jennifer Watkins', 'contemporary art inquiries'],
+      openGraph: {
+        title: `Contact ${artist?.name || 'Jennifer Watkins'} | Contemporary Artist`,
+        description: `Connect with ${artist?.name || 'Jennifer Watkins'} for art commissions, exhibitions, and inquiries.`,
+        type: 'website',
+      },
+    };
+  } catch (error) {
+    console.error('Error generating contact page metadata:', error);
+    return {
+      title: 'Contact Jennifer Watkins | Contemporary Artist',
+      description: 'Get in touch with Jennifer Watkins for commissions, exhibitions, or general inquiries about contemporary art.',
+    };
   }
-];
-
-const socialLinks = [
-  { icon: Instagram, label: 'Instagram', href: '#', handle: '@jenniferwatkins.art' },
-  { icon: Twitter, label: 'Twitter', href: '#', handle: '@jwatkins_art' },
-  { icon: Facebook, label: 'Facebook', href: '#', handle: 'Jennifer Watkins Art' }
-];
+}
 
 const inquiryTypes = [
   { label: 'Commission Inquiry', description: 'Custom artwork commissions' },
@@ -60,7 +42,73 @@ const inquiryTypes = [
   { label: 'General Question', description: 'Other inquiries' }
 ];
 
-const ContactPage = () => {
+const ContactPage = async () => {
+  // Fetch data from Sanity
+  let data;
+  try {
+    data = await getContactPageData();
+  } catch (error) {
+    console.error('Error fetching contact page data:', error);
+    data = { settings: null, artist: null };
+  }
+
+  const { settings, artist } = data;
+
+  // Get contact info from Sanity or use defaults
+  const contactEmail = settings?.contact?.email || artist?.contact?.email || 'hello@jenniferwatkins.art';
+  const contactPhone = settings?.contact?.phone || artist?.contact?.phone || '+1 (555) 123-4567';
+  const studioLocation = settings?.contact?.address?.city || artist?.location?.city || 'Brooklyn';
+  const studioState = settings?.contact?.address?.state || artist?.location?.country || 'NY';
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      label: 'Email',
+      value: contactEmail,
+      href: `mailto:${contactEmail}`
+    },
+    {
+      icon: Phone,
+      label: 'Phone',
+      value: contactPhone,
+      href: `tel:${contactPhone.replace(/\D/g, '')}`
+    },
+    {
+      icon: MapPin,
+      label: 'Studio Location',
+      value: `${studioLocation}, ${studioState}`,
+      href: null
+    },
+    {
+      icon: Clock,
+      label: 'Response Time',
+      value: 'Within 24-48 hours',
+      href: null
+    }
+  ];
+
+  // Get social media links from Sanity or use defaults
+  const socialMedia = settings?.socialMedia || artist?.socialMedia || {};
+  const socialLinks = [
+    {
+      icon: Instagram,
+      label: 'Instagram',
+      href: socialMedia.instagram || '#',
+      handle: '@jenniferwatkinsart'
+    },
+    {
+      icon: Twitter,
+      label: 'Twitter',
+      href: socialMedia.twitter || '#',
+      handle: '@jwatkins_art'
+    },
+    {
+      icon: Facebook,
+      label: 'Facebook',
+      href: socialMedia.facebook || '#',
+      handle: 'Jennifer Watkins Art'
+    }
+  ];
   return (
     <div className="min-h-screen bg-background">
       <Header />

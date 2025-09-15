@@ -70,6 +70,12 @@ export default defineType({
           type: 'string',
         },
         {
+          name: 'description',
+          title: 'Hero Description',
+          type: 'text',
+          rows: 3,
+        },
+        {
           name: 'backgroundImage',
           title: 'Background Image',
           type: 'image',
@@ -79,13 +85,98 @@ export default defineType({
         },
         {
           name: 'ctaText',
-          title: 'Call to Action Text',
+          title: 'Primary CTA Text',
           type: 'string',
+          initialValue: 'Explore Gallery',
         },
         {
           name: 'ctaLink',
-          title: 'Call to Action Link',
+          title: 'Primary CTA Link',
           type: 'string',
+          initialValue: '/portfolio',
+        },
+        {
+          name: 'secondaryCtaText',
+          title: 'Secondary CTA Text',
+          type: 'string',
+          initialValue: 'About the Artist',
+        },
+        {
+          name: 'secondaryCtaLink',
+          title: 'Secondary CTA Link',
+          type: 'string',
+          initialValue: '/about',
+        },
+      ],
+    }),
+    defineField({
+      name: 'galleryTransition',
+      title: 'Gallery Transition Section',
+      type: 'object',
+      fields: [
+        {
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          initialValue: 'Enter the Gallery',
+        },
+        {
+          name: 'subtitle',
+          title: 'Section Subtitle',
+          type: 'text',
+          rows: 3,
+          initialValue: 'Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression.',
+        },
+      ],
+    }),
+    defineField({
+      name: 'artistStatement',
+      title: 'Artist Statement Section',
+      type: 'object',
+      fields: [
+        {
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          initialValue: 'Artist Statement',
+        },
+        {
+          name: 'quote',
+          title: 'Featured Quote',
+          type: 'string',
+          initialValue: 'Art is not what you see, but what you make others see.',
+        },
+        {
+          name: 'paragraphs',
+          title: 'Statement Paragraphs',
+          type: 'array',
+          of: [{ type: 'text' }],
+          validation: (Rule) => Rule.min(1).max(5),
+        },
+        {
+          name: 'achievements',
+          title: 'Key Achievements',
+          type: 'object',
+          fields: [
+            {
+              name: 'artworksCount',
+              title: 'Artworks Created',
+              type: 'number',
+              initialValue: 50,
+            },
+            {
+              name: 'exhibitionsCount',
+              title: 'Exhibitions',
+              type: 'number',
+              initialValue: 12,
+            },
+            {
+              name: 'awardsCount',
+              title: 'Awards',
+              type: 'number',
+              initialValue: 3,
+            },
+          ],
         },
       ],
     }),

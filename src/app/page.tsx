@@ -1,51 +1,74 @@
-'use client'
-
+import { Metadata } from 'next';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import HeroSection from '@/components/gallery/hero-section';
 import GalleryGrid from '@/components/gallery/gallery-grid';
 import ArtistStatement from '@/components/gallery/artist-statement';
 import GalleryTransition from '@/components/gallery/gallery-transition';
+import { getHomepageData } from '@/lib/sanity/fetch';
 import { sampleArtworks } from '@/lib/sample-data';
-import { EditableContent, EditableText } from '@/components/sanity/editable-content';
-import { usePortfolioSettings, useFeaturedArtworks } from '@/hooks/use-sanity-content';
 
-const HomePage = () => {
-  const { content: settings } = usePortfolioSettings()
-  const { content: featuredArtworks } = useFeaturedArtworks()
+// Generate metadata from Sanity data
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const data = await getHomepageData();
+    const settings = data.settings;
+
+    return {
+      title: settings?.seo?.metaTitle || settings?.title || 'Jennifer Watkins - Contemporary Artist',
+      description: settings?.seo?.metaDescription || settings?.description || 'Contemporary art portfolio showcasing original paintings and artwork by Jennifer Watkins.',
+      keywords: settings?.seo?.keywords || ['contemporary art', 'paintings', 'Jennifer Watkins', 'artist'],
+      openGraph: {
+        title: settings?.seo?.metaTitle || settings?.title || 'Jennifer Watkins - Contemporary Artist',
+        description: settings?.seo?.metaDescription || settings?.description,
+        type: 'website',
+        images: settings?.seo?.ogImage ? [settings.seo.ogImage.asset.url] : [],
+      },
+    };
+  } catch (error) {
+    console.error('Error generating metadata:', error);
+    return {
+      title: 'Jennifer Watkins - Contemporary Artist',
+      description: 'Contemporary art portfolio showcasing original paintings and artwork by Jennifer Watkins.',
+    };
+  }
+}
+
+const HomePage = async () => {
+  // Fetch data from Sanity
+  let data;
+  try {
+    data = await getHomepageData();
+  } catch (error) {
+    console.error('Error fetching homepage data:', error);
+    data = { settings: null, artist: null, featuredArtworks: [] };
+  }
+
+  const { settings, artist, featuredArtworks } = data;
 
   // Use Sanity content if available, otherwise fall back to static content
   const artworksToShow = featuredArtworks && featuredArtworks.length > 0
     ? featuredArtworks
-    : sampleArtworks
+    : sampleArtworks;
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main>
         {/* Hero Section with Featured Artwork Slideshow */}
-        <EditableContent
-          documentId={settings?._id}
-          documentType="portfolioSettings"
-          fieldPath="heroSection"
-        >
-          <HeroSection />
-        </EditableContent>
+        <HeroSection
+          settings={settings}
+          featuredArtworks={artworksToShow}
+        />
 
         {/* Gallery Transition - Hidden on mobile */}
         <div className="hidden md:block">
-          <EditableContent
-            documentId={settings?._id}
-            documentType="portfolioSettings"
-            fieldPath="galleryTransition1"
+          <GalleryTransition
+            title={settings?.galleryTransition?.title || "Enter the Gallery"}
+            subtitle={settings?.galleryTransition?.subtitle || "Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression."}
           >
-            <GalleryTransition
-              title="Enter the Gallery"
-              subtitle="Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression."
-            >
-              <div />
-            </GalleryTransition>
-          </EditableContent>
+            <div />
+          </GalleryTransition>
         </div>
 
         {/* Featured Artworks Grid - Responsive for all screen sizes */}
@@ -61,13 +84,10 @@ const HomePage = () => {
         </EditableContent>
 
         {/* Artist Statement Section */}
-        <EditableContent
-          documentId={settings?._id}
-          documentType="portfolioSettings"
-          fieldPath="artistStatement"
-        >
-          <ArtistStatement />
-        </EditableContent>
+        <ArtistStatement
+          settings={settings}
+          artist={artist}
+        />
 
         {/* Final Gallery Transition */}
         <EditableContent
