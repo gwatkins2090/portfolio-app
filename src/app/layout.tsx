@@ -9,7 +9,7 @@ import { draftMode } from 'next/headers';
 import { SanityLive } from '@/lib/sanity/lib/live';
 import DraftModeBanner from '@/components/sanity/DraftModeBanner';
 import SanityVisualEditing from '@/components/sanity/visual-editing';
-import { SanityTest } from '@/components/sanity/sanity-test';
+
 
 const inter = Inter({
   subsets: ['latin'],
@@ -93,7 +93,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {/* Sanity Live Content and Visual Editing */}
         <SanityVisualEditing />
         <SanityLive />
-        {process.env.NODE_ENV === 'development' && <SanityTest />}
 
         {/* Performance Monitoring */}
         <Script
