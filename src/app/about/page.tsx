@@ -6,6 +6,7 @@ import ExhibitionHistory from '@/components/about/exhibition-history';
 import AwardsAndRecognition from '@/components/about/awards-recognition';
 import ArtisticPhilosophy from '@/components/about/artistic-philosophy';
 import { getAboutPageData } from '@/lib/sanity/fetch';
+import { VisualEditingWrapper } from '@/components/sanity/visual-editing-wrapper';
 
 // Generate metadata from Sanity data
 export async function generateMetadata(): Promise<Metadata> {
@@ -64,13 +65,31 @@ const AboutPage = async () => {
         </section>
 
         {/* Artist Biography */}
-        <ArtistBiography artist={artist} settings={settings} />
+        <VisualEditingWrapper
+          documentId={artist?._id}
+          documentType="artist"
+          fieldPath="bio"
+        >
+          <ArtistBiography artist={artist} settings={settings} />
+        </VisualEditingWrapper>
 
         {/* Artistic Philosophy */}
-        <ArtisticPhilosophy artist={artist} />
+        <VisualEditingWrapper
+          documentId={artist?._id}
+          documentType="artist"
+          fieldPath="statement"
+        >
+          <ArtisticPhilosophy artist={artist} />
+        </VisualEditingWrapper>
 
         {/* Exhibition History */}
-        <ExhibitionHistory artist={artist} />
+        <VisualEditingWrapper
+          documentId={artist?._id}
+          documentType="artist"
+          fieldPath="exhibitions"
+        >
+          <ExhibitionHistory artist={artist} />
+        </VisualEditingWrapper>
 
         {/* Awards and Recognition */}
         <AwardsAndRecognition artist={artist} />

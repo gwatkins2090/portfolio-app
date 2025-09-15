@@ -7,6 +7,7 @@ import ArtistStatement from '@/components/gallery/artist-statement';
 import GalleryTransition from '@/components/gallery/gallery-transition';
 import { getHomepageData } from '@/lib/sanity/fetch';
 import { sampleArtworks } from '@/lib/sample-data';
+import { VisualEditingWrapper } from '@/components/sanity/visual-editing-wrapper';
 
 // Generate metadata from Sanity data
 export async function generateMetadata(): Promise<Metadata> {
@@ -56,19 +57,31 @@ const HomePage = async () => {
       <Header />
       <main>
         {/* Hero Section with Featured Artwork Slideshow */}
-        <HeroSection
-          settings={settings}
-          featuredArtworks={artworksToShow}
-        />
+        <VisualEditingWrapper
+          documentId={settings?._id}
+          documentType="portfolioSettings"
+          fieldPath="heroSection"
+        >
+          <HeroSection
+            settings={settings}
+            featuredArtworks={artworksToShow}
+          />
+        </VisualEditingWrapper>
 
         {/* Gallery Transition - Hidden on mobile */}
         <div className="hidden md:block">
-          <GalleryTransition
-            title={settings?.galleryTransition?.title || "Enter the Gallery"}
-            subtitle={settings?.galleryTransition?.subtitle || "Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression."}
+          <VisualEditingWrapper
+            documentId={settings?._id}
+            documentType="portfolioSettings"
+            fieldPath="galleryTransition"
           >
-            <div />
-          </GalleryTransition>
+            <GalleryTransition
+              title={settings?.galleryTransition?.title || "Enter the Gallery"}
+              subtitle={settings?.galleryTransition?.subtitle || "Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression."}
+            >
+              <div />
+            </GalleryTransition>
+          </VisualEditingWrapper>
         </div>
 
         {/* Featured Artworks Grid - Responsive for all screen sizes */}
@@ -79,19 +92,31 @@ const HomePage = async () => {
         />
 
         {/* Artist Statement Section */}
-        <ArtistStatement
-          settings={settings}
-          artist={artist}
-        />
+        <VisualEditingWrapper
+          documentId={settings?._id}
+          documentType="portfolioSettings"
+          fieldPath="artistStatement"
+        >
+          <ArtistStatement
+            settings={settings}
+            artist={artist}
+          />
+        </VisualEditingWrapper>
 
         {/* Final Gallery Transition */}
-        <GalleryTransition
-          title={settings?.galleryTransition2?.title || "Continue Exploring"}
-          subtitle={settings?.galleryTransition2?.subtitle || "Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities."}
-          backgroundColor="bg-dusty-rose/10 dark:bg-dusty-rose/5"
+        <VisualEditingWrapper
+          documentId={settings?._id}
+          documentType="portfolioSettings"
+          fieldPath="galleryTransition2"
         >
-          <div />
-        </GalleryTransition>
+          <GalleryTransition
+            title={settings?.galleryTransition2?.title || "Continue Exploring"}
+            subtitle={settings?.galleryTransition2?.subtitle || "Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities."}
+            backgroundColor="bg-dusty-rose/10 dark:bg-dusty-rose/5"
+          >
+            <div />
+          </GalleryTransition>
+        </VisualEditingWrapper>
       </main>
       <Footer />
     </div>

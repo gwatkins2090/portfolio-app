@@ -91,7 +91,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </ThemeProvider>
 
         {/* Sanity Live Content and Visual Editing */}
-        {isDraftMode && <SanityVisualEditing />}
+        <SanityVisualEditing />
         <SanityLive />
         {process.env.NODE_ENV === 'development' && <SanityTest />}
 
