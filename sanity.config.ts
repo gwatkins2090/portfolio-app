@@ -14,6 +14,7 @@ import { apiVersion, dataset, projectId, projectTitle } from './src/lib/sanity/e
 import { schema } from './src/lib/sanity/schemaTypes';
 import { structure } from './src/lib/sanity/structure';
 import { generatePreviewUrl } from './src/components/sanity/PreviewLink';
+import { StudioLayout } from './src/components/sanity/studio-layout';
 
 export default defineConfig({
   name: 'jennifer-watkins-portfolio',
@@ -25,6 +26,19 @@ export default defineConfig({
 
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
+
+  // Authentication configuration to prevent flashing
+  auth: {
+    mode: 'replace',
+    redirectOnSingle: false,
+  },
+
+  // Studio configuration
+  studio: {
+    components: {
+      layout: StudioLayout,
+    },
+  },
 
   plugins: [
     structureTool({ structure }),
