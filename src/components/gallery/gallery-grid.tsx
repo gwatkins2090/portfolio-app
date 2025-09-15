@@ -8,17 +8,64 @@ import { Eye, Heart, ShoppingBag, Maximize2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
+// Utility functions for data transformation
+const formatDimensions = (dimensions: string | ArtworkDimensions): string => {
+  if (typeof dimensions === 'string') {
+    return dimensions;
+  }
+
+  if (dimensions && typeof dimensions === 'object') {
+    const { width, height, depth, unit } = dimensions;
+    if (depth) {
+      return `${width} × ${height} × ${depth} ${unit}`;
+    }
+    return `${width} × ${height} ${unit}`;
+  }
+
+  return 'Dimensions not specified';
+};
+
+const getArtworkImage = (artwork: ArtworkItem): string => {
+  // Handle Sanity image structure
+  if (artwork.images && artwork.images.length > 0) {
+    return artwork.images[0]?.image?.asset?.url || '/placeholder-artwork.svg';
+  }
+
+  // Handle simple image string
+  return artwork.image || '/placeholder-artwork.svg';
+};
+
+const getArtworkId = (artwork: ArtworkItem): string => {
+  return artwork.id || artwork._id || `artwork-${Date.now()}`;
+};
+
+interface ArtworkDimensions {
+  width: number;
+  height: number;
+  depth?: number;
+  unit: string;
+}
+
 interface ArtworkItem {
-  id: string;
+  id?: string;
+  _id?: string;
   title: string;
   year: number;
   medium: string;
-  dimensions: string;
+  dimensions: string | ArtworkDimensions;
   price?: number;
   currency?: string;
-  image: string;
-  category: string;
-  status: 'available' | 'sold' | 'reserved';
+  image?: string;
+  images?: Array<{
+    image: {
+      asset: {
+        url: string;
+      };
+    };
+    alt?: string;
+  }>;
+  category?: string;
+  status?: 'available' | 'sold' | 'reserved';
   description: string;
 }
 
@@ -156,7 +203,7 @@ const ArtworkCard = ({ artwork, index }: ArtworkCardProps) => {
       <div className="artwork-frame overflow-hidden bg-white dark:bg-gray-900">
         <div className="relative aspect-[4/5] overflow-hidden">
           <Image
-            src={artwork.image || '/placeholder-artwork.svg'}
+            src={getArtworkImage(artwork)}
             alt={artwork.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -164,8 +211,8 @@ const ArtworkCard = ({ artwork, index }: ArtworkCardProps) => {
           />
           
           {/* Status Badge */}
-          {artwork.status !== 'available' && (
-            <Badge 
+          {artwork.status && artwork.status !== 'available' && (
+            <Badge
               variant={artwork.status === 'sold' ? 'destructive' : 'secondary'}
               className="absolute top-3 left-3 z-10"
             >
@@ -221,7 +268,7 @@ const ArtworkCard = ({ artwork, index }: ArtworkCardProps) => {
             <h3 className="artwork-title text-lg font-medium text-foreground group-hover:text-primary transition-colors">
               {artwork.title}
             </h3>
-            {artwork.price && artwork.status === 'available' && (
+            {artwork.price && (!artwork.status || artwork.status === 'available') && (
               <span className="text-lg font-semibold text-gallery-gold">
                 ${artwork.price.toLocaleString()}
               </span>
@@ -233,7 +280,7 @@ const ArtworkCard = ({ artwork, index }: ArtworkCardProps) => {
           </div>
           
           <div className="artwork-details mb-3">
-            {artwork.dimensions}
+            {formatDimensions(artwork.dimensions)}
           </div>
           
           <p className="text-sm text-muted-foreground leading-relaxed">
@@ -289,7 +336,7 @@ const GalleryGrid = ({ title = "Featured Artworks", subtitle, artworks }: Galler
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayArtworks.map((artwork, index) => (
-            <ArtworkCard key={artwork.id} artwork={artwork} index={index} />
+            <ArtworkCard key={getArtworkId(artwork)} artwork={artwork} index={index} />
           ))}
         </div>
 
