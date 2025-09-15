@@ -4,10 +4,11 @@
 import { defineLive } from 'next-sanity/live';
 import { client } from './client';
 import { readToken } from './tokens';
+import { apiVersion } from '../env';
 
 export const { sanityFetch, SanityLive } = defineLive({
   client: client.withConfig({
-    apiVersion: 'vX',
+    apiVersion,
     token: readToken,
     perspective: 'previewDrafts',
     stega: {
