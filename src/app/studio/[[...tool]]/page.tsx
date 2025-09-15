@@ -10,15 +10,9 @@
  */
 
 import {NextStudio} from 'next-sanity/studio'
-import { MinimalConnectionIndicator } from '@/components/sanity/connection-status'
 
 import config from '../../../../sanity.config'
 
 export default function StudioPage() {
-  return (
-    <>
-      <NextStudio config={config} />
-      <MinimalConnectionIndicator />
-    </>
-  )
+  return <NextStudio config={config} />
 }
