@@ -35,22 +35,6 @@ export default defineConfig({
           enable: '/api/draft',
         },
       },
-      resolve: {
-        mainDocuments: defineLocations({
-          select: {
-            title: 'title',
-            slug: 'slug.current',
-          },
-          resolve: (doc) => ({
-            locations: [
-              {
-                title: doc?.title || 'Untitled',
-                href: `/${doc?.slug || ''}`,
-              },
-            ],
-          }),
-        }),
-      },
     }),
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
