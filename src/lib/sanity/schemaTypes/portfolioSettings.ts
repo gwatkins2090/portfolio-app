@@ -9,6 +9,7 @@ export default defineType({
       name: 'title',
       title: 'Site Title',
       type: 'string',
+      description: '🏠 Main website title that appears in browser tabs, search results, and the header navigation. Example: "Jennifer Watkins Art Portfolio"',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -16,6 +17,7 @@ export default defineType({
       title: 'Site Description',
       type: 'text',
       rows: 3,
+      description: '📝 Brief description of your portfolio website. This appears in search engine results and social media previews. Keep it under 160 characters.',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -55,25 +57,29 @@ export default defineType({
     }),
     defineField({
       name: 'heroSection',
-      title: 'Hero Section',
+      title: '🎨 Homepage Hero Section',
       type: 'object',
+      description: 'The large banner section at the top of your homepage - the first thing visitors see',
       fields: [
         {
           name: 'title',
           title: 'Hero Title',
           type: 'string',
+          description: '✨ Large headline text displayed prominently at the top of your homepage. Example: "Welcome to Jennifer Watkins Art"',
           validation: (Rule) => Rule.required(),
         },
         {
           name: 'subtitle',
           title: 'Hero Subtitle',
           type: 'string',
+          description: '🎭 Secondary text that appears below the main title. Example: "Contemporary Abstract Expressionism"',
         },
         {
           name: 'description',
           title: 'Hero Description',
           type: 'text',
           rows: 3,
+          description: '📖 Paragraph text that introduces your work to visitors. Appears below the title and subtitle.',
         },
         {
           name: 'backgroundImage',
