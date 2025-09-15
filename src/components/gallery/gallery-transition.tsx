@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
+import { VisualEditingWrapper } from '@/components/sanity/visual-editing-wrapper';
 
 interface GalleryTransitionProps {
   children: ReactNode;
@@ -10,15 +11,21 @@ interface GalleryTransitionProps {
   backgroundColor?: string;
   textColor?: string;
   className?: string;
+  settings?: any;
+  titleFieldPath?: string;
+  subtitleFieldPath?: string;
 }
 
-const GalleryTransition = ({ 
-  children, 
-  title, 
-  subtitle, 
+const GalleryTransition = ({
+  children,
+  title,
+  subtitle,
   backgroundColor = 'bg-muted/30',
   textColor = 'text-foreground',
-  className = ''
+  className = '',
+  settings,
+  titleFieldPath,
+  subtitleFieldPath
 }: GalleryTransitionProps) => {
   return (
     <motion.section
@@ -50,14 +57,26 @@ const GalleryTransition = ({
             className="text-center mb-16"
           >
             {title && (
-              <h2 className={`text-4xl md:text-6xl font-serif font-bold mb-6 ${textColor}`}>
-                {title}
-              </h2>
+              <VisualEditingWrapper
+                documentId={settings?._id}
+                documentType="portfolioSettings"
+                fieldPath={titleFieldPath}
+              >
+                <h2 className={`text-4xl md:text-6xl font-serif font-bold mb-6 ${textColor}`}>
+                  {title}
+                </h2>
+              </VisualEditingWrapper>
             )}
             {subtitle && (
-              <p className={`text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed ${textColor.replace('foreground', 'muted-foreground')}`}>
-                {subtitle}
-              </p>
+              <VisualEditingWrapper
+                documentId={settings?._id}
+                documentType="portfolioSettings"
+                fieldPath={subtitleFieldPath}
+              >
+                <p className={`text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed ${textColor.replace('foreground', 'muted-foreground')}`}>
+                  {subtitle}
+                </p>
+              </VisualEditingWrapper>
             )}
           </motion.div>
         )}

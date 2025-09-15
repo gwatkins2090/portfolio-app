@@ -7,6 +7,7 @@ import { motion, useInView, useAnimation } from 'framer-motion';
 import { Eye, Heart, ShoppingBag, Maximize2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { VisualEditingWrapper } from '@/components/sanity/visual-editing-wrapper';
 
 // Utility functions for data transformation
 const formatDimensions = (dimensions: string | ArtworkDimensions): string => {
@@ -309,9 +310,10 @@ interface GalleryGridProps {
   title?: string;
   subtitle?: string;
   artworks?: ArtworkItem[];
+  settings?: any;
 }
 
-const GalleryGrid = ({ title = "Featured Artworks", subtitle, artworks }: GalleryGridProps) => {
+const GalleryGrid = ({ title = "Featured Artworks", subtitle, artworks, settings }: GalleryGridProps) => {
   // Use provided artworks or fall back to sample data
   const displayArtworks = artworks || sampleArtworks;
   return (
@@ -324,13 +326,25 @@ const GalleryGrid = ({ title = "Featured Artworks", subtitle, artworks }: Galler
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
-            {title}
-          </h2>
+          <VisualEditingWrapper
+            documentId={settings?._id}
+            documentType="portfolioSettings"
+            fieldPath="featuredCollection.title"
+          >
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
+              {title}
+            </h2>
+          </VisualEditingWrapper>
           {subtitle && (
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {subtitle}
-            </p>
+            <VisualEditingWrapper
+              documentId={settings?._id}
+              documentType="portfolioSettings"
+              fieldPath="featuredCollection.subtitle"
+            >
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                {subtitle}
+              </p>
+            </VisualEditingWrapper>
           )}
         </motion.div>
 

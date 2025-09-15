@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { VisualEditingWrapper } from '@/components/sanity/visual-editing-wrapper';
 
 interface FeaturedArtwork {
   _id?: string;
@@ -132,31 +133,61 @@ const HeroSection = ({ settings, featuredArtworks }: HeroSectionProps) => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="max-w-4xl mx-auto"
           >
-            <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-tight">
-              {heroTitle}
-              <span className="block text-gallery-gold">{heroSubtitle}</span>
-            </h1>
+            <VisualEditingWrapper
+              documentId={settings?._id}
+              documentType="portfolioSettings"
+              fieldPath="heroSection.title"
+            >
+              <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-tight">
+                {heroTitle}
+                <VisualEditingWrapper
+                  documentId={settings?._id}
+                  documentType="portfolioSettings"
+                  fieldPath="heroSection.subtitle"
+                >
+                  <span className="block text-gallery-gold">{heroSubtitle}</span>
+                </VisualEditingWrapper>
+              </h1>
+            </VisualEditingWrapper>
 
-            <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto leading-relaxed">
-              {heroDescription}
-            </p>
+            <VisualEditingWrapper
+              documentId={settings?._id}
+              documentType="portfolioSettings"
+              fieldPath="heroSection.description"
+            >
+              <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto leading-relaxed">
+                {heroDescription}
+              </p>
+            </VisualEditingWrapper>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <Button
-                size="lg"
-                className="bg-gallery-gold hover:bg-gallery-gold/90 text-off-black font-medium px-8 py-3"
-                onClick={scrollToGallery}
+              <VisualEditingWrapper
+                documentId={settings?._id}
+                documentType="portfolioSettings"
+                fieldPath="heroSection.ctaText"
               >
-                {ctaText}
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-white/80 bg-white/10 text-white hover:bg-white hover:text-off-black px-8 py-3 backdrop-blur-sm"
-                asChild
+                <Button
+                  size="lg"
+                  className="bg-gallery-gold hover:bg-gallery-gold/90 text-off-black font-medium px-8 py-3"
+                  onClick={scrollToGallery}
+                >
+                  {ctaText}
+                </Button>
+              </VisualEditingWrapper>
+              <VisualEditingWrapper
+                documentId={settings?._id}
+                documentType="portfolioSettings"
+                fieldPath="heroSection.secondaryCtaText"
               >
-                <a href={secondaryCtaLink}>{secondaryCtaText}</a>
-              </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-white/80 bg-white/10 text-white hover:bg-white hover:text-off-black px-8 py-3 backdrop-blur-sm"
+                  asChild
+                >
+                  <a href={secondaryCtaLink}>{secondaryCtaText}</a>
+                </Button>
+              </VisualEditingWrapper>
             </div>
           </motion.div>
         </div>

@@ -138,6 +138,29 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'featuredCollection',
+      title: '🖼️ Featured Collection Section',
+      type: 'object',
+      description: 'The gallery section that showcases your featured artworks on the homepage',
+      fields: [
+        {
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          description: '🎨 Main heading for your featured artworks section. Example: "Featured Collection" or "Latest Works"',
+          initialValue: 'Featured Collection',
+        },
+        {
+          name: 'subtitle',
+          title: 'Section Subtitle',
+          type: 'text',
+          rows: 3,
+          description: '📝 Descriptive text that appears below the title, explaining what visitors will see in this section.',
+          initialValue: 'A selection of recent works showcasing diverse mediums and artistic approaches.',
+        },
+      ],
+    }),
+    defineField({
       name: 'artistStatement',
       title: 'Artist Statement Section',
       type: 'object',

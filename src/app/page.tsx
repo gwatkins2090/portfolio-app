@@ -78,6 +78,9 @@ const HomePage = async () => {
             <GalleryTransition
               title={settings?.galleryTransition?.title || "Enter the Gallery"}
               subtitle={settings?.galleryTransition?.subtitle || "Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression."}
+              settings={settings}
+              titleFieldPath="galleryTransition.title"
+              subtitleFieldPath="galleryTransition.subtitle"
             >
               <div />
             </GalleryTransition>
@@ -85,11 +88,18 @@ const HomePage = async () => {
         </div>
 
         {/* Featured Artworks Grid - Responsive for all screen sizes */}
-        <GalleryGrid
-          title="Featured Collection"
-          subtitle="A selection of recent works showcasing diverse mediums and artistic approaches."
-          artworks={artworksToShow}
-        />
+        <VisualEditingWrapper
+          documentId={settings?._id}
+          documentType="portfolioSettings"
+          fieldPath="featuredCollection"
+        >
+          <GalleryGrid
+            title={settings?.featuredCollection?.title || "Featured Collection"}
+            subtitle={settings?.featuredCollection?.subtitle || "A selection of recent works showcasing diverse mediums and artistic approaches."}
+            artworks={artworksToShow}
+            settings={settings}
+          />
+        </VisualEditingWrapper>
 
         {/* Artist Statement Section */}
         <VisualEditingWrapper
@@ -113,6 +123,9 @@ const HomePage = async () => {
             title={settings?.galleryTransition2?.title || "Continue Exploring"}
             subtitle={settings?.galleryTransition2?.subtitle || "Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities."}
             backgroundColor="bg-dusty-rose/10 dark:bg-dusty-rose/5"
+            settings={settings}
+            titleFieldPath="galleryTransition2.title"
+            subtitleFieldPath="galleryTransition2.subtitle"
           >
             <div />
           </GalleryTransition>

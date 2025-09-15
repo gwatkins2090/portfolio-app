@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Quote } from 'lucide-react';
 import { getSanityImageUrl, getSafeText, getSafeArray } from '@/lib/sanity/utils';
+import { VisualEditingWrapper } from '@/components/sanity/visual-editing-wrapper';
 
 interface ArtistStatementProps {
   settings?: any;
@@ -66,9 +67,15 @@ const ArtistStatement = ({ settings, artist }: ArtistStatementProps) => {
               className="absolute -bottom-8 -right-8 bg-gallery-gold text-off-black p-6 rounded-lg shadow-lg max-w-xs"
             >
               <Quote className="h-6 w-6 mb-2 opacity-60" />
-              <p className="text-sm font-medium italic">
-                &quot;{quote}&quot;
-              </p>
+              <VisualEditingWrapper
+                documentId={settings?._id}
+                documentType="portfolioSettings"
+                fieldPath="artistStatement.quote"
+              >
+                <p className="text-sm font-medium italic">
+                  &quot;{quote}&quot;
+                </p>
+              </VisualEditingWrapper>
             </motion.div>
           </motion.div>
 
@@ -81,29 +88,41 @@ const ArtistStatement = ({ settings, artist }: ArtistStatementProps) => {
             className="space-y-8"
           >
             <div>
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6"
+              <VisualEditingWrapper
+                documentId={settings?._id}
+                documentType="portfolioSettings"
+                fieldPath="artistStatement.title"
               >
-                {sectionTitle}
-              </motion.h2>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                viewport={{ once: true }}
-                className="space-y-6 text-lg text-muted-foreground leading-relaxed"
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  viewport={{ once: true }}
+                  className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6"
+                >
+                  {sectionTitle}
+                </motion.h2>
+              </VisualEditingWrapper>
+
+              <VisualEditingWrapper
+                documentId={settings?._id}
+                documentType="portfolioSettings"
+                fieldPath="artistStatement.paragraphs"
               >
-                {displayParagraphs.map((paragraph, index) => (
-                  <p key={index}>
-                    {paragraph}
-                  </p>
-                ))}
-              </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  viewport={{ once: true }}
+                  className="space-y-6 text-lg text-muted-foreground leading-relaxed"
+                >
+                  {displayParagraphs.map((paragraph, index) => (
+                    <p key={index}>
+                      {paragraph}
+                    </p>
+                  ))}
+                </motion.div>
+              </VisualEditingWrapper>
             </div>
 
             {/* Artist Info */}
@@ -126,26 +145,32 @@ const ArtistStatement = ({ settings, artist }: ArtistStatementProps) => {
             </motion.div>
 
             {/* Achievements */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-3 gap-6 py-6 border-t border-border/50"
+            <VisualEditingWrapper
+              documentId={settings?._id}
+              documentType="portfolioSettings"
+              fieldPath="artistStatement.achievements"
             >
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gallery-gold mb-1">{achievements?.artworksCount || 50}+</div>
-                <div className="text-sm text-muted-foreground">Artworks Created</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gallery-gold mb-1">{achievements?.exhibitionsCount || 12}</div>
-                <div className="text-sm text-muted-foreground">Exhibitions</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gallery-gold mb-1">{achievements?.awardsCount || 3}</div>
-                <div className="text-sm text-muted-foreground">Awards</div>
-              </div>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+                viewport={{ once: true }}
+                className="grid grid-cols-3 gap-6 py-6 border-t border-border/50"
+              >
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-gallery-gold mb-1">{achievements?.artworksCount || 50}+</div>
+                  <div className="text-sm text-muted-foreground">Artworks Created</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-gallery-gold mb-1">{achievements?.exhibitionsCount || 12}</div>
+                  <div className="text-sm text-muted-foreground">Exhibitions</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-gallery-gold mb-1">{achievements?.awardsCount || 3}</div>
+                  <div className="text-sm text-muted-foreground">Awards</div>
+                </div>
+              </motion.div>
+            </VisualEditingWrapper>
 
             {/* CTA Buttons */}
             <motion.div

@@ -169,6 +169,10 @@ async function populateSampleContent() {
         title: 'Enter the Gallery - This section title appears between homepage sections',
         subtitle: 'Discover a curated collection of contemporary artworks that explore the boundaries between traditional and modern artistic expression. Each piece invites you to contemplate themes of identity, transformation, and the beauty found in everyday moments. This text helps transition visitors from the hero section to the gallery.'
       },
+      featuredCollection: {
+        title: 'Featured Collection - This is the main gallery section title on the homepage',
+        subtitle: 'A selection of recent works showcasing diverse mediums and artistic approaches. These pieces represent the evolution of my artistic practice and explore themes of connection, transformation, and the interplay between light and shadow. Each artwork tells a story and invites viewers to discover their own interpretations.'
+      },
       artistStatement: {
         title: 'Artist Statement - This section heading appears on the homepage',
         quote: 'Art is not what you see, but what you make others see. - This featured quote appears prominently in the artist statement section',
