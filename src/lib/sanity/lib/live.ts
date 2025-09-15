@@ -16,4 +16,6 @@ export const { sanityFetch, SanityLive } = defineLive({
       studioUrl: '/studio',
     },
   }),
+  serverToken: readToken,
+  browserToken: false, // Silence warning - visual editing works through presentation tool
 });

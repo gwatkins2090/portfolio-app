@@ -1,6 +1,6 @@
 'use client';
 
-import { VisualEditing } from 'next-sanity';
+import { VisualEditing } from 'next-sanity/visual-editing';
 import { useLiveMode } from '@sanity/react-loader';
 import { client } from '@/lib/sanity/lib/client';
 import { readToken } from '@/lib/sanity/lib/client-tokens';
