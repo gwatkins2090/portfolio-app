@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Quote } from 'lucide-react';
-import { getSanityImageUrl, getSafeText, getSafeArray } from '@/lib/sanity/fetch';
+import { getSanityImageUrl, getSafeText, getSafeArray } from '@/lib/sanity/utils';
 
 interface ArtistStatementProps {
   settings?: any;

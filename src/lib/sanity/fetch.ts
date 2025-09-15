@@ -102,44 +102,4 @@ export async function getContactPageData() {
   });
 }
 
-// Utility function to get Sanity image URL
-export function getSanityImageUrl(image: any): string | null {
-  if (!image?.asset?.url) return null;
-  return image.asset.url;
-}
-
-// Utility function to get Sanity image dimensions
-export function getSanityImageDimensions(image: any): { width: number; height: number } | null {
-  if (!image?.asset?.metadata?.dimensions) return null;
-  return {
-    width: image.asset.metadata.dimensions.width,
-    height: image.asset.metadata.dimensions.height,
-  };
-}
-
-// Utility function for safe text content
-export function getSafeText(text: string | undefined, fallback: string = ''): string {
-  return text || fallback;
-}
-
-// Utility function for safe array content
-export function getSafeArray<T>(array: T[] | undefined): T[] {
-  return array || [];
-}
-
-// Utility function to format date
-export function formatDate(dateString: string): string {
-  if (!dateString) return '';
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
-
-// Utility function to format year range
-export function formatYearRange(startYear: number, endYear?: number): string {
-  if (!startYear) return '';
-  if (!endYear) return `${startYear} - Present`;
-  return `${startYear} - ${endYear}`;
-}
+// Note: Utility functions moved to @/lib/sanity/utils for client/server compatibility

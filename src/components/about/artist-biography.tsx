@@ -7,7 +7,7 @@ import { MapPin, Calendar, GraduationCap, Palette, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { getSanityImageUrl, getSafeText, getSafeArray, formatYearRange } from '@/lib/sanity/fetch';
+import { getSanityImageUrl, getSafeText, getSafeArray, formatYearRange } from '@/lib/sanity/utils';
 
 interface ArtistBiographyProps {
   artist?: any;
