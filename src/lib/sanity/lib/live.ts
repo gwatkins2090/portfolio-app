@@ -16,4 +16,6 @@ export const { sanityFetch, SanityLive } = defineLive({
       studioUrl: '/studio',
     },
   }),
+  serverToken: readToken,
+  browserToken: readToken, // Enable client-side live updates
 });

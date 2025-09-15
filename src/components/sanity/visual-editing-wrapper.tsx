@@ -21,8 +21,9 @@ export function VisualEditingWrapper({
   fieldPath,
   className,
 }: VisualEditingWrapperProps) {
-  // Only add visual editing attributes in development
-  const editableProps = process.env.NODE_ENV === 'development' && documentId && documentType ? {
+  // Add visual editing attributes when document info is available
+  // This enables editing in both development and presentation mode
+  const editableProps = documentId && documentType ? {
     'data-sanity-edit-target': true,
     'data-sanity-document-id': documentId,
     'data-sanity-document-type': documentType,

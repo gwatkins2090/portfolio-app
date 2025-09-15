@@ -27,7 +27,10 @@ export default async function sanityFetch<QueryResponse>({
     token: isDraftMode ? readToken : undefined,
     perspective,
     useCdn: !isDraftMode,
-    stega: isDraftMode,
+    stega: isDraftMode ? {
+      enabled: true,
+      studioUrl: '/studio',
+    } : false,
   });
 
   return queryClient.fetch<QueryResponse>(query, params, {
