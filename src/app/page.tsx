@@ -72,16 +72,11 @@ const HomePage = async () => {
         </div>
 
         {/* Featured Artworks Grid - Responsive for all screen sizes */}
-        <EditableContent
-          documentId={settings?._id}
-          documentType="portfolioSettings"
-          fieldPath="featuredCollection"
-        >
-          <GalleryGrid
-            title="Featured Collection"
-            subtitle="A selection of recent works showcasing diverse mediums and artistic approaches."
-          />
-        </EditableContent>
+        <GalleryGrid
+          title="Featured Collection"
+          subtitle="A selection of recent works showcasing diverse mediums and artistic approaches."
+          artworks={artworksToShow}
+        />
 
         {/* Artist Statement Section */}
         <ArtistStatement
@@ -90,19 +85,13 @@ const HomePage = async () => {
         />
 
         {/* Final Gallery Transition */}
-        <EditableContent
-          documentId={settings?._id}
-          documentType="portfolioSettings"
-          fieldPath="galleryTransition2"
+        <GalleryTransition
+          title={settings?.galleryTransition2?.title || "Continue Exploring"}
+          subtitle={settings?.galleryTransition2?.subtitle || "Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities."}
+          backgroundColor="bg-dusty-rose/10 dark:bg-dusty-rose/5"
         >
-          <GalleryTransition
-            title="Continue Exploring"
-            subtitle="Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities."
-            backgroundColor="bg-dusty-rose/10 dark:bg-dusty-rose/5"
-          >
-            <div />
-          </GalleryTransition>
-        </EditableContent>
+          <div />
+        </GalleryTransition>
       </main>
       <Footer />
     </div>

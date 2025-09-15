@@ -181,6 +181,26 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'galleryTransition2',
+      title: 'Second Gallery Transition Section',
+      type: 'object',
+      fields: [
+        {
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          initialValue: 'Continue Exploring',
+        },
+        {
+          name: 'subtitle',
+          title: 'Section Subtitle',
+          type: 'text',
+          rows: 3,
+          initialValue: 'Visit our complete portfolio to discover more artworks, learn about upcoming exhibitions, and explore commission opportunities.',
+        },
+      ],
+    }),
+    defineField({
       name: 'socialMedia',
       title: 'Social Media',
       type: 'object',
