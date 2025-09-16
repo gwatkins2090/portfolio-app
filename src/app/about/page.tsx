@@ -25,23 +25,12 @@ export async function generateMetadata(): Promise<Metadata> {
 const AboutPage = async () => {
   // Fetch data from Sanity
   let data;
-  // Temporarily disable data fetching for build stability
-  // try {
-  //   data = await getAboutPageData();
-  // } catch (error) {
-  //   console.error('Error fetching about page data:', error);
-  //   data = { artist: null, settings: null };
-  // }
-
-  // Use static fallback data
-  data = {
-    artist: {
-      name: 'Jennifer Watkins',
-      shortBio: 'Contemporary artist exploring the boundaries between traditional artistry and contemporary expression.',
-      profileImage: null
-    },
-    settings: null
-  };
+  try {
+    data = await getAboutPageData();
+  } catch (error) {
+    console.error('Error fetching about page data:', error);
+    data = { artist: null, settings: null };
+  }
 
   const { artist, settings } = data;
 

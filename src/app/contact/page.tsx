@@ -32,23 +32,13 @@ const inquiryTypes = [
 ];
 
 const ContactPage = async () => {
-  // Temporarily disable data fetching for build stability
-  // let data;
-  // try {
-  //   data = await getContactPageData();
-  // } catch (error) {
-  //   console.error('Error fetching contact page data:', error);
-  //   data = { settings: null, artist: null };
-  // }
-
-  // Use static fallback data
-  const data = {
-    artist: {
-      name: 'Jennifer Watkins',
-      email: 'jennifer@example.com'
-    },
-    settings: null
-  };
+  let data;
+  try {
+    data = await getContactPageData();
+  } catch (error) {
+    console.error('Error fetching contact page data:', error);
+    data = { settings: null, artist: null };
+  }
 
   const { settings, artist } = data;
 
