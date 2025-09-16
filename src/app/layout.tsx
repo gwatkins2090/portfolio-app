@@ -3,12 +3,12 @@ import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
-import ThemeProvider from '@/components/poviders/theme-provider';
-import { Toaster } from 'react-hot-toast';
-import { draftMode } from 'next/headers';
-import { SanityLive } from '@/lib/sanity/lib/live';
-import DraftModeBanner from '@/components/sanity/DraftModeBanner';
-import SanityVisualEditing from '@/components/sanity/visual-editing';
+// import ThemeProvider from '@/components/poviders/theme-provider';
+// import { Toaster } from 'react-hot-toast';
+// import { draftMode } from 'next/headers';
+// import { SanityLive } from '@/lib/sanity/lib/live';
+// import DraftModeBanner from '@/components/sanity/DraftModeBanner';
+// import SanityVisualEditing from '@/components/sanity/visual-editing';
 
 
 const inter = Inter({
@@ -52,20 +52,21 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled: isDraftMode } = await draftMode();
+  // const { isEnabled: isDraftMode } = await draftMode();
+  const isDraftMode = false;
 
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
-        <ThemeProvider
+        {/* <ThemeProvider
           attribute='class'
           defaultTheme='system'
           enableSystem
           disableTransitionOnChange
-        >
-          <DraftModeBanner isEnabled={isDraftMode} />
+        > */}
+          {/* <DraftModeBanner isEnabled={isDraftMode} /> */}
           <div className={isDraftMode ? 'pt-12' : ''}>{children}</div>
-          <Toaster
+          {/* <Toaster
             position='top-right'
             toastOptions={{
               duration: 4000,
@@ -87,12 +88,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 },
               },
             }}
-          />
-        </ThemeProvider>
+          /> */}
+        {/* </ThemeProvider> */}
 
         {/* Sanity Live Content and Visual Editing */}
-        <SanityVisualEditing />
-        <SanityLive />
+        {/* <SanityVisualEditing />
+        <SanityLive /> */}
 
         {/* Performance Monitoring */}
         <Script
