@@ -14,13 +14,13 @@ interface VisualEditingWrapperProps {
  * Client component wrapper for visual editing in server components
  * This component can be used to wrap server-rendered content with visual editing capabilities
  */
-export function VisualEditingWrapper({
+export const VisualEditingWrapper = ({
   children,
   documentId,
   documentType,
   fieldPath,
   className,
-}: VisualEditingWrapperProps) {
+}: VisualEditingWrapperProps) => {
   // Add visual editing attributes when document info is available
   // This enables editing in both development and presentation mode
   const editableProps = documentId && documentType ? {
@@ -35,7 +35,7 @@ export function VisualEditingWrapper({
       {children}
     </div>
   );
-}
+};
 
 /**
  * Higher-order component for adding visual editing to server components

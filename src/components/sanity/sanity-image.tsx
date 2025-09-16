@@ -13,7 +13,7 @@ interface SanityImageProps {
   sizes?: string
 }
 
-export function SanityImage({
+export const SanityImage = ({
   image,
   alt,
   width = 800,
@@ -21,7 +21,7 @@ export function SanityImage({
   className = '',
   priority = false,
   sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-}: SanityImageProps) {
+}: SanityImageProps) => {
   if (!image?.asset) {
     return (
       <div 
@@ -51,5 +51,5 @@ export function SanityImage({
       priority={priority}
       sizes={sizes}
     />
-  )
-}
+  );
+};

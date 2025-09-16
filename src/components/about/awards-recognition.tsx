@@ -18,8 +18,18 @@ interface AwardItem {
   significance: 'major' | 'notable' | 'emerging';
 }
 
-const AwardsAndRecognition = () => {
-  const awards: AwardItem[] = [
+interface AwardsAndRecognitionProps {
+  settings?: any;
+}
+
+const AwardsAndRecognition = ({ settings }: AwardsAndRecognitionProps) => {
+  // Get awards data from Sanity or use fallback
+  const awardsSection = settings?.awardsSection;
+  const sectionTitle = awardsSection?.title || 'Awards & Recognition';
+  const sanityAwards = awardsSection?.entries || [];
+
+  // Fallback awards data
+  const fallbackAwards: AwardItem[] = [
     {
       id: '1',
       title: 'Whitney Biennial Artist Selection',
@@ -49,45 +59,32 @@ const AwardsAndRecognition = () => {
       description: 'Two-month residency at the historic artists\' colony in Saratoga Springs, NY, resulting in the creation of the "Liminal Spaces" series.',
       significance: 'notable',
       website: 'https://yaddo.org'
-    },
-    {
-      id: '4',
-      title: 'Featured in "30 Under 30: Artists to Watch"',
-      organization: 'Artforum International',
-      year: 2022,
-      category: 'publication',
-      description: 'Recognized as one of the most promising emerging artists working in contemporary mixed media and conceptual art.',
-      significance: 'major'
-    },
-    {
-      id: '5',
-      title: 'Acquisition by Permanent Collection',
-      organization: 'Museum of Modern Art, New York',
-      year: 2022,
-      category: 'collection',
-      description: 'Work "Urban Meditation #3" acquired for the museum\'s permanent collection of contemporary art.',
-      significance: 'major'
-    },
-    {
-      id: '6',
-      title: 'Excellence in Fine Arts Award',
-      organization: 'Yale School of Art',
-      year: 2018,
-      category: 'award',
-      description: 'Graduated with highest honors and received the school\'s top award for outstanding achievement in contemporary art practice.',
-      significance: 'notable'
-    },
-    {
-      id: '7',
-      title: 'Emerging Artist Fellowship',
-      organization: 'Brooklyn Arts Council',
-      year: 2021,
-      category: 'grant',
-      description: 'Fellowship supporting studio practice and professional development for emerging artists in Brooklyn.',
-      amount: '$10,000',
-      significance: 'emerging'
     }
   ];
+
+  // Transform Sanity data to match component interface
+  interface SanityAward {
+    title?: string;
+    organization?: string;
+    year?: string | number;
+    type?: string;
+    description?: string;
+    significance?: string;
+    website?: string;
+  }
+
+  const transformedSanityAwards: AwardItem[] = sanityAwards.map((award: SanityAward, index: number) => ({
+    id: `sanity-${index}`,
+    title: award.title || 'Untitled Award',
+    organization: award.organization || 'Unknown Organization',
+    year: parseInt(award.year) || new Date().getFullYear(),
+    category: 'award' as const, // Default category since Sanity schema doesn't have this
+    description: award.description || '',
+    significance: 'notable' as const, // Default significance
+  }));
+
+  // Use Sanity data if available, otherwise fallback
+  const awards = transformedSanityAwards.length > 0 ? transformedSanityAwards : fallbackAwards;
 
   const getIcon = (category: AwardItem['category']) => {
     switch (category) {
@@ -151,7 +148,7 @@ const AwardsAndRecognition = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6">
-              Awards & Recognition
+              {sectionTitle}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Recognition from prestigious institutions and organizations that have supported 

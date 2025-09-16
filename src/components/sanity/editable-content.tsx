@@ -16,14 +16,14 @@ interface EditableContentProps {
  * In production, it just renders the children normally
  * In development with visual editing, it adds data attributes for Sanity to detect
  */
-export function EditableContent({ 
+export const EditableContent = ({
   children, 
   documentId, 
   documentType, 
   fieldPath,
   className,
   style 
-}: EditableContentProps) {
+}: EditableContentProps) => {
   // In development, add data attributes for visual editing
   const editableProps = process.env.NODE_ENV === 'development' && documentId && documentType ? {
     'data-sanity-edit-target': true,
@@ -40,8 +40,8 @@ export function EditableContent({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
 /**
  * Editable text component for simple text fields
@@ -56,7 +56,7 @@ interface EditableTextProps {
   style?: React.CSSProperties
 }
 
-export function EditableText({ 
+export const EditableText = ({
   text, 
   documentId, 
   documentType, 
@@ -64,7 +64,7 @@ export function EditableText({
   as: Component = 'div',
   className,
   style 
-}: EditableTextProps) {
+}: EditableTextProps) => {
   const editableProps = process.env.NODE_ENV === 'development' && documentId && documentType ? {
     'data-sanity-edit-target': true,
     'data-sanity-document-id': documentId,
@@ -80,8 +80,8 @@ export function EditableText({
     >
       {text}
     </Component>
-  )
-}
+  );
+};
 
 /**
  * Editable image component
@@ -98,7 +98,7 @@ interface EditableImageProps {
   height?: number
 }
 
-export function EditableImage({ 
+export const EditableImage = ({
   src, 
   alt, 
   documentId, 
@@ -108,7 +108,7 @@ export function EditableImage({
   style,
   width,
   height 
-}: EditableImageProps) {
+}: EditableImageProps) => {
   const editableProps = process.env.NODE_ENV === 'development' && documentId && documentType ? {
     'data-sanity-edit-target': true,
     'data-sanity-document-id': documentId,
@@ -127,5 +127,5 @@ export function EditableImage({
         height={height}
       />
     </div>
-  )
-}
+  );
+};

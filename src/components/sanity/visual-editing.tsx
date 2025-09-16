@@ -6,8 +6,7 @@ import { client } from '@/lib/sanity/lib/client';
 import { readToken } from '@/lib/sanity/lib/client-tokens';
 import { useEffect, useState } from 'react';
 
-export default function SanityVisualEditing() {
-  const [isEnabled, setIsEnabled] = useState(false);
+const SanityVisualEditing = () => {
 
   useEffect(() => {
     // Enable visual editing in draft mode or when in presentation mode
@@ -29,13 +28,11 @@ export default function SanityVisualEditing() {
         studioUrl: '/studio',
       },
     }),
-    allowStudioOrigin: [
-      'http://localhost:3000',
-      'https://localhost:3000',
-      window.location.origin
-    ]
+    allowStudioOrigin: window.location.origin
   });
 
   // Always render VisualEditing component for presentation mode to work
   return <VisualEditing />;
-}
+};
+
+export default SanityVisualEditing;

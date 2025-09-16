@@ -104,7 +104,21 @@ const formatDate = (dateString: string) => {
   });
 };
 
-const ExhibitionCard = ({ exhibition }: { exhibition: any }) => (
+interface Exhibition {
+  id: number;
+  title: string;
+  venue: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  type: string;
+  description: string;
+  featured: boolean;
+  status: string;
+  artworks?: string[];
+}
+
+const ExhibitionCard = ({ exhibition }: { exhibition: Exhibition }) => (
   <Card className={`hover:shadow-lg transition-shadow ${exhibition.featured ? 'ring-2 ring-gallery-gold/20' : ''}`}>
     <CardContent className="p-6">
       <div className="flex justify-between items-start mb-4">

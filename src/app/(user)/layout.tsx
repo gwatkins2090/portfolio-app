@@ -3,7 +3,7 @@ import { SanityLive } from '@/lib/sanity/lib/live';
 import DraftModeBanner from '@/components/sanity/DraftModeBanner';
 import SanityVisualEditing from '@/components/sanity/visual-editing';
 
-export default async function UserLayout({ children }: { children: React.ReactNode }) {
+const UserLayout = async ({ children }: { children: React.ReactNode }) => {
   const { isEnabled: isDraftMode } = await draftMode();
 
   return (
@@ -14,4 +14,6 @@ export default async function UserLayout({ children }: { children: React.ReactNo
       <SanityLive />
     </>
   );
-}
+};
+
+export default UserLayout;

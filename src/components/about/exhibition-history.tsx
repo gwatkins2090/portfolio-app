@@ -26,6 +26,10 @@ interface Exhibition {
   isUpcoming?: boolean;
 }
 
+interface ExhibitionHistoryProps {
+  settings?: any;
+}
+
 const ExhibitionHistory = () => {
   const [expandedExhibition, setExpandedExhibition] = useState<string | null>(null);
 
@@ -106,36 +110,10 @@ const ExhibitionHistory = () => {
   const upcomingExhibitions = exhibitions.filter(ex => ex.isUpcoming);
   const pastExhibitions = exhibitions.filter(ex => !ex.isUpcoming).sort((a, b) => b.year - a.year);
 
-  const getTypeColor = (type: Exhibition['type']) => {
-    switch (type) {
-      case 'solo': return 'bg-gallery-gold text-off-black';
-      case 'group': return 'bg-sage-green text-white';
-      case 'art-fair': return 'bg-dusty-rose text-white';
-      case 'museum': return 'bg-slate-blue text-white';
-      default: return 'bg-muted text-muted-foreground';
-    }
-  };
 
-  const getTypeLabel = (type: Exhibition['type']) => {
-    switch (type) {
-      case 'solo': return 'Solo Exhibition';
-      case 'group': return 'Group Exhibition';
-      case 'art-fair': return 'Art Fair';
-      case 'museum': return 'Museum Exhibition';
-      default: return type;
-    }
-  };
 
-  const formatDate = (startDate: string, endDate: string) => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    
-    if (start.getFullYear() === end.getFullYear() && start.getMonth() === end.getMonth()) {
-      return `${start.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} - ${end.getDate()}, ${end.getFullYear()}`;
-    }
-    
-    return `${start.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} - ${end.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
-  };
+
+
 
   return (
     <section className="py-20 bg-muted/30">

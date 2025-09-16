@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useInView, useAnimation } from 'framer-motion';
-import { Eye, Heart, ShoppingBag, Maximize2 } from 'lucide-react';
+import { Eye, Heart, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { VisualEditingWrapper } from '@/components/sanity/visual-editing-wrapper';
@@ -310,10 +310,9 @@ interface GalleryGridProps {
   title?: string;
   subtitle?: string;
   artworks?: ArtworkItem[];
-  settings?: any;
 }
 
-const GalleryGrid = ({ title = "Featured Artworks", subtitle, artworks, settings }: GalleryGridProps) => {
+const GalleryGrid = ({ title = "Featured Artworks", subtitle, artworks }: GalleryGridProps) => {
   // Use provided artworks or fall back to sample data
   const displayArtworks = artworks || sampleArtworks;
   return (

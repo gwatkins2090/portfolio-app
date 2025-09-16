@@ -53,7 +53,9 @@ const LightboxGallery = ({
 
   // Keyboard navigation
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
@@ -138,7 +140,7 @@ const LightboxGallery = ({
           text: `Check out this artwork: ${artworkTitle || 'Untitled'}`,
           url: window.location.href
         });
-      } catch (error) {
+      } catch {
         // Fallback to copying URL
         navigator.clipboard.writeText(window.location.href);
       }
@@ -154,7 +156,9 @@ const LightboxGallery = ({
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <AnimatePresence>

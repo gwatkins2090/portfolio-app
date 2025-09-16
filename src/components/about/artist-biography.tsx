@@ -7,14 +7,30 @@ import { MapPin, Calendar, GraduationCap, Palette, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { getSanityImageUrl, getSafeText, getSafeArray, formatYearRange } from '@/lib/sanity/utils';
+import { getSanityImageUrl, getSafeArray } from '@/lib/sanity/utils';
+
+interface Education {
+  degree: string;
+  field: string;
+  institution: string;
+  location: { city: string; country: string };
+  startYear: number;
+  endYear: number;
+  description?: string;
+}
+
+interface TimelineItem {
+  year: string;
+  title: string;
+  description: string;
+}
 
 interface ArtistBiographyProps {
   artist?: any;
   settings?: any;
 }
 
-const ArtistBiography = ({ artist, settings }: ArtistBiographyProps) => {
+const ArtistBiography = ({ artist }: ArtistBiographyProps) => {
   // Get data from Sanity or use fallbacks
   const artistName = artist?.name || 'Jennifer Watkins';
   const bio = artist?.bio || 'Jennifer Watkins is a contemporary artist whose work explores the delicate balance between chaos and order, finding beauty in the unexpected intersections of color, form, and emotion.';
@@ -22,11 +38,11 @@ const ArtistBiography = ({ artist, settings }: ArtistBiographyProps) => {
   const location = artist?.location;
   const activeSince = artist?.activeSince || 2018;
   const primaryMedium = artist?.primaryMedium || 'Mixed Media';
-  const nationality = artist?.nationality || 'American';
+
 
   // Education data from Sanity or fallback
-  const education = getSafeArray(artist?.education);
-  const fallbackEducation = [
+  const education = getSafeArray(artist?.education) as Education[];
+  const fallbackEducation: Education[] = [
     {
       degree: 'Master of Fine Arts',
       field: 'Contemporary Art Practice',
@@ -48,8 +64,8 @@ const ArtistBiography = ({ artist, settings }: ArtistBiographyProps) => {
   ];
 
   // Career timeline from Sanity or fallback
-  const timeline = getSafeArray(artist?.careerTimeline);
-  const fallbackTimeline = [
+  const timeline = getSafeArray(artist?.careerTimeline) as TimelineItem[];
+  const fallbackTimeline: TimelineItem[] = [
     {
       year: '2024',
       title: 'Current Studio Practice',
@@ -130,7 +146,7 @@ const ArtistBiography = ({ artist, settings }: ArtistBiographyProps) => {
                   <GraduationCap className="h-6 w-6 mx-auto mb-2 text-primary" />
                   <div className="text-sm font-medium">Education</div>
                   <div className="text-xs text-muted-foreground">
-                    {displayEducation[0]?.degree ? `${displayEducation[0].degree.split(' ').map(word => word[0]).join('')}, ${displayEducation[0].institution.split(' ').pop()}` : 'MFA, Yale'}
+                    {displayEducation[0]?.degree ? `${displayEducation[0].degree.split(' ').map((word: string) => word[0]).join('')}, ${displayEducation[0].institution.split(' ').pop()}` : 'MFA, Yale'}
                   </div>
                 </CardContent>
               </Card>
@@ -174,7 +190,7 @@ const ArtistBiography = ({ artist, settings }: ArtistBiographyProps) => {
               </div>
 
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                {bio.split('\n\n').map((paragraph, index) => (
+                {bio.split('\n\n').map((paragraph: string, index: number) => (
                   <p key={index}>{paragraph}</p>
                 ))}
               </div>
@@ -186,7 +202,7 @@ const ArtistBiography = ({ artist, settings }: ArtistBiographyProps) => {
                 Education
               </h3>
               <div className="space-y-4">
-                {displayEducation.map((edu, index) => (
+                {displayEducation.map((edu: Education, index: number) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
@@ -206,7 +222,7 @@ const ArtistBiography = ({ artist, settings }: ArtistBiographyProps) => {
                             </p>
                           </div>
                           <Badge variant="outline">
-                            {edu.startYear && edu.endYear ? `${edu.startYear}-${edu.endYear}` : (edu.years || 'N/A')}
+                            {edu.startYear && edu.endYear ? `${edu.startYear}-${edu.endYear}` : 'N/A'}
                           </Badge>
                         </div>
                         <p className="text-sm font-medium text-foreground mb-1">
@@ -215,7 +231,7 @@ const ArtistBiography = ({ artist, settings }: ArtistBiographyProps) => {
                         <p className="text-xs text-muted-foreground mb-2">
                           {edu.location?.city && edu.location?.country
                             ? `${edu.location.city}, ${edu.location.country}`
-                            : (edu.location || 'N/A')
+                            : 'N/A'
                           }
                         </p>
                         <p className="text-sm text-muted-foreground">
@@ -234,7 +250,7 @@ const ArtistBiography = ({ artist, settings }: ArtistBiographyProps) => {
                 Career Highlights
               </h3>
               <div className="space-y-4">
-                {displayTimeline.map((item, index) => (
+                {displayTimeline.map((item: TimelineItem, index: number) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, x: 20 }}

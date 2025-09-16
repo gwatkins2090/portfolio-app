@@ -39,7 +39,7 @@ const ArtworkDetail = ({
           text: `Check out "${artwork.title}" by the artist`,
           url: window.location.href
         });
-      } catch (error) {
+      } catch {
         // Fallback to copying URL
         navigator.clipboard.writeText(window.location.href);
       }
@@ -232,7 +232,7 @@ const ArtworkDetail = ({
               <Card>
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-foreground mb-3">
-                    Artist's Notes
+                    Artist&apos;s Notes
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {artwork.artistNotes}
@@ -263,7 +263,7 @@ const ArtworkDetail = ({
                     Series
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Part of the "{artwork.series}" series
+                    Part of the &quot;{artwork.series}&quot; series
                     {artwork.edition && (
                       <span className="block mt-1">
                         Edition {artwork.edition.current} of {artwork.edition.total}

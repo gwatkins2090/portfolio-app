@@ -47,7 +47,7 @@ const TermsPage = () => {
                       1. Agreement to Terms
                     </h2>
                     <p className="text-muted-foreground leading-relaxed mb-4">
-                      These Terms of Service ("Terms") govern your use of Jennifer Watkins' art portfolio website 
+                      These Terms of Service (&quot;Terms&quot;) govern your use of Jennifer Watkins&apos; art portfolio website
                       and the purchase of artwork. By accessing our website or purchasing artwork, you agree to be 
                       bound by these Terms.
                     </p>
@@ -238,7 +238,7 @@ const TermsPage = () => {
                       <li>Attempting to gain unauthorized access to our systems</li>
                       <li>Using automated systems to access or collect information from our website</li>
                       <li>Posting or transmitting harmful, offensive, or illegal content</li>
-                      <li>Interfering with other users' enjoyment of our website</li>
+                      <li>Interfering with other users&apos; enjoyment of our website</li>
                       <li>Violating any applicable laws or regulations</li>
                     </ul>
                   </section>
@@ -293,7 +293,7 @@ const TermsPage = () => {
                       <p className="text-muted-foreground mb-1">Email: info@jenniferwatkins.art</p>
                       <p className="text-muted-foreground mb-1">Website: www.jenniferwatkins.art</p>
                       <p className="text-muted-foreground">
-                        For legal inquiries, please include "Terms of Service" in your subject line.
+                        For legal inquiries, please include &quot;Terms of Service&quot; in your subject line.
                       </p>
                     </div>
                   </section>

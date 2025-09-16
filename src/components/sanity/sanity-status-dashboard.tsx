@@ -26,12 +26,12 @@ interface EnvironmentStatus {
   apiVersion: string | undefined;
 }
 
-export function SanityStatusDashboard({ 
+export const SanityStatusDashboard = ({
   initialFetchTime, 
   initialError, 
   homepageData, 
   aboutData 
-}: StatusDashboardProps) {
+}: StatusDashboardProps) => {
   const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>({
     isConnected: !initialError,
     lastChecked: new Date(),
@@ -226,7 +226,7 @@ export function SanityStatusDashboard({
             <ol className="text-sm space-y-1 list-decimal list-inside">
               <li>Visit <a href="/api/draft?secret=xvw9fazokd9&slug=/test-sanity" className="text-blue-600 underline">Enable Draft Mode</a></li>
               <li>Return to this page</li>
-              <li>Check that "Draft Mode Active" shows green</li>
+              <li>Check that &quot;Draft Mode Active&quot; shows green</li>
               <li>Make changes in studio to see live updates</li>
             </ol>
           </div>
@@ -234,4 +234,4 @@ export function SanityStatusDashboard({
       </div>
     </div>
   );
-}
+};

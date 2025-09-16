@@ -1,4 +1,13 @@
-export function generatePreviewUrl(context: any): string {
+interface PreviewContext {
+  document?: {
+    _type: string;
+    slug?: { current: string };
+  };
+  _type?: string;
+  slug?: { current: string };
+}
+
+function generatePreviewUrl(context: PreviewContext): string {
   const doc = context.document ?? context;
   const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
@@ -31,3 +40,5 @@ export function generatePreviewUrl(context: any): string {
 
   return url;
 }
+
+export default generatePreviewUrl;

@@ -90,7 +90,7 @@ const HeroSection = ({ settings, featuredArtworks }: HeroSectionProps) => {
   const heroSubtitle = settings?.heroSection?.subtitle || 'Portfolio';
   const heroDescription = settings?.heroSection?.description || 'Discover a curated collection of contemporary artwork that explores the intersection of traditional techniques and modern expression.';
   const ctaText = settings?.heroSection?.ctaText || 'Explore Gallery';
-  const ctaLink = settings?.heroSection?.ctaLink || '/portfolio';
+
   const secondaryCtaText = settings?.heroSection?.secondaryCtaText || 'About the Artist';
   const secondaryCtaLink = settings?.heroSection?.secondaryCtaLink || '/about';
 

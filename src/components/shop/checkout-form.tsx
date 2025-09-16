@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, Lock, Truck, MapPin, User, Mail, Phone } from 'lucide-react';
+import { CreditCard, Lock, Truck, User, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';

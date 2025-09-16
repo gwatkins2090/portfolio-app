@@ -11,7 +11,7 @@ interface GalleryTransitionProps {
   backgroundColor?: string;
   textColor?: string;
   className?: string;
-  settings?: any;
+
   titleFieldPath?: string;
   subtitleFieldPath?: string;
 }

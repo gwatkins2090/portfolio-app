@@ -113,7 +113,7 @@ const ShippingPage = () => {
                       </div>
                       <p className="text-muted-foreground leading-relaxed mb-6">
                         We use the same professional packaging standards employed by museums and galleries 
-                        worldwide. Your artwork is not just shipped—it's carefully transported with the 
+                        worldwide. Your artwork is not just shipped&mdash;it&apos;s carefully transported with the
                         respect and protection it deserves.
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -180,7 +180,7 @@ const ShippingPage = () => {
                   Our Packaging Process
                 </h2>
                 <p className="text-lg text-muted-foreground">
-                  A meticulous six-step process ensures your artwork's safety
+                  A meticulous six-step process ensures your artwork&apos;s safety
                 </p>
               </div>
 
@@ -219,15 +219,15 @@ const ShippingPage = () => {
                       <ul className="space-y-3 text-muted-foreground">
                         <li className="flex items-start gap-2">
                           <span className="text-gallery-gold">•</span>
-                          <span>Small prints (up to 16"): $25</span>
+                          <span>Small prints (up to 16&quot;): $25</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-gallery-gold">•</span>
-                          <span>Medium artworks (16"-30"): $45</span>
+                          <span>Medium artworks (16&quot;-30&quot;): $45</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-gallery-gold">•</span>
-                          <span>Large artworks (30"+): $75</span>
+                          <span>Large artworks (30&quot;+): $75</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-gallery-gold">•</span>
@@ -253,7 +253,7 @@ const ShippingPage = () => {
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-gallery-gold">•</span>
-                          <span>Customs duties are buyer's responsibility</span>
+                          <span>Customs duties are buyer&apos;s responsibility</span>
                         </li>
                       </ul>
                     </div>
@@ -329,7 +329,7 @@ const ShippingPage = () => {
                     Questions About Shipping?
                   </h2>
                   <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                    We're here to help ensure your artwork arrives safely. Contact us for custom shipping 
+                    We&apos;re here to help ensure your artwork arrives safely. Contact us for custom shipping
                     quotes, special delivery requirements, or any questions about our packaging process.
                   </p>
                   <div className="bg-background/50 p-6 rounded-lg inline-block">

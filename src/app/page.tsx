@@ -32,9 +32,7 @@ const HomePage = async () => {
     // Try new page-specific schema first
     data = await getNewHomepageData();
     isNewSchema = true;
-    console.log('✅ Using new homepage schema');
-  } catch (newSchemaError) {
-    console.log('⚠️ New schema not available, falling back to legacy schema');
+  } catch {
     try {
       // Fallback to legacy schema
       const legacyData = await getHomepageData();
@@ -50,12 +48,12 @@ const HomePage = async () => {
     }
   }
 
-  const { homepageSettings, globalSettings, artist } = data;
+  const { homepageSettings, artist } = data;
 
   // Get featured artworks from homepage settings or fallback
   const featuredArtworks = isNewSchema
     ? homepageSettings?.featuredArtworks
-    : data.featuredArtworks;
+    : (data as { featuredArtworks?: any[] }).featuredArtworks;
 
   // Use Sanity content if available, otherwise fall back to static content
   const artworksToShow = featuredArtworks && featuredArtworks.length > 0

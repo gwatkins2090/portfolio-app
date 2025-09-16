@@ -22,7 +22,7 @@ const MasonryGallery = ({
   onAddToCart,
   className = ''
 }: MasonryGalleryProps) => {
-  const [columnHeights, setColumnHeights] = useState<number[]>([]);
+
   const [itemPositions, setItemPositions] = useState<{ x: number; y: number; width: number }[]>([]);
   const [containerHeight, setContainerHeight] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -30,11 +30,17 @@ const MasonryGallery = ({
 
   // Calculate responsive columns
   const getResponsiveColumns = () => {
-    if (typeof window === 'undefined') return columns;
-    
+    if (typeof window === 'undefined') {
+      return columns;
+    }
+
     const width = window.innerWidth;
-    if (width < 640) return 1;
-    if (width < 1024) return Math.min(2, columns);
+    if (width < 640) {
+      return 1;
+    }
+    if (width < 1024) {
+      return Math.min(2, columns);
+    }
     return columns;
   };
 
@@ -51,7 +57,9 @@ const MasonryGallery = ({
 
   // Calculate masonry layout
   useEffect(() => {
-    if (!containerRef.current || artworks.length === 0) return;
+    if (!containerRef.current || artworks.length === 0) {
+      return;
+    }
 
     const container = containerRef.current;
     const containerWidth = container.offsetWidth;
@@ -61,7 +69,7 @@ const MasonryGallery = ({
     const heights = new Array(responsiveColumns).fill(0);
     const positions: { x: number; y: number; width: number }[] = [];
 
-    artworks.forEach((artwork, index) => {
+    artworks.forEach((artwork) => {
       // Find the shortest column
       const shortestColumnIndex = heights.indexOf(Math.min(...heights));
       
@@ -130,7 +138,9 @@ const MasonryGallery = ({
     >
       {artworks.map((artwork, index) => {
         const position = itemPositions[index];
-        if (!position) return null;
+        if (!position) {
+          return null;
+        }
 
         return (
           <motion.div

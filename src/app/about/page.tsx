@@ -67,7 +67,7 @@ const AboutPage = async () => {
           documentType="artist"
           fieldPath="statement"
         >
-          <ArtisticPhilosophy />
+          <ArtisticPhilosophy settings={settings} />
         </VisualEditingWrapper>
 
         {/* Exhibition History */}
@@ -76,11 +76,11 @@ const AboutPage = async () => {
           documentType="artist"
           fieldPath="exhibitions"
         >
-          <ExhibitionHistory artist={artist} />
+          <ExhibitionHistory settings={settings} />
         </VisualEditingWrapper>
 
         {/* Awards and Recognition */}
-        <AwardsAndRecognition artist={artist} />
+        <AwardsAndRecognition settings={settings} />
       </main>
       <Footer />
     </div>

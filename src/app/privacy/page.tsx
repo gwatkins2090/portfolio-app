@@ -47,7 +47,7 @@ const PrivacyPage = () => {
                       1. Introduction
                     </h2>
                     <p className="text-muted-foreground leading-relaxed mb-4">
-                      Jennifer Watkins ("we," "our," or "us") operates this art portfolio website. This Privacy Policy 
+                      Jennifer Watkins (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates this art portfolio website. This Privacy Policy
                       explains how we collect, use, disclose, and safeguard your information when you visit our website, 
                       purchase artwork, or engage with our services.
                     </p>
@@ -253,7 +253,7 @@ const PrivacyPage = () => {
                   {/* Children's Privacy */}
                   <section className="mb-8">
                     <h2 className="text-2xl font-serif font-semibold text-foreground mb-4">
-                      9. Children's Privacy
+                      9. Children&apos;s Privacy
                     </h2>
                     <p className="text-muted-foreground leading-relaxed">
                       Our website is not intended for children under 13 years of age. We do not knowingly collect 
@@ -271,7 +271,7 @@ const PrivacyPage = () => {
                     </h2>
                     <p className="text-muted-foreground leading-relaxed">
                       We may update this Privacy Policy from time to time. We will notify you of any material changes 
-                      by posting the new Privacy Policy on this page and updating the "Last updated" date. We encourage 
+                      by posting the new Privacy Policy on this page and updating the &quot;Last updated&quot; date. We encourage
                       you to review this Privacy Policy periodically for any changes.
                     </p>
                   </section>
@@ -291,7 +291,7 @@ const PrivacyPage = () => {
                       <p className="text-muted-foreground mb-1">Email: privacy@jenniferwatkins.art</p>
                       <p className="text-muted-foreground mb-1">Website: www.jenniferwatkins.art</p>
                       <p className="text-muted-foreground">
-                        For data protection inquiries, please include "Privacy Policy" in your subject line.
+                        For data protection inquiries, please include &quot;Privacy Policy&quot; in your subject line.
                       </p>
                     </div>
                   </section>

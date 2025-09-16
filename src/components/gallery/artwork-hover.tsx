@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Eye, Heart, ShoppingBag, Info } from 'lucide-react';
+import { Eye, Heart, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Artwork } from '@/types';
@@ -33,7 +33,9 @@ const ArtworkHover = ({
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-5, 5]));
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+    if (!ref.current) {
+      return;
+    }
     
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;

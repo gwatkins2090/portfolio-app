@@ -7,7 +7,6 @@ import { Menu, X, Image, ShoppingBag, User, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import ThemeToggle from '@/components/layout/theme-toggle';
-import { Palette } from 'lucide-react';
 import CartIcon from '@/components/cart/cart-icon';
 import { useCartStore } from '@/lib/cart-store';
 import { useMobile } from '@/hooks/use-mobile';
@@ -99,7 +98,7 @@ const Header = () => {
       x: 30,
       scale: 0.95
     },
-    open: (i: number) => ({
+    open: () => ({
       opacity: 1,
       x: 0,
       scale: 1

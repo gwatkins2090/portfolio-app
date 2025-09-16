@@ -5,6 +5,10 @@ import Image from 'next/image';
 import { Quote, Lightbulb, Heart, Eye, Brush } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
+interface ArtisticPhilosophyProps {
+  settings?: any;
+}
+
 const ArtisticPhilosophy = () => {
   const philosophyPillars = [
     {

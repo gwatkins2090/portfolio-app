@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Quote } from 'lucide-react';
-import { getSanityImageUrl, getSafeText, getSafeArray } from '@/lib/sanity/utils';
+import { getSanityImageUrl, getSafeArray } from '@/lib/sanity/utils';
 import { VisualEditingWrapper } from '@/components/sanity/visual-editing-wrapper';
 
 interface ArtistStatementProps {
@@ -18,7 +18,7 @@ const ArtistStatement = ({ settings, artist }: ArtistStatementProps) => {
   const artistStatement = settings?.artistStatement;
   const sectionTitle = artistStatement?.title || 'Artist Statement';
   const quote = artistStatement?.quote || 'Art is not what you see, but what you make others see.';
-  const paragraphs = getSafeArray(artistStatement?.paragraphs);
+  const paragraphs = getSafeArray(artistStatement?.paragraphs) as string[];
   const achievements = artistStatement?.achievements;
 
   // Artist info
@@ -116,7 +116,7 @@ const ArtistStatement = ({ settings, artist }: ArtistStatementProps) => {
                   viewport={{ once: true }}
                   className="space-y-6 text-lg text-muted-foreground leading-relaxed"
                 >
-                  {displayParagraphs.map((paragraph, index) => (
+                  {displayParagraphs.map((paragraph: string, index: number) => (
                     <p key={index}>
                       {paragraph}
                     </p>

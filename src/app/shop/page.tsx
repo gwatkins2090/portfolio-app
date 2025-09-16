@@ -10,7 +10,6 @@ import { ShoppingCart, Heart, Eye, Filter, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCartStore } from '@/lib/cart-store';
-import { availableArtworks } from '@/lib/sample-data';
 import { ArtworkCategory, ArtworkMedium } from '@/types';
 
 // Sample shop data - in a real app, this would come from your data source
@@ -112,7 +111,20 @@ const getStatusBadge = (status: string) => {
   }
 };
 
-const ArtworkCard = ({ artwork }: { artwork: any }) => {
+interface Artwork {
+  id: number;
+  title: string;
+  artist: string;
+  price: number;
+  image: string;
+  medium: string;
+  dimensions: string;
+  year: number;
+  category: string;
+  isAvailable: boolean;
+}
+
+const ArtworkCard = ({ artwork }: { artwork: Artwork }) => {
   const [isAdding, setIsAdding] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
 
