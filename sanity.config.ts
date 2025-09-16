@@ -7,7 +7,7 @@
 import { visionTool } from '@sanity/vision';
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
-import { presentationTool, defineLocations } from 'sanity/presentation';
+import { presentationTool } from 'sanity/presentation';
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId, projectTitle } from './src/lib/sanity/env';
@@ -36,20 +36,45 @@ export default defineConfig({
         },
       },
       resolve: {
-        mainDocuments: defineLocations({
-          select: {
-            title: 'title',
-            slug: 'slug.current',
+        mainDocuments: [
+          {
+            filter: `_type in ["artwork", "homepageSettings", "aboutPageSettings", "contactPageSettings", "portfolioPageSettings"]`,
+            resolve: (doc) => {
+              // Handle different document types
+              if (doc._type === 'artwork' && doc.slug?.current) {
+                return {
+                  title: doc.title || 'Untitled Artwork',
+                  href: `/artwork/${doc.slug.current}`,
+                };
+              }
+              if (doc._type === 'homepageSettings') {
+                return {
+                  title: 'Homepage',
+                  href: '/',
+                };
+              }
+              if (doc._type === 'aboutPageSettings') {
+                return {
+                  title: 'About Page',
+                  href: '/about',
+                };
+              }
+              if (doc._type === 'contactPageSettings') {
+                return {
+                  title: 'Contact Page',
+                  href: '/contact',
+                };
+              }
+              if (doc._type === 'portfolioPageSettings') {
+                return {
+                  title: 'Portfolio Page',
+                  href: '/portfolio',
+                };
+              }
+              return null;
+            },
           },
-          resolve: (doc) => ({
-            locations: [
-              {
-                title: doc?.title || 'Untitled',
-                href: `/${doc?.slug || ''}`,
-              },
-            ],
-          }),
-        }),
+        ],
       },
     }),
     // Vision is for querying with GROQ from inside the Studio
