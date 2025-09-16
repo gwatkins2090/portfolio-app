@@ -75,30 +75,38 @@ export default defineConfig({
               ],
             }),
           }),
-          homepageSettings: defineLocations([
-            {
-              title: 'Homepage',
-              href: '/',
-            },
-          ]),
-          aboutPageSettings: defineLocations([
-            {
-              title: 'About Page',
-              href: '/about',
-            },
-          ]),
-          contactPageSettings: defineLocations([
-            {
-              title: 'Contact Page',
-              href: '/contact',
-            },
-          ]),
-          portfolioPageSettings: defineLocations([
-            {
-              title: 'Portfolio Page',
-              href: '/portfolio',
-            },
-          ]),
+          homepageSettings: defineLocations({
+            locations: [
+              {
+                title: 'Homepage',
+                href: '/',
+              },
+            ],
+          }),
+          aboutPageSettings: defineLocations({
+            locations: [
+              {
+                title: 'About Page',
+                href: '/about',
+              },
+            ],
+          }),
+          contactPageSettings: defineLocations({
+            locations: [
+              {
+                title: 'Contact Page',
+                href: '/contact',
+              },
+            ],
+          }),
+          portfolioPageSettings: defineLocations({
+            locations: [
+              {
+                title: 'Portfolio Page',
+                href: '/portfolio',
+              },
+            ],
+          }),
         },
       },
     }),
