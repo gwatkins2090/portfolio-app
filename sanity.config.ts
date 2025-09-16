@@ -13,7 +13,7 @@ import { presentationTool, defineLocations } from 'sanity/presentation';
 import { apiVersion, dataset, projectId, projectTitle } from './src/lib/sanity/env';
 import { schema } from './src/lib/sanity/schemaTypes';
 import { structure } from './src/lib/sanity/structure';
-import { generatePreviewUrl } from './src/components/sanity/PreviewLink';
+import generatePreviewUrl from './src/components/sanity/PreviewLink';
 
 export default defineConfig({
   name: 'jennifer-watkins-portfolio',
