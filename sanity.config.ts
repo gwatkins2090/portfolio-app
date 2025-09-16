@@ -7,7 +7,7 @@
 import { visionTool } from '@sanity/vision';
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
-import { presentationTool } from 'sanity/presentation';
+import { presentationTool, defineLocations } from 'sanity/presentation';
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId, projectTitle } from './src/lib/sanity/env';
@@ -36,45 +36,84 @@ export default defineConfig({
         },
       },
       resolve: {
+        // Which documents should be considered "main" editing contexts
         mainDocuments: [
           {
-            filter: `_type in ["artwork", "homepageSettings", "aboutPageSettings", "contactPageSettings", "portfolioPageSettings"]`,
-            resolve: (doc) => {
-              // Handle different document types
-              if (doc._type === 'artwork' && doc.slug?.current) {
-                return {
-                  title: doc.title || 'Untitled Artwork',
-                  href: `/artwork/${doc.slug.current}`,
-                };
-              }
-              if (doc._type === 'homepageSettings') {
-                return {
-                  title: 'Homepage',
-                  href: '/',
-                };
-              }
-              if (doc._type === 'aboutPageSettings') {
-                return {
-                  title: 'About Page',
-                  href: '/about',
-                };
-              }
-              if (doc._type === 'contactPageSettings') {
-                return {
-                  title: 'Contact Page',
-                  href: '/contact',
-                };
-              }
-              if (doc._type === 'portfolioPageSettings') {
-                return {
-                  title: 'Portfolio Page',
-                  href: '/portfolio',
-                };
-              }
-              return null;
-            },
+            filter:
+              `_type in ["artwork", "homepageSettings", "aboutPageSettings", "contactPageSettings", "portfolioPageSettings"]`,
+            // No ContextFn needed here for our use-case; filter is sufficient
           },
         ],
+        // How to resolve preview locations (URLs) for documents
+        locations: defineLocations({
+          select: {
+            title: 'title',
+            slug: 'slug.current',
+            _type: '_type',
+          },
+          resolve: (doc) => {
+            const type = doc?._type;
+            const slug = doc?.slug;
+
+            if (type === 'artwork' && slug) {
+              return {
+                locations: [
+                  {
+                    title: doc?.title || 'Untitled Artwork',
+                    href: `/artwork/${slug}`,
+                  },
+                ],
+              };
+            }
+
+            if (type === 'homepageSettings') {
+              return {
+                locations: [
+                  {
+                    title: 'Homepage',
+                    href: '/',
+                  },
+                ],
+              };
+            }
+
+            if (type === 'aboutPageSettings') {
+              return {
+                locations: [
+                  {
+                    title: 'About Page',
+                    href: '/about',
+                  },
+                ],
+              };
+            }
+
+            if (type === 'contactPageSettings') {
+              return {
+                locations: [
+                  {
+                    title: 'Contact Page',
+                    href: '/contact',
+                  },
+                ],
+              };
+            }
+
+            if (type === 'portfolioPageSettings') {
+              return {
+                locations: [
+                  {
+                    title: 'Portfolio Page',
+                    href: '/portfolio',
+                  },
+                ],
+              };
+            }
+
+            // Unknown type or insufficient data
+            return { locations: [] };
+          },
+        }),
       },
     }),
     // Vision is for querying with GROQ from inside the Studio
