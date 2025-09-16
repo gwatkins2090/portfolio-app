@@ -39,9 +39,24 @@ export default defineConfig({
         // Which documents should be considered "main" editing contexts
         mainDocuments: [
           {
-            filter:
-              `_type in ["artwork", "homepageSettings", "aboutPageSettings", "contactPageSettings", "portfolioPageSettings"]`,
-            // No ContextFn needed here for our use-case; filter is sufficient
+            route: '/artwork/:slug',
+            filter: `_type == "artwork" && slug.current == $slug`,
+          },
+          {
+            route: '/',
+            filter: `_type == "homepageSettings"`,
+          },
+          {
+            route: '/about',
+            filter: `_type == "aboutPageSettings"`,
+          },
+          {
+            route: '/contact',
+            filter: `_type == "contactPageSettings"`,
+          },
+          {
+            route: '/portfolio',
+            filter: `_type == "portfolioPageSettings"`,
           },
         ],
         // How to resolve preview locations (URLs) for documents
