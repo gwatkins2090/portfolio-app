@@ -60,75 +60,46 @@ export default defineConfig({
           },
         ],
         // How to resolve preview locations (URLs) for documents
-        locations: defineLocations({
-          select: {
-            title: 'title',
-            slug: 'slug.current',
-            _type: '_type',
-          },
-          resolve: (doc) => {
-            const type = doc?._type;
-            const slug = doc?.slug;
-
-            if (type === 'artwork' && slug) {
-              return {
-                locations: [
-                  {
-                    title: doc?.title || 'Untitled Artwork',
-                    href: `/artwork/${slug}`,
-                  },
-                ],
-              };
-            }
-
-            if (type === 'homepageSettings') {
-              return {
-                locations: [
-                  {
-                    title: 'Homepage',
-                    href: '/',
-                  },
-                ],
-              };
-            }
-
-            if (type === 'aboutPageSettings') {
-              return {
-                locations: [
-                  {
-                    title: 'About Page',
-                    href: '/about',
-                  },
-                ],
-              };
-            }
-
-            if (type === 'contactPageSettings') {
-              return {
-                locations: [
-                  {
-                    title: 'Contact Page',
-                    href: '/contact',
-                  },
-                ],
-              };
-            }
-
-            if (type === 'portfolioPageSettings') {
-              return {
-                locations: [
-                  {
-                    title: 'Portfolio Page',
-                    href: '/portfolio',
-                  },
-                ],
-              };
-            }
-
-            // Unknown type or insufficient data
-            return { locations: [] };
-          },
-        }),
+        locations: {
+          artwork: defineLocations({
+            select: {
+              title: 'title',
+              slug: 'slug.current',
+            },
+            resolve: (doc) => ({
+              locations: [
+                {
+                  title: doc?.title || 'Untitled Artwork',
+                  href: `/artwork/${doc?.slug}`,
+                },
+              ],
+            }),
+          }),
+          homepageSettings: defineLocations([
+            {
+              title: 'Homepage',
+              href: '/',
+            },
+          ]),
+          aboutPageSettings: defineLocations([
+            {
+              title: 'About Page',
+              href: '/about',
+            },
+          ]),
+          contactPageSettings: defineLocations([
+            {
+              title: 'Contact Page',
+              href: '/contact',
+            },
+          ]),
+          portfolioPageSettings: defineLocations([
+            {
+              title: 'Portfolio Page',
+              href: '/portfolio',
+            },
+          ]),
+        },
       },
     }),
     // Vision is for querying with GROQ from inside the Studio
